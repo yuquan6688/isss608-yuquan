@@ -16,7 +16,7 @@ website:
 
 format:
   html:
-    theme: vapor
+    theme: minty
     css: styles.css
     toc: true
 
