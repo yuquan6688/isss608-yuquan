@@ -1,11 +1,18 @@
 ---
-title: "Hand-on Exercise 1"
+title: "Hand-on Exercise 1 --- A Layered Grammar of Graphics: ggplot2 methods"
 author: "Li Yuquan"
 Date: "17/4/2025"
 ---
 
-# Getting Started
+# 1 Overview
 
+In this chapter, we will learn the basic principles and essential components of ggplot2, and gain hands-on experience on using these components to plot statistical graphics based on the principle of Layered Grammar of Graphics
+
+By then end of this chapter, we will be able to apply the essential graphical elements provided by ggplot2 to create elegant and yet functional statistical graphics.
+
+# 2 Getting Started
+
+::: panel-tabset
 ## Install and launching R packages
 
 The code chunk below uses p_load() of pacman package to check if tidyverse packages are installed in the computer. If they are, then they will be launched into R.
@@ -16,25 +23,45 @@ pacman::p_load(tidyverse)
 
 ## Importing the data
 
+The dataset for this hands-on exercise is imported into the R environment using the read_csv() function in the readr package and stored as the R object, exam_data.
+
 ```{r}
 exam_data <- read_csv("data/Exam_data.csv")
 ```
 
-# Plotting a simple bar chart
+## summary
+
+```{r}
+summary(exam_data)
+```
+
+## simple bar chart
 
 ```{r}
 ggplot(data = exam_data,
        aes(x = RACE)) +
   geom_bar()
 ```
+:::
 
-# Introducing ggplot
+# 3 Introducing ggplot
 
-## R Graphics VS ggplot
+-   The ggplot2 package is an R package for declaratively creating data-driven graphics based on The Grammar of Graphics. It is part of the tidyverse family of packages, and is specially designed for visual exploration and communication.
+
+-   R Graphics is the core graphical functions in Base R.
+
+-   A comparison is made between R Graphics and ggplot by plotting a simple histogram.
+
+    ## R Graphics VS ggplot
+
+::: panel-tabset
+## R Graphics
 
 ```{r}
 hist(exam_data$MATHS)
 ```
+
+## ggplot
 
 ```{r}
 ggplot(data=exam_data, aes(x = MATHS)) +
@@ -44,23 +71,94 @@ ggplot(data=exam_data, aes(x = MATHS)) +
                  fill="red") +
   ggtitle("Distribution of Maths scores")
 ```
+:::
 
-# Essential Grammatical Elements in ggplot2: data
+# 4 Grammar of Graphics
+
+It is important to understand the principles of the Grammar of Graphics.
+
+The Grammar of Graphics is a general scheme for data visualisation which breaks up graphs into semantic components such as scales and layers. It was introduced by Leland Wilkinson (1999) through the book - **The** **Grammar of Graphics**, published by Springer. It is an answer to a question:
+
+> *What is a statistical graphic?*
+
+In the nutshell, the Grammar of Graphics defines the rules of structuring mathematical and aesthetic elements into a meaningful graph.
+
+There are two principles in the Grammar of Graphics:
+
+1.  Graphics is made up of distinct layers of grammatical elements.
+
+2.  Meaningful plots is achieved through aesthetic mapping.
+
+So why is it important to have a good grasp of the grammar of graphics?
+
+-   Allows us to gain insights into the composition of complicated graphics, and reveal unexpected connections between seemingly different graphics (Cox, 1978).
+
+-   Provides a strong foundation for understanding a diverse range of graphics.
+
+-   Impart better understanding of what well-formed or correct graphics could look like (although there will still be many grammatically correct but nonsensical graphics).
+
+**A Layered Grammar of Graphics**
+
+The seven grammars of ggplot2 are:
+
+1.  **Data**: The dataset being plotted.
+
+2.  **Aesthetics** take attributes of the data and use them to influence visual characteristics, e.g., position, colours, size, shape, transparency.
+
+3.  **Geometrics**: The visual elements used for the data, e.g., point, bar, line.
+
+4.  **Facets** split the data into subsets to create multiple variations of the same graph, e.g., paneling, multiple plots.
+
+5.  **Statistics** refer to statistical transformations that summarise data e.g., mean, confidence intervals.
+
+6.  **Coordinates** refer to coordinate systems that define the plane on which data are mapped on the graphic.
+
+7.  **Themes** modify all non-data components of a plot, e.g., main title, sub-title, y-aixs title, legend, background.
+
+# 5 Essential Grammatical Elements in ggplot2: data
+
+The `ggplot()` function in the **ggplot2** package is used to initiate a ggplot object. The “data” argument defines the dataset to be used for plotting the graphic.
+
+If the dataset is not already a data frame, it will be converted to one via the **fortify()** function in the **ggplot2** package.
 
 ```{r}
 ggplot(data=exam_data)
 ```
 
-# Essential Grammatical Elements in ggplot2: Aesthetic mappings
+# 6 Essential Grammatical Elements in ggplot2: Aesthetic mappings
+
+Aesthetic mappings take attributes of the data and and use them to influence visual characteristics, e.g., position, colour, size, shape, or transparency. Each visual characteristic can thus encode an aspect of the data and be used to convey information.
+
+All aesthetics of a plot are specified in the `aes()` function. Each geom layer can have its own aesthetic specification.
+
+The code chunk below adds the aesthetic element into the plot. The x-axis and its label are added to the plot.
 
 ```{r}
 ggplot(data=exam_data, 
        aes(x= MATHS))
 ```
 
-# Essential Grammatical Elements in ggplot2: geom
+# 7 Essential Grammatical Elements in ggplot2: geom
 
-## Geometric Objects: geom_bar
+The geometric objects are the actual marks put on the plot. A plot must have at least one geom, but may have more.
+
+Some examples of [geom](https://ggplot2.tidyverse.org/reference/#section-layer-geoms):
+
+-   `geom_point()` for drawing individual points (e.g., a scatter plot);
+
+-   `geom_line()` for drawing lines (e.g., for a line chart);
+
+-   `geom_smooth()` for drawing smoothed lines (e.g., for simple trends or approximations);
+
+-   `geom_bar()` for drawing bars (e.g., for bar chart);
+
+-   `geom_histogram()` for drawing binned values (e.g. a histogram);
+
+-   `geom_polygon()` for drawing arbitrary shapes; and
+
+-   `geom_map()` for drawing polygons in the shape of a map. Can use the map_data() function to access the data used for these maps.
+
+## 7.1 Geometric Objects: geom_bar
 
 ```{r}
 ggplot(data=exam_data, 
@@ -68,7 +166,7 @@ ggplot(data=exam_data,
   geom_bar()
 ```
 
-## Geometric Objects: geom_dotplot
+## 7.2 Geometric Objects: geom_dotplot
 
 ```{r}
 ggplot(data=exam_data, 
@@ -85,7 +183,7 @@ ggplot(data=exam_data,
                      breaks = NULL)  
 ```
 
-## Geometric Objects: geom_histogram()
+## 7.3 Geometric Objects: geom_histogram()
 
 ```{r}
 ggplot(data=exam_data, 
@@ -93,7 +191,7 @@ ggplot(data=exam_data,
   geom_histogram()       
 ```
 
-## Modifying a geometric object by changing geom()
+## 7.4 Modifying a geometric object by changing geom()
 
 ```{r}
 ggplot(data=exam_data, 
@@ -103,7 +201,7 @@ ggplot(data=exam_data,
                  fill="light blue")  
 ```
 
-## Modifying a geometric object by changing aes()
+## 7.5 Modifying a geometric object by changing aes()
 
 ```{r}
 ggplot(data=exam_data, 
@@ -113,7 +211,7 @@ ggplot(data=exam_data,
                  color="grey30")
 ```
 
-## Geometric Objects: geom-density()
+## 7.6 Geometric Objects: geom-density()
 
 ```{r}
 ggplot(data=exam_data, 
@@ -128,7 +226,7 @@ ggplot(data=exam_data,
   geom_density()
 ```
 
-## Color scheme improvement--geom-density()
+## 7.7 Color scheme improvement--geom-density()
 
 ```{r}
 ggplot(data = exam_data, aes(x = MATHS, fill = GENDER, color = GENDER)) +
@@ -140,7 +238,7 @@ ggplot(data = exam_data, aes(x = MATHS, fill = GENDER, color = GENDER)) +
     plot.title = element_text(size = 16, face = "bold", hjust = 0.5))
 ```
 
-## Geometric Objects: geom_boxplot
+## 7.8 Geometric Objects: geom_boxplot
 
 ```{r}
 ggplot(data = exam_data,
@@ -156,7 +254,7 @@ ggplot(data=exam_data,
   geom_boxplot(notch = TRUE)
 ```
 
-## Geometric Objects: geom_violin
+## 7.9 Geometric Objects: geom_violin
 
 ```{r}
 ggplot(data=exam_data, 
@@ -165,7 +263,7 @@ ggplot(data=exam_data,
   geom_violin()
 ```
 
-## Geometric Objects: geom_point()
+## 7.10 Geometric Objects: geom_point()
 
 ```{r}
 ggplot(data=exam_data,
@@ -174,7 +272,7 @@ ggplot(data=exam_data,
   geom_point()
 ```
 
-## geom objects can be combined
+## 7.11 geom objects can be combined
 
 ```{r}
 ggplot(data=exam_data,
@@ -185,7 +283,21 @@ ggplot(data=exam_data,
              size=0.5)
 ```
 
-# Essential Grammatical Elements in ggplot2: stat
+# 8 Essential Grammatical Elements in ggplot2: stat
+
+The [Statistics functions](https://ggplot2.tidyverse.org/reference/index.html#stats) statistically transform data, usually as some form of summary. For example:
+
+-   frequency of values of a variable (bar graph)
+
+    -   a mean
+
+    -   a confidence limit
+
+-   There are two ways to use these functions:
+
+    -   add a `stat_()` function and override the default geom, or
+
+    -   add a `geom_()` function and override the default stat.
 
 ## Working with stat()
 
@@ -240,7 +352,9 @@ ggplot(data=exam_data,
               size=0.5)
 ```
 
-# Essential Grammatical Elements in ggplot2: Facets
+# 9 Essential Grammatical Elements in ggplot2: Facets
+
+Facetting generates small multiples (sometimes also called trellis plot), each displaying a different subset of the dataset. They are an alternative to aesthetics for displaying additional discrete variables. The ggplot2 package supports two types of facets, namely: `facet_grid()` and `facet_wrap()`.
 
 ## Working with facet_wrap()
 
@@ -260,7 +374,17 @@ ggplot(data = exam_data,
   facet_grid(~ CLASS)
 ```
 
-# Essential Grammatical Elements in ggplot2: Coordinates
+# 10 Essential Grammatical Elements in ggplot2: Coordinates
+
+The *Coordinates* functions map the position of objects onto the plane of the plot. There are a number of different possible coordinate systems to use, they are:
+
+-   [`coord_cartesian()`](https://ggplot2.tidyverse.org/reference/coord_cartesian.html): the default cartesian coordinate systems, where you specify x and y values (e.g. allows you to zoom in or out).
+
+-   [`coord_flip()`](https://ggplot2.tidyverse.org/reference/coord_flip.html): a cartesian system with the x and y flipped.
+
+-   [`coord_fixed()`](https://ggplot2.tidyverse.org/reference/coord_fixed.html): a cartesian system with a “fixed” aspect ratio (e.g. 1.78 for a “widescreen” plot).
+
+-   [`coord_quickmap()`](https://ggplot2.tidyverse.org/reference/coord_map.html): a coordinate system that approximates a good aspect ratio for maps.
 
 ## Working with Coordinate
 
@@ -287,18 +411,28 @@ ggplot(data=exam_data,
 ```
 
 ```{r}
-ggplot(data=exam_data, 
-       aes(x= MATHS, y=ENGLISH)) +
+ggplot(data = exam_data, 
+       aes(x = MATHS, 
+           y = ENGLISH)) +
   geom_point() +
-  geom_smooth(method=lm, 
-              size=0.5) +  
-  coord_cartesian(xlim=c(0,100),
-                  ylim=c(0,100))
+  geom_smooth(method = lm, 
+              linewidth = 0.5) +  
+  coord_cartesian(xlim = c(0,100),
+                  ylim = c(0,100))
 ```
 
-# Essential Grammatical Elements in ggplot2: themes
+# 11 Essential Grammatical Elements in ggplot2: themes
+
+Themes control elements of the graph not related to the data such as background colour, font size, gridlines, and colour of labels.
+
+Built-in themes include `theme_gray()` (default), `theme_bw()`, `theme_classic()`
+
+A list of theme can be found at this [link](https://ggplot2.tidyverse.org/reference/ggtheme.html). Each theme element can be conceived of as either a line (e.g. x-axis), a rectangle (e.g. graph background), or text (e.g. axis title).
 
 ## Working with theme
+
+::: panel-tabset
+## theme_gray()
 
 ```{r}
 ggplot(data=exam_data, 
@@ -308,6 +442,8 @@ ggplot(data=exam_data,
   theme_gray()
 ```
 
+## theme_classic()
+
 ```{r}
 ggplot(data=exam_data, 
        aes(x=RACE)) +
@@ -316,6 +452,8 @@ ggplot(data=exam_data,
   theme_classic()
 ```
 
+## theme_minimal()
+
 ```{r}
 ggplot(data=exam_data, 
        aes(x=RACE)) +
@@ -323,10 +461,11 @@ ggplot(data=exam_data,
   coord_flip() +
   theme_minimal()
 ```
+:::
 
-# Exploration
+# 12 Exploration
 
-1.  When plotting faceted histograms, an additional dimension is introduced for comparative analysis.
+## 12.1 When plotting faceted histograms, an additional dimension is introduced for comparative analysis.
 
 ```{r}
 ggplot(exam_data, aes(x = MATHS)) +
@@ -334,7 +473,7 @@ ggplot(exam_data, aes(x = MATHS)) +
   facet_grid(GENDER ~ CLASS)
 ```
 
-2.  Color Names Reference Chart
+## 12.2 Color Names Reference Chart
 
 ```{r echo=FALSE}
 color_names <- colors()
@@ -359,7 +498,7 @@ ggplot(color_df, aes(x = x, y = y)) +
   theme(legend.position = "none") 
 ```
 
-3.  Interactive Scatter Plot
+## 12.3 Interactive Scatter Plot
 
 ```{r}
 pacman::p_load(plotly)
@@ -370,7 +509,7 @@ p <- ggplot(data=exam_data, aes(x = ENGLISH, y = MATHS, color = GENDER)) +
 ggplotly(p)
 ```
 
-4.  Interactive histogram chart
+## 12.4 Interactive histogram chart
 
 ```{r}
 p <- ggplot(exam_data, aes(x = ENGLISH)) +
@@ -378,7 +517,7 @@ p <- ggplot(exam_data, aes(x = ENGLISH)) +
 ggplotly(p)
 ```
 
-5.  Add data labels in the histograms chart
+## 12.5 Add data labels in the histograms chart
 
 ```{r}
 ggplot(data = exam_data, aes(x = MATHS)) +
@@ -390,3 +529,17 @@ ggplot(data = exam_data, aes(x = MATHS)) +
            color = "tan1",
            size = 4)
 ```
+
+# 13 Reference
+
+-   Hadley Wickham (2023) [**ggplot2: Elegant Graphics for Data Analysis**](https://ggplot2-book.org/). Online 3rd edition.
+
+-   Winston Chang (2013) [**R Graphics Cookbook 2nd edition**](https://r-graphics.org/). Online version.
+
+-   Healy, Kieran (2019) [**Data Visualization: A practical introduction**](https://socviz.co/). Online version
+
+-   [Learning ggplot2 on Paper – Components](https://henrywang.nl/learning-ggplot2-on-paper-components/)
+
+-   [Learning ggplot2 on Paper – Layer](https://henrywang.nl/learning-ggplot2-on-paper-layer/)
+
+-   [Learning ggplot2 on Paper – Scale](https://henrywang.nl/tag/learning-ggplot2-on-paper/)

@@ -8,7 +8,7 @@
 
 <meta name="author" content="Li Yuquan">
 
-<title>Hand-on Exercise 1 – ISSS608-VAA</title>
+<title>Hand-on Exercise 1 — A Layered Grammar of Graphics: ggplot2 methods – ISSS608-VAA</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -188,54 +188,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link active" data-scroll-target="#getting-started">Getting Started</a>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">1 Overview</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">2 Getting Started</a></li>
+  <li><a href="#introducing-ggplot" id="toc-introducing-ggplot" class="nav-link" data-scroll-target="#introducing-ggplot">3 Introducing ggplot</a></li>
+  <li><a href="#grammar-of-graphics" id="toc-grammar-of-graphics" class="nav-link" data-scroll-target="#grammar-of-graphics">4 Grammar of Graphics</a></li>
+  <li><a href="#essential-grammatical-elements-in-ggplot2-data" id="toc-essential-grammatical-elements-in-ggplot2-data" class="nav-link" data-scroll-target="#essential-grammatical-elements-in-ggplot2-data">5 Essential Grammatical Elements in ggplot2: data</a></li>
+  <li><a href="#essential-grammatical-elements-in-ggplot2-aesthetic-mappings" id="toc-essential-grammatical-elements-in-ggplot2-aesthetic-mappings" class="nav-link" data-scroll-target="#essential-grammatical-elements-in-ggplot2-aesthetic-mappings">6 Essential Grammatical Elements in ggplot2: Aesthetic mappings</a></li>
+  <li><a href="#essential-grammatical-elements-in-ggplot2-geom" id="toc-essential-grammatical-elements-in-ggplot2-geom" class="nav-link" data-scroll-target="#essential-grammatical-elements-in-ggplot2-geom">7 Essential Grammatical Elements in ggplot2: geom</a>
   <ul class="collapse">
-  <li><a href="#install-and-launching-r-packages" id="toc-install-and-launching-r-packages" class="nav-link" data-scroll-target="#install-and-launching-r-packages">Install and launching R packages</a></li>
-  <li><a href="#importing-the-data" id="toc-importing-the-data" class="nav-link" data-scroll-target="#importing-the-data">Importing the data</a></li>
+  <li><a href="#geometric-objects-geom_bar" id="toc-geometric-objects-geom_bar" class="nav-link" data-scroll-target="#geometric-objects-geom_bar">7.1 Geometric Objects: geom_bar</a></li>
+  <li><a href="#geometric-objects-geom_dotplot" id="toc-geometric-objects-geom_dotplot" class="nav-link" data-scroll-target="#geometric-objects-geom_dotplot">7.2 Geometric Objects: geom_dotplot</a></li>
+  <li><a href="#geometric-objects-geom_histogram" id="toc-geometric-objects-geom_histogram" class="nav-link" data-scroll-target="#geometric-objects-geom_histogram">7.3 Geometric Objects: geom_histogram()</a></li>
+  <li><a href="#modifying-a-geometric-object-by-changing-geom" id="toc-modifying-a-geometric-object-by-changing-geom" class="nav-link" data-scroll-target="#modifying-a-geometric-object-by-changing-geom">7.4 Modifying a geometric object by changing geom()</a></li>
+  <li><a href="#modifying-a-geometric-object-by-changing-aes" id="toc-modifying-a-geometric-object-by-changing-aes" class="nav-link" data-scroll-target="#modifying-a-geometric-object-by-changing-aes">7.5 Modifying a geometric object by changing aes()</a></li>
+  <li><a href="#geometric-objects-geom-density" id="toc-geometric-objects-geom-density" class="nav-link" data-scroll-target="#geometric-objects-geom-density">7.6 Geometric Objects: geom-density()</a></li>
+  <li><a href="#color-scheme-improvementgeom-density" id="toc-color-scheme-improvementgeom-density" class="nav-link" data-scroll-target="#color-scheme-improvementgeom-density">7.7 Color scheme improvement–geom-density()</a></li>
+  <li><a href="#geometric-objects-geom_boxplot" id="toc-geometric-objects-geom_boxplot" class="nav-link" data-scroll-target="#geometric-objects-geom_boxplot">7.8 Geometric Objects: geom_boxplot</a></li>
+  <li><a href="#geometric-objects-geom_violin" id="toc-geometric-objects-geom_violin" class="nav-link" data-scroll-target="#geometric-objects-geom_violin">7.9 Geometric Objects: geom_violin</a></li>
+  <li><a href="#geometric-objects-geom_point" id="toc-geometric-objects-geom_point" class="nav-link" data-scroll-target="#geometric-objects-geom_point">7.10 Geometric Objects: geom_point()</a></li>
+  <li><a href="#geom-objects-can-be-combined" id="toc-geom-objects-can-be-combined" class="nav-link" data-scroll-target="#geom-objects-can-be-combined">7.11 geom objects can be combined</a></li>
   </ul></li>
-  <li><a href="#plotting-a-simple-bar-chart" id="toc-plotting-a-simple-bar-chart" class="nav-link" data-scroll-target="#plotting-a-simple-bar-chart">Plotting a simple bar chart</a></li>
-  <li><a href="#introducing-ggplot" id="toc-introducing-ggplot" class="nav-link" data-scroll-target="#introducing-ggplot">Introducing ggplot</a>
-  <ul class="collapse">
-  <li><a href="#r-graphics-vs-ggplot" id="toc-r-graphics-vs-ggplot" class="nav-link" data-scroll-target="#r-graphics-vs-ggplot">R Graphics VS ggplot</a></li>
-  </ul></li>
-  <li><a href="#essential-grammatical-elements-in-ggplot2-data" id="toc-essential-grammatical-elements-in-ggplot2-data" class="nav-link" data-scroll-target="#essential-grammatical-elements-in-ggplot2-data">Essential Grammatical Elements in ggplot2: data</a></li>
-  <li><a href="#essential-grammatical-elements-in-ggplot2-aesthetic-mappings" id="toc-essential-grammatical-elements-in-ggplot2-aesthetic-mappings" class="nav-link" data-scroll-target="#essential-grammatical-elements-in-ggplot2-aesthetic-mappings">Essential Grammatical Elements in ggplot2: Aesthetic mappings</a></li>
-  <li><a href="#essential-grammatical-elements-in-ggplot2-geom" id="toc-essential-grammatical-elements-in-ggplot2-geom" class="nav-link" data-scroll-target="#essential-grammatical-elements-in-ggplot2-geom">Essential Grammatical Elements in ggplot2: geom</a>
-  <ul class="collapse">
-  <li><a href="#geometric-objects-geom_bar" id="toc-geometric-objects-geom_bar" class="nav-link" data-scroll-target="#geometric-objects-geom_bar">Geometric Objects: geom_bar</a></li>
-  <li><a href="#geometric-objects-geom_dotplot" id="toc-geometric-objects-geom_dotplot" class="nav-link" data-scroll-target="#geometric-objects-geom_dotplot">Geometric Objects: geom_dotplot</a></li>
-  <li><a href="#geometric-objects-geom_histogram" id="toc-geometric-objects-geom_histogram" class="nav-link" data-scroll-target="#geometric-objects-geom_histogram">Geometric Objects: geom_histogram()</a></li>
-  <li><a href="#modifying-a-geometric-object-by-changing-geom" id="toc-modifying-a-geometric-object-by-changing-geom" class="nav-link" data-scroll-target="#modifying-a-geometric-object-by-changing-geom">Modifying a geometric object by changing geom()</a></li>
-  <li><a href="#modifying-a-geometric-object-by-changing-aes" id="toc-modifying-a-geometric-object-by-changing-aes" class="nav-link" data-scroll-target="#modifying-a-geometric-object-by-changing-aes">Modifying a geometric object by changing aes()</a></li>
-  <li><a href="#geometric-objects-geom-density" id="toc-geometric-objects-geom-density" class="nav-link" data-scroll-target="#geometric-objects-geom-density">Geometric Objects: geom-density()</a></li>
-  <li><a href="#color-scheme-improvementgeom-density" id="toc-color-scheme-improvementgeom-density" class="nav-link" data-scroll-target="#color-scheme-improvementgeom-density">Color scheme improvement–geom-density()</a></li>
-  <li><a href="#geometric-objects-geom_boxplot" id="toc-geometric-objects-geom_boxplot" class="nav-link" data-scroll-target="#geometric-objects-geom_boxplot">Geometric Objects: geom_boxplot</a></li>
-  <li><a href="#geometric-objects-geom_violin" id="toc-geometric-objects-geom_violin" class="nav-link" data-scroll-target="#geometric-objects-geom_violin">Geometric Objects: geom_violin</a></li>
-  <li><a href="#geometric-objects-geom_point" id="toc-geometric-objects-geom_point" class="nav-link" data-scroll-target="#geometric-objects-geom_point">Geometric Objects: geom_point()</a></li>
-  <li><a href="#geom-objects-can-be-combined" id="toc-geom-objects-can-be-combined" class="nav-link" data-scroll-target="#geom-objects-can-be-combined">geom objects can be combined</a></li>
-  </ul></li>
-  <li><a href="#essential-grammatical-elements-in-ggplot2-stat" id="toc-essential-grammatical-elements-in-ggplot2-stat" class="nav-link" data-scroll-target="#essential-grammatical-elements-in-ggplot2-stat">Essential Grammatical Elements in ggplot2: stat</a>
+  <li><a href="#essential-grammatical-elements-in-ggplot2-stat" id="toc-essential-grammatical-elements-in-ggplot2-stat" class="nav-link" data-scroll-target="#essential-grammatical-elements-in-ggplot2-stat">8 Essential Grammatical Elements in ggplot2: stat</a>
   <ul class="collapse">
   <li><a href="#working-with-stat" id="toc-working-with-stat" class="nav-link" data-scroll-target="#working-with-stat">Working with stat()</a></li>
   <li><a href="#working-with-stat---the-stat_summary-method" id="toc-working-with-stat---the-stat_summary-method" class="nav-link" data-scroll-target="#working-with-stat---the-stat_summary-method">Working with stat - the stat_summary() method</a></li>
   <li><a href="#working-with-stat---the-geom-method" id="toc-working-with-stat---the-geom-method" class="nav-link" data-scroll-target="#working-with-stat---the-geom-method">Working with stat - the geom() method</a></li>
   <li><a href="#adding-a-best-fit-curve-on-a-scatterplot" id="toc-adding-a-best-fit-curve-on-a-scatterplot" class="nav-link" data-scroll-target="#adding-a-best-fit-curve-on-a-scatterplot">Adding a best fit curve on a scatterplot</a></li>
   </ul></li>
-  <li><a href="#essential-grammatical-elements-in-ggplot2-facets" id="toc-essential-grammatical-elements-in-ggplot2-facets" class="nav-link" data-scroll-target="#essential-grammatical-elements-in-ggplot2-facets">Essential Grammatical Elements in ggplot2: Facets</a>
+  <li><a href="#essential-grammatical-elements-in-ggplot2-facets" id="toc-essential-grammatical-elements-in-ggplot2-facets" class="nav-link" data-scroll-target="#essential-grammatical-elements-in-ggplot2-facets">9 Essential Grammatical Elements in ggplot2: Facets</a>
   <ul class="collapse">
   <li><a href="#working-with-facet_wrap" id="toc-working-with-facet_wrap" class="nav-link" data-scroll-target="#working-with-facet_wrap">Working with facet_wrap()</a></li>
   <li><a href="#facet_grid-function" id="toc-facet_grid-function" class="nav-link" data-scroll-target="#facet_grid-function">facet_grid() function</a></li>
   </ul></li>
-  <li><a href="#essential-grammatical-elements-in-ggplot2-coordinates" id="toc-essential-grammatical-elements-in-ggplot2-coordinates" class="nav-link" data-scroll-target="#essential-grammatical-elements-in-ggplot2-coordinates">Essential Grammatical Elements in ggplot2: Coordinates</a>
+  <li><a href="#essential-grammatical-elements-in-ggplot2-coordinates" id="toc-essential-grammatical-elements-in-ggplot2-coordinates" class="nav-link" data-scroll-target="#essential-grammatical-elements-in-ggplot2-coordinates">10 Essential Grammatical Elements in ggplot2: Coordinates</a>
   <ul class="collapse">
   <li><a href="#working-with-coordinate" id="toc-working-with-coordinate" class="nav-link" data-scroll-target="#working-with-coordinate">Working with Coordinate</a></li>
   <li><a href="#changing-the-y--and-x-axis-range" id="toc-changing-the-y--and-x-axis-range" class="nav-link" data-scroll-target="#changing-the-y--and-x-axis-range">Changing the y- and x-axis range</a></li>
   </ul></li>
-  <li><a href="#essential-grammatical-elements-in-ggplot2-themes" id="toc-essential-grammatical-elements-in-ggplot2-themes" class="nav-link" data-scroll-target="#essential-grammatical-elements-in-ggplot2-themes">Essential Grammatical Elements in ggplot2: themes</a>
+  <li><a href="#essential-grammatical-elements-in-ggplot2-themes" id="toc-essential-grammatical-elements-in-ggplot2-themes" class="nav-link" data-scroll-target="#essential-grammatical-elements-in-ggplot2-themes">11 Essential Grammatical Elements in ggplot2: themes</a>
   <ul class="collapse">
   <li><a href="#working-with-theme" id="toc-working-with-theme" class="nav-link" data-scroll-target="#working-with-theme">Working with theme</a></li>
   </ul></li>
-  <li><a href="#exploration" id="toc-exploration" class="nav-link" data-scroll-target="#exploration">Exploration</a></li>
+  <li><a href="#exploration" id="toc-exploration" class="nav-link" data-scroll-target="#exploration">12 Exploration</a>
+  <ul class="collapse">
+  <li><a href="#when-plotting-faceted-histograms-an-additional-dimension-is-introduced-for-comparative-analysis." id="toc-when-plotting-faceted-histograms-an-additional-dimension-is-introduced-for-comparative-analysis." class="nav-link" data-scroll-target="#when-plotting-faceted-histograms-an-additional-dimension-is-introduced-for-comparative-analysis.">12.1 When plotting faceted histograms, an additional dimension is introduced for comparative analysis.</a></li>
+  <li><a href="#color-names-reference-chart" id="toc-color-names-reference-chart" class="nav-link" data-scroll-target="#color-names-reference-chart">12.2 Color Names Reference Chart</a></li>
+  <li><a href="#interactive-scatter-plot" id="toc-interactive-scatter-plot" class="nav-link" data-scroll-target="#interactive-scatter-plot">12.3 Interactive Scatter Plot</a></li>
+  <li><a href="#interactive-histogram-chart" id="toc-interactive-histogram-chart" class="nav-link" data-scroll-target="#interactive-histogram-chart">12.4 Interactive histogram chart</a></li>
+  <li><a href="#add-data-labels-in-the-histograms-chart" id="toc-add-data-labels-in-the-histograms-chart" class="nav-link" data-scroll-target="#add-data-labels-in-the-histograms-chart">12.5 Add data labels in the histograms chart</a></li>
+  </ul></li>
+  <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference">13 Reference</a></li>
   </ul>
 </nav>
     </div>
@@ -244,7 +246,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Hand-on Exercise 1</h1>
+<h1 class="title">Hand-on Exercise 1 — A Layered Grammar of Graphics: ggplot2 methods</h1>
 </div>
 
 
@@ -267,17 +269,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="overview" class="level1">
+<h1>1 Overview</h1>
+<p>In this chapter, we will learn the basic principles and essential components of ggplot2, and gain hands-on experience on using these components to plot statistical graphics based on the principle of Layered Grammar of Graphics</p>
+<p>By then end of this chapter, we will be able to apply the essential graphical elements provided by ggplot2 to create elegant and yet functional statistical graphics.</p>
+</section>
 <section id="getting-started" class="level1">
-<h1>Getting Started</h1>
-<section id="install-and-launching-r-packages" class="level2">
-<h2 class="anchored" data-anchor-id="install-and-launching-r-packages">Install and launching R packages</h2>
+<h1>2 Getting Started</h1>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Install and launching R packages</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Importing the data</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">summary</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">simple bar chart</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>The code chunk below uses p_load() of pacman package to check if tidyverse packages are installed in the computer. If they are, then they will be launched into R.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="importing-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="importing-the-data">Importing the data</h2>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>The dataset for this hands-on exercise is imported into the R environment using the read_csv() function in the readr package and stored as the R object, exam_data.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>exam_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Exam_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -291,29 +300,33 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 </div>
-</section>
-</section>
-<section id="plotting-a-simple-bar-chart" class="level1">
-<h1>Plotting a simple bar chart</h1>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> RACE)) <span class="sc">+</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Hands-on_Ex01_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(exam_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      ID               CLASS              GENDER              RACE          
+ Length:322         Length:322         Length:322         Length:322        
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+    ENGLISH          MATHS          SCIENCE     
+ Min.   :21.00   Min.   : 9.00   Min.   :15.00  
+ 1st Qu.:59.00   1st Qu.:58.00   1st Qu.:49.25  
+ Median :70.00   Median :74.00   Median :65.00  
+ Mean   :67.18   Mean   :69.33   Mean   :61.16  
+ 3rd Qu.:78.00   3rd Qu.:85.00   3rd Qu.:74.75  
+ Max.   :96.00   Max.   :99.00   Max.   :96.00  </code></pre>
 </div>
 </div>
 </div>
-</section>
-<section id="introducing-ggplot" class="level1">
-<h1>Introducing ggplot</h1>
-<section id="r-graphics-vs-ggplot" class="level2">
-<h2 class="anchored" data-anchor-id="r-graphics-vs-ggplot">R Graphics VS ggplot</h2>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(exam_data<span class="sc">$</span>MATHS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> RACE)) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -322,13 +335,24 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</section>
+<section id="introducing-ggplot" class="level1">
+<h1>3 Introducing ggplot</h1>
+<ul>
+<li><p>The ggplot2 package is an R package for declaratively creating data-driven graphics based on The Grammar of Graphics. It is part of the tidyverse family of packages, and is specially designed for visual exploration and communication.</p></li>
+<li><p>R Graphics is the core graphical functions in Base R.</p></li>
+<li><p>A comparison is made between R Graphics and ggplot by plotting a simple histogram.</p>
+<h2 id="r-graphics-vs-ggplot" class="anchored" data-anchor-id="introducing-ggplot">R Graphics VS ggplot</h2></li>
+</ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R Graphics</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">ggplot</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">10</span>, </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"yellow"</span>, </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(exam_data<span class="sc">$</span>MATHS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -337,12 +361,15 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="essential-grammatical-elements-in-ggplot2-data" class="level1">
-<h1>Essential Grammatical Elements in ggplot2: data</h1>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">10</span>, </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary =</span> <span class="dv">100</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"yellow"</span>, </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Maths scores"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -351,12 +378,47 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
 </section>
-<section id="essential-grammatical-elements-in-ggplot2-aesthetic-mappings" class="level1">
-<h1>Essential Grammatical Elements in ggplot2: Aesthetic mappings</h1>
+<section id="grammar-of-graphics" class="level1">
+<h1>4 Grammar of Graphics</h1>
+<p>It is important to understand the principles of the Grammar of Graphics.</p>
+<p>The Grammar of Graphics is a general scheme for data visualisation which breaks up graphs into semantic components such as scales and layers. It was introduced by Leland Wilkinson (1999) through the book -&nbsp;<strong>The</strong>&nbsp;<strong>Grammar of Graphics</strong>, published by Springer. It is an answer to a question:</p>
+<blockquote class="blockquote">
+<p><em>What is a statistical graphic?</em></p>
+</blockquote>
+<p>In the nutshell, the Grammar of Graphics defines the rules of structuring mathematical and aesthetic elements into a meaningful graph.</p>
+<p>There are two principles in the Grammar of Graphics:</p>
+<ol type="1">
+<li><p>Graphics is made up of distinct layers of grammatical elements.</p></li>
+<li><p>Meaningful plots is achieved through aesthetic mapping.</p></li>
+</ol>
+<p>So why is it important to have a good grasp of the grammar of graphics?</p>
+<ul>
+<li><p>Allows us to gain insights into the composition of complicated graphics, and reveal unexpected connections between seemingly different graphics (Cox, 1978).</p></li>
+<li><p>Provides a strong foundation for understanding a diverse range of graphics.</p></li>
+<li><p>Impart better understanding of what well-formed or correct graphics could look like (although there will still be many grammatically correct but nonsensical graphics).</p></li>
+</ul>
+<p><strong>A Layered Grammar of Graphics</strong></p>
+<p>The seven grammars of ggplot2 are:</p>
+<ol type="1">
+<li><p><strong>Data</strong>: The dataset being plotted.</p></li>
+<li><p><strong>Aesthetics</strong>&nbsp;take attributes of the data and use them to influence visual characteristics, e.g., position, colours, size, shape, transparency.</p></li>
+<li><p><strong>Geometrics</strong>: The visual elements used for the data, e.g., point, bar, line.</p></li>
+<li><p><strong>Facets</strong>&nbsp;split the data into subsets to create multiple variations of the same graph, e.g., paneling, multiple plots.</p></li>
+<li><p><strong>Statistics</strong>&nbsp;refer to statistical transformations that summarise data e.g., mean, confidence intervals.</p></li>
+<li><p><strong>Coordinates</strong>&nbsp;refer to coordinate systems that define the plane on which data are mapped on the graphic.</p></li>
+<li><p><strong>Themes</strong>&nbsp;modify all non-data components of a plot, e.g., main title, sub-title, y-aixs title, legend, background.</p></li>
+</ol>
+</section>
+<section id="essential-grammatical-elements-in-ggplot2-data" class="level1">
+<h1>5 Essential Grammatical Elements in ggplot2: data</h1>
+<p>The&nbsp;<code>ggplot()</code>&nbsp;function in the&nbsp;<strong>ggplot2</strong>&nbsp;package is used to initiate a ggplot object. The “data” argument defines the dataset to be used for plotting the graphic.</p>
+<p>If the dataset is not already a data frame, it will be converted to one via the&nbsp;<strong>fortify()</strong>&nbsp;function in the&nbsp;<strong>ggplot2</strong>&nbsp;package.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> MATHS))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -366,14 +428,14 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </section>
-<section id="essential-grammatical-elements-in-ggplot2-geom" class="level1">
-<h1>Essential Grammatical Elements in ggplot2: geom</h1>
-<section id="geometric-objects-geom_bar" class="level2">
-<h2 class="anchored" data-anchor-id="geometric-objects-geom_bar">Geometric Objects: geom_bar</h2>
+<section id="essential-grammatical-elements-in-ggplot2-aesthetic-mappings" class="level1">
+<h1>6 Essential Grammatical Elements in ggplot2: Aesthetic mappings</h1>
+<p>Aesthetic mappings take attributes of the data and and use them to influence visual characteristics, e.g., position, colour, size, shape, or transparency. Each visual characteristic can thus encode an aspect of the data and be used to convey information.</p>
+<p>All aesthetics of a plot are specified in the&nbsp;<code>aes()</code>&nbsp;function. Each geom layer can have its own aesthetic specification.</p>
+<p>The code chunk below adds the aesthetic element into the plot. The x-axis and its label are added to the plot.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> MATHS))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -383,16 +445,25 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </section>
-<section id="geometric-objects-geom_dotplot" class="level2">
-<h2 class="anchored" data-anchor-id="geometric-objects-geom_dotplot">Geometric Objects: geom_dotplot</h2>
+<section id="essential-grammatical-elements-in-ggplot2-geom" class="level1">
+<h1>7 Essential Grammatical Elements in ggplot2: geom</h1>
+<p>The geometric objects are the actual marks put on the plot. A plot must have at least one geom, but may have more.</p>
+<p>Some examples of&nbsp;<a href="https://ggplot2.tidyverse.org/reference/#section-layer-geoms">geom</a>:</p>
+<ul>
+<li><p><code>geom_point()</code>&nbsp;for drawing individual points (e.g., a scatter plot);</p></li>
+<li><p><code>geom_line()</code>&nbsp;for drawing lines (e.g., for a line chart);</p></li>
+<li><p><code>geom_smooth()</code>&nbsp;for drawing smoothed lines (e.g., for simple trends or approximations);</p></li>
+<li><p><code>geom_bar()</code>&nbsp;for drawing bars (e.g., for bar chart);</p></li>
+<li><p><code>geom_histogram()</code>&nbsp;for drawing binned values (e.g.&nbsp;a histogram);</p></li>
+<li><p><code>geom_polygon()</code>&nbsp;for drawing arbitrary shapes; and</p></li>
+<li><p><code>geom_map()</code>&nbsp;for drawing polygons in the shape of a map. Can use the map_data() function to access the data used for these maps.</p></li>
+</ul>
+<section id="geometric-objects-geom_bar" class="level2">
+<h2 class="anchored" data-anchor-id="geometric-objects-geom_bar">7.1 Geometric Objects: geom_bar</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">dotsize =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Bin width defaults to 1/30 of the range of the data. Pick better value with
-`binwidth`.</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -401,13 +472,17 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </div>
+</section>
+<section id="geometric-objects-geom_dotplot" class="level2">
+<h2 class="anchored" data-anchor-id="geometric-objects-geom_dotplot">7.2 Geometric Objects: geom_dotplot</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">binwidth=</span><span class="fl">2.5</span>,         </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">dotsize =</span> <span class="fl">0.5</span>) <span class="sc">+</span>      </span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="cn">NULL</span>,           </span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="cn">NULL</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">dotsize =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Bin width defaults to 1/30 of the range of the data. Pick better value with
+`binwidth`.</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -416,16 +491,13 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </div>
-</section>
-<section id="geometric-objects-geom_histogram" class="level2">
-<h2 class="anchored" data-anchor-id="geometric-objects-geom_histogram">Geometric Objects: geom_histogram()</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()       </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">binwidth=</span><span class="fl">2.5</span>,         </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">dotsize =</span> <span class="fl">0.5</span>) <span class="sc">+</span>      </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="cn">NULL</span>,           </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="cn">NULL</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -435,14 +507,15 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </section>
-<section id="modifying-a-geometric-object-by-changing-geom" class="level2">
-<h2 class="anchored" data-anchor-id="modifying-a-geometric-object-by-changing-geom">Modifying a geometric object by changing geom()</h2>
+<section id="geometric-objects-geom_histogram" class="level2">
+<h2 class="anchored" data-anchor-id="geometric-objects-geom_histogram">7.3 Geometric Objects: geom_histogram()</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> MATHS)) <span class="sc">+</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>,            </span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"black"</span>,      </span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"light blue"</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()       </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -452,14 +525,14 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </section>
-<section id="modifying-a-geometric-object-by-changing-aes" class="level2">
-<h2 class="anchored" data-anchor-id="modifying-a-geometric-object-by-changing-aes">Modifying a geometric object by changing aes()</h2>
+<section id="modifying-a-geometric-object-by-changing-geom" class="level2">
+<h2 class="anchored" data-anchor-id="modifying-a-geometric-object-by-changing-geom">7.4 Modifying a geometric object by changing geom()</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> MATHS, </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> GENDER)) <span class="sc">+</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey30"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> MATHS)) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>,            </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"black"</span>,      </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"light blue"</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -469,12 +542,14 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </section>
-<section id="geometric-objects-geom-density" class="level2">
-<h2 class="anchored" data-anchor-id="geometric-objects-geom-density">Geometric Objects: geom-density()</h2>
+<section id="modifying-a-geometric-object-by-changing-aes" class="level2">
+<h2 class="anchored" data-anchor-id="modifying-a-geometric-object-by-changing-aes">7.5 Modifying a geometric object by changing aes()</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color=</span><span class="st">"cyan"</span>)           </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> MATHS, </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> GENDER)) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"grey30"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -483,11 +558,13 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </div>
+</section>
+<section id="geometric-objects-geom-density" class="level2">
+<h2 class="anchored" data-anchor-id="geometric-objects-geom-density">7.6 Geometric Objects: geom-density()</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data,</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>MATHS,</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">color =</span> GENDER)) <span class="sc">+</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color=</span><span class="st">"cyan"</span>)           </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -496,17 +573,11 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </div>
-</section>
-<section id="color-scheme-improvementgeom-density" class="level2">
-<h2 class="anchored" data-anchor-id="color-scheme-improvementgeom-density">Color scheme improvement–geom-density()</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data, <span class="fu">aes</span>(<span class="at">x =</span> MATHS, <span class="at">fill =</span> GENDER, <span class="at">color =</span> GENDER)) <span class="sc">+</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">linewidth =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Female"</span> <span class="ot">=</span> <span class="st">"#1F77B4"</span>, <span class="st">"Male"</span> <span class="ot">=</span> <span class="st">"#2CA02C"</span>)) <span class="sc">+</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Female"</span> <span class="ot">=</span> <span class="st">"#1F77B4"</span>, <span class="st">"Male"</span> <span class="ot">=</span> <span class="st">"#2CA02C"</span>)) <span class="sc">+</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Maths Score"</span>, <span class="at">y =</span> <span class="st">"Density"</span>) <span class="sc">+</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f5f5f5"</span>, <span class="at">colour =</span> <span class="st">"#f5f5f5"</span>),</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data,</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>MATHS,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">color =</span> GENDER)) <span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -516,13 +587,16 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </section>
-<section id="geometric-objects-geom_boxplot" class="level2">
-<h2 class="anchored" data-anchor-id="geometric-objects-geom_boxplot">Geometric Objects: geom_boxplot</h2>
+<section id="color-scheme-improvementgeom-density" class="level2">
+<h2 class="anchored" data-anchor-id="color-scheme-improvementgeom-density">7.7 Color scheme improvement–geom-density()</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> MATHS,</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> GENDER)) <span class="sc">+</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data, <span class="fu">aes</span>(<span class="at">x =</span> MATHS, <span class="at">fill =</span> GENDER, <span class="at">color =</span> GENDER)) <span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">linewidth =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Female"</span> <span class="ot">=</span> <span class="st">"#1F77B4"</span>, <span class="st">"Male"</span> <span class="ot">=</span> <span class="st">"#2CA02C"</span>)) <span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Female"</span> <span class="ot">=</span> <span class="st">"#1F77B4"</span>, <span class="st">"Male"</span> <span class="ot">=</span> <span class="st">"#2CA02C"</span>)) <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Maths Score"</span>, <span class="at">y =</span> <span class="st">"Density"</span>) <span class="sc">+</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f5f5f5"</span>, <span class="at">colour =</span> <span class="st">"#f5f5f5"</span>),</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -531,11 +605,14 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </div>
+</section>
+<section id="geometric-objects-geom_boxplot" class="level2">
+<h2 class="anchored" data-anchor-id="geometric-objects-geom_boxplot">7.8 Geometric Objects: geom_boxplot</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data,</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>MATHS,</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x=</span>GENDER))<span class="sc">+</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">notch =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> MATHS,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> GENDER)) <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -544,14 +621,11 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </div>
-</section>
-<section id="geometric-objects-geom_violin" class="level2">
-<h2 class="anchored" data-anchor-id="geometric-objects-geom_violin">Geometric Objects: geom_violin</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> MATHS, </span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x=</span> GENDER)) <span class="sc">+</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data,</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>MATHS,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x=</span>GENDER))<span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">notch =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -561,13 +635,13 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </section>
-<section id="geometric-objects-geom_point" class="level2">
-<h2 class="anchored" data-anchor-id="geometric-objects-geom_point">Geometric Objects: geom_point()</h2>
+<section id="geometric-objects-geom_violin" class="level2">
+<h2 class="anchored" data-anchor-id="geometric-objects-geom_violin">7.9 Geometric Objects: geom_violin</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data,</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>MATHS,</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x=</span>ENGLISH))<span class="sc">+</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> MATHS, </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x=</span> GENDER)) <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -577,15 +651,13 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </section>
-<section id="geom-objects-can-be-combined" class="level2">
-<h2 class="anchored" data-anchor-id="geom-objects-can-be-combined">geom objects can be combined</h2>
+<section id="geometric-objects-geom_point" class="level2">
+<h2 class="anchored" data-anchor-id="geometric-objects-geom_point">7.10 Geometric Objects: geom_point()</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data,</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>MATHS,</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x=</span>GENDER)) <span class="sc">+</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="st">"jitter"</span>,</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">size=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data,</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>MATHS,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x=</span>ENGLISH))<span class="sc">+</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -595,15 +667,15 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </section>
-</section>
-<section id="essential-grammatical-elements-in-ggplot2-stat" class="level1">
-<h1>Essential Grammatical Elements in ggplot2: stat</h1>
-<section id="working-with-stat" class="level2">
-<h2 class="anchored" data-anchor-id="working-with-stat">Working with stat()</h2>
+<section id="geom-objects-can-be-combined" class="level2">
+<h2 class="anchored" data-anchor-id="geom-objects-can-be-combined">7.11 geom objects can be combined</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data,</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>MATHS,<span class="at">x=</span>GENDER)) <span class="sc">+</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data,</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>MATHS,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x=</span>GENDER)) <span class="sc">+</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="st">"jitter"</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">size=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -613,17 +685,28 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </section>
-<section id="working-with-stat---the-stat_summary-method" class="level2">
-<h2 class="anchored" data-anchor-id="working-with-stat---the-stat_summary-method">Working with stat - the stat_summary() method</h2>
+</section>
+<section id="essential-grammatical-elements-in-ggplot2-stat" class="level1">
+<h1>8 Essential Grammatical Elements in ggplot2: stat</h1>
+<p>The&nbsp;<a href="https://ggplot2.tidyverse.org/reference/index.html#stats">Statistics functions</a>&nbsp;statistically transform data, usually as some form of summary. For example:</p>
+<ul>
+<li><p>frequency of values of a variable (bar graph)</p>
+<ul>
+<li><p>a mean</p></li>
+<li><p>a confidence limit</p></li>
+</ul></li>
+<li><p>There are two ways to use these functions:</p>
+<ul>
+<li><p>add a&nbsp;<code>stat_()</code>&nbsp;function and override the default geom, or</p></li>
+<li><p>add a&nbsp;<code>geom_()</code>&nbsp;function and override the default stat.</p></li>
+</ul></li>
+</ul>
+<section id="working-with-stat" class="level2">
+<h2 class="anchored" data-anchor-id="working-with-stat">Working with stat()</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data,</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>MATHS,</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x=</span>GENDER))<span class="sc">+</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"point"</span>,</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">fun =</span> <span class="st">"mean"</span>,</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">colour=</span><span class="st">"red"</span>,</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">size=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data,</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>MATHS,<span class="at">x=</span>GENDER)) <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -633,17 +716,17 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </section>
-<section id="working-with-stat---the-geom-method" class="level2">
-<h2 class="anchored" data-anchor-id="working-with-stat---the-geom-method">Working with stat - the geom() method</h2>
+<section id="working-with-stat---the-stat_summary-method" class="level2">
+<h2 class="anchored" data-anchor-id="working-with-stat---the-stat_summary-method">Working with stat - the stat_summary() method</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data,</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>MATHS,</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x=</span>GENDER)) <span class="sc">+</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">stat=</span><span class="st">"summary"</span>,</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">fun=</span><span class="st">"mean"</span>,</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour=</span><span class="st">"skyblue1"</span>,</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">size=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data,</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>MATHS,</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x=</span>GENDER))<span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">"point"</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">fun =</span> <span class="st">"mean"</span>,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">colour=</span><span class="st">"red"</span>,</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">size=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -653,14 +736,34 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </section>
+<section id="working-with-stat---the-geom-method" class="level2">
+<h2 class="anchored" data-anchor-id="working-with-stat---the-geom-method">Working with stat - the geom() method</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data,</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>MATHS,</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x=</span>GENDER)) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">stat=</span><span class="st">"summary"</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">fun=</span><span class="st">"mean"</span>,</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour=</span><span class="st">"skyblue1"</span>,</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">size=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex01_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 <section id="adding-a-best-fit-curve-on-a-scatterplot" class="level2">
 <h2 class="anchored" data-anchor-id="adding-a-best-fit-curve-on-a-scatterplot">Adding a best fit curve on a scatterplot</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data,</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>MATHS,</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x=</span>ENGLISH))<span class="sc">+</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">size=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data,</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>MATHS,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x=</span>ENGLISH))<span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">size=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ℹ Please use `linewidth` instead.</code></pre>
@@ -671,40 +774,21 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Hands-on_Ex01_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data,</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>MATHS,</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x=</span>ENGLISH)) <span class="sc">+</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm,</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">size=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
 <p><img src="Hands-on_Ex01_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="essential-grammatical-elements-in-ggplot2-facets" class="level1">
-<h1>Essential Grammatical Elements in ggplot2: Facets</h1>
-<section id="working-with-facet_wrap" class="level2">
-<h2 class="anchored" data-anchor-id="working-with-facet_wrap">Working with facet_wrap()</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data,</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>MATHS)) <span class="sc">+</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> CLASS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>MATHS,</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x=</span>ENGLISH)) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">size=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -714,13 +798,17 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </section>
-<section id="facet_grid-function" class="level2">
-<h2 class="anchored" data-anchor-id="facet_grid-function">facet_grid() function</h2>
+</section>
+<section id="essential-grammatical-elements-in-ggplot2-facets" class="level1">
+<h1>9 Essential Grammatical Elements in ggplot2: Facets</h1>
+<p>Facetting generates small multiples (sometimes also called trellis plot), each displaying a different subset of the dataset. They are an alternative to aesthetics for displaying additional discrete variables. The ggplot2 package supports two types of facets, namely:&nbsp;<code>facet_grid()</code>&nbsp;and&nbsp;<code>facet_wrap()</code>.</p>
+<section id="working-with-facet_wrap" class="level2">
+<h2 class="anchored" data-anchor-id="working-with-facet_wrap">Working with facet_wrap()</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>MATHS)) <span class="sc">+</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> CLASS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data,</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>MATHS)) <span class="sc">+</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> CLASS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -730,15 +818,13 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </section>
-</section>
-<section id="essential-grammatical-elements-in-ggplot2-coordinates" class="level1">
-<h1>Essential Grammatical Elements in ggplot2: Coordinates</h1>
-<section id="working-with-coordinate" class="level2">
-<h2 class="anchored" data-anchor-id="working-with-coordinate">Working with Coordinate</h2>
+<section id="facet_grid-function" class="level2">
+<h2 class="anchored" data-anchor-id="facet_grid-function">facet_grid() function</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span> exam_data,</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>MATHS)) <span class="sc">+</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> CLASS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -747,11 +833,23 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </div>
+</section>
+</section>
+<section id="essential-grammatical-elements-in-ggplot2-coordinates" class="level1">
+<h1>10 Essential Grammatical Elements in ggplot2: Coordinates</h1>
+<p>The&nbsp;<em>Coordinates</em>&nbsp;functions map the position of objects onto the plane of the plot. There are a number of different possible coordinate systems to use, they are:</p>
+<ul>
+<li><p><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html"><code>coord_cartesian()</code></a>: the default cartesian coordinate systems, where you specify x and y values (e.g.&nbsp;allows you to zoom in or out).</p></li>
+<li><p><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html"><code>coord_flip()</code></a>: a cartesian system with the x and y flipped.</p></li>
+<li><p><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html"><code>coord_fixed()</code></a>: a cartesian system with a “fixed” aspect ratio (e.g.&nbsp;1.78 for a “widescreen” plot).</p></li>
+<li><p><a href="https://ggplot2.tidyverse.org/reference/coord_map.html"><code>coord_quickmap()</code></a>: a coordinate system that approximates a good aspect ratio for maps.</p></li>
+</ul>
+<section id="working-with-coordinate" class="level2">
+<h2 class="anchored" data-anchor-id="working-with-coordinate">Working with Coordinate</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span> exam_data,</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -760,17 +858,11 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </div>
-</section>
-<section id="changing-the-y--and-x-axis-range" class="level2">
-<h2 class="anchored" data-anchor-id="changing-the-y--and-x-axis-range">Changing the y- and x-axis range</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data,</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>MATHS,<span class="at">y=</span>ENGLISH)) <span class="sc">+</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">size=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data,</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -779,14 +871,14 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </div>
+</section>
+<section id="changing-the-y--and-x-axis-range" class="level2">
+<h2 class="anchored" data-anchor-id="changing-the-y--and-x-axis-range">Changing the y- and x-axis range</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> MATHS, <span class="at">y=</span>ENGLISH)) <span class="sc">+</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm, </span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">size=</span><span class="fl">0.5</span>) <span class="sc">+</span>  </span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>),</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data,</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>MATHS,<span class="at">y=</span>ENGLISH)) <span class="sc">+</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">size=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
@@ -798,18 +890,18 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="essential-grammatical-elements-in-ggplot2-themes" class="level1">
-<h1>Essential Grammatical Elements in ggplot2: themes</h1>
-<section id="working-with-theme" class="level2">
-<h2 class="anchored" data-anchor-id="working-with-theme">Working with theme</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_gray</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data, </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS, </span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> ENGLISH)) <span class="sc">+</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, </span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span>  </span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>),</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -818,12 +910,25 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </div>
+</section>
+</section>
+<section id="essential-grammatical-elements-in-ggplot2-themes" class="level1">
+<h1>11 Essential Grammatical Elements in ggplot2: themes</h1>
+<p>Themes control elements of the graph not related to the data such as background colour, font size, gridlines, and colour of labels.</p>
+<p>Built-in themes include&nbsp;<code>theme_gray()</code>&nbsp;(default),&nbsp;<code>theme_bw()</code>,&nbsp;<code>theme_classic()</code></p>
+<p>A list of theme can be found at this&nbsp;<a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">link</a>. Each theme element can be conceived of as either a line (e.g.&nbsp;x-axis), a rectangle (e.g.&nbsp;graph background), or text (e.g.&nbsp;axis title).</p>
+<section id="working-with-theme" class="level2">
+<h2 class="anchored" data-anchor-id="working-with-theme">Working with theme</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">theme_gray()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">theme_classic()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">theme_minimal()</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_gray</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -832,12 +937,14 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -846,17 +953,14 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="exploration" class="level1">
-<h1>Exploration</h1>
-<ol type="1">
-<li>When plotting faceted histograms, an additional dimension is introduced for comparative analysis.</li>
-</ol>
+</div>
+<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(exam_data, <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(GENDER <span class="sc">~</span> CLASS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>RACE)) <span class="sc">+</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -865,10 +969,19 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </div>
-<ol start="2" type="1">
-<li>Color Names Reference Chart</li>
-</ol>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exploration" class="level1">
+<h1>12 Exploration</h1>
+<section id="when-plotting-faceted-histograms-an-additional-dimension-is-introduced-for-comparative-analysis." class="level2">
+<h2 class="anchored" data-anchor-id="when-plotting-faceted-histograms-an-additional-dimension-is-introduced-for-comparative-analysis.">12.1 When plotting faceted histograms, an additional dimension is introduced for comparative analysis.</h2>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(exam_data, <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(GENDER <span class="sc">~</span> CLASS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -877,53 +990,77 @@ dbl (3): ENGLISH, MATHS, SCIENCE
 </div>
 </div>
 </div>
-<ol start="3" type="1">
-<li>Interactive Scatter Plot</li>
-</ol>
+</section>
+<section id="color-names-reference-chart" class="level2">
+<h2 class="anchored" data-anchor-id="color-names-reference-chart">12.2 Color Names Reference Chart</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(plotly)</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, <span class="fu">aes</span>(<span class="at">x =</span> ENGLISH, <span class="at">y =</span> MATHS, <span class="at">color =</span> GENDER)) <span class="sc">+</span></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="plotly html-widget html-fill-item" id="htmlwidget-0c44f57ef2983315589f" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-0c44f57ef2983315589f">{"x":{"data":[{"x":[24,31,36,36,38,39,39,40,40,44,45,46,48,49,50,50,51,52,52,53,54,54,54,55,55,56,57,57,57,57,57,57,58,58,59,60,60,61,61,61,61,61,62,62,63,63,63,63,63,64,64,64,65,65,65,65,66,66,66,66,66,66,67,67,67,67,68,68,68,69,69,69,70,70,70,71,71,71,71,71,72,72,72,72,73,73,73,73,73,73,73,73,73,73,74,74,74,74,75,75,76,76,76,76,76,76,77,77,77,77,77,77,77,77,77,78,78,78,78,79,79,79,79,79,79,80,80,80,80,80,80,81,81,81,81,81,81,82,82,82,82,82,83,83,83,83,83,84,84,84,84,84,85,85,85,85,85,85,86,87,87,88,88,90,90,90,91,92,93,93],"y":[22,16,35,23,30,21,24,36,20,24,32,31,56,44,35,58,74,71,55,77,52,33,48,43,56,52,74,67,63,49,47,50,47,40,58,75,43,85,62,62,58,52,74,45,64,50,70,46,67,66,69,54,78,79,49,81,76,61,72,64,70,63,70,95,80,53,74,69,61,75,67,62,70,70,63,82,75,79,89,63,91,60,71,52,65,85,74,73,69,81,72,77,83,82,88,82,59,60,85,70,91,75,67,82,80,71,79,85,69,85,80,74,54,78,80,75,83,86,71,77,91,73,79,82,86,89,89,79,97,76,56,79,85,87,82,74,76,78,86,81,87,80,93,90,89,76,81,91,85,97,83,90,92,86,86,74,87,86,90,95,92,91,87,93,97,85,95,90,93,97],"text":["ENGLISH: 24<br />MATHS: 22<br />GENDER: Female","ENGLISH: 31<br />MATHS: 16<br />GENDER: Female","ENGLISH: 36<br />MATHS: 35<br />GENDER: Female","ENGLISH: 36<br />MATHS: 23<br />GENDER: Female","ENGLISH: 38<br />MATHS: 30<br />GENDER: Female","ENGLISH: 39<br />MATHS: 21<br />GENDER: Female","ENGLISH: 39<br />MATHS: 24<br />GENDER: Female","ENGLISH: 40<br />MATHS: 36<br />GENDER: Female","ENGLISH: 40<br />MATHS: 20<br />GENDER: Female","ENGLISH: 44<br />MATHS: 24<br />GENDER: Female","ENGLISH: 45<br />MATHS: 32<br />GENDER: Female","ENGLISH: 46<br />MATHS: 31<br />GENDER: Female","ENGLISH: 48<br />MATHS: 56<br />GENDER: Female","ENGLISH: 49<br />MATHS: 44<br />GENDER: Female","ENGLISH: 50<br />MATHS: 35<br />GENDER: Female","ENGLISH: 50<br />MATHS: 58<br />GENDER: Female","ENGLISH: 51<br />MATHS: 74<br />GENDER: Female","ENGLISH: 52<br />MATHS: 71<br />GENDER: Female","ENGLISH: 52<br />MATHS: 55<br />GENDER: Female","ENGLISH: 53<br />MATHS: 77<br />GENDER: Female","ENGLISH: 54<br />MATHS: 52<br />GENDER: Female","ENGLISH: 54<br />MATHS: 33<br />GENDER: Female","ENGLISH: 54<br />MATHS: 48<br />GENDER: Female","ENGLISH: 55<br />MATHS: 43<br />GENDER: Female","ENGLISH: 55<br />MATHS: 56<br />GENDER: Female","ENGLISH: 56<br />MATHS: 52<br />GENDER: Female","ENGLISH: 57<br />MATHS: 74<br />GENDER: Female","ENGLISH: 57<br />MATHS: 67<br />GENDER: Female","ENGLISH: 57<br />MATHS: 63<br />GENDER: Female","ENGLISH: 57<br />MATHS: 49<br />GENDER: Female","ENGLISH: 57<br />MATHS: 47<br />GENDER: Female","ENGLISH: 57<br />MATHS: 50<br />GENDER: Female","ENGLISH: 58<br />MATHS: 47<br />GENDER: Female","ENGLISH: 58<br />MATHS: 40<br />GENDER: Female","ENGLISH: 59<br />MATHS: 58<br />GENDER: Female","ENGLISH: 60<br />MATHS: 75<br />GENDER: Female","ENGLISH: 60<br />MATHS: 43<br />GENDER: Female","ENGLISH: 61<br />MATHS: 85<br />GENDER: Female","ENGLISH: 61<br />MATHS: 62<br />GENDER: Female","ENGLISH: 61<br />MATHS: 62<br />GENDER: Female","ENGLISH: 61<br />MATHS: 58<br />GENDER: Female","ENGLISH: 61<br />MATHS: 52<br />GENDER: Female","ENGLISH: 62<br />MATHS: 74<br />GENDER: Female","ENGLISH: 62<br />MATHS: 45<br />GENDER: Female","ENGLISH: 63<br />MATHS: 64<br />GENDER: Female","ENGLISH: 63<br />MATHS: 50<br />GENDER: Female","ENGLISH: 63<br />MATHS: 70<br />GENDER: Female","ENGLISH: 63<br />MATHS: 46<br />GENDER: Female","ENGLISH: 63<br />MATHS: 67<br />GENDER: Female","ENGLISH: 64<br />MATHS: 66<br />GENDER: Female","ENGLISH: 64<br />MATHS: 69<br />GENDER: Female","ENGLISH: 64<br />MATHS: 54<br />GENDER: Female","ENGLISH: 65<br />MATHS: 78<br />GENDER: Female","ENGLISH: 65<br />MATHS: 79<br />GENDER: Female","ENGLISH: 65<br />MATHS: 49<br />GENDER: Female","ENGLISH: 65<br />MATHS: 81<br />GENDER: Female","ENGLISH: 66<br />MATHS: 76<br />GENDER: Female","ENGLISH: 66<br />MATHS: 61<br />GENDER: Female","ENGLISH: 66<br />MATHS: 72<br />GENDER: Female","ENGLISH: 66<br />MATHS: 64<br />GENDER: Female","ENGLISH: 66<br />MATHS: 70<br />GENDER: Female","ENGLISH: 66<br />MATHS: 63<br />GENDER: Female","ENGLISH: 67<br />MATHS: 70<br />GENDER: Female","ENGLISH: 67<br />MATHS: 95<br />GENDER: Female","ENGLISH: 67<br />MATHS: 80<br />GENDER: Female","ENGLISH: 67<br />MATHS: 53<br />GENDER: Female","ENGLISH: 68<br />MATHS: 74<br />GENDER: Female","ENGLISH: 68<br />MATHS: 69<br />GENDER: Female","ENGLISH: 68<br />MATHS: 61<br />GENDER: Female","ENGLISH: 69<br />MATHS: 75<br />GENDER: Female","ENGLISH: 69<br />MATHS: 67<br />GENDER: Female","ENGLISH: 69<br />MATHS: 62<br />GENDER: Female","ENGLISH: 70<br />MATHS: 70<br />GENDER: Female","ENGLISH: 70<br />MATHS: 70<br />GENDER: Female","ENGLISH: 70<br />MATHS: 63<br />GENDER: Female","ENGLISH: 71<br />MATHS: 82<br />GENDER: Female","ENGLISH: 71<br />MATHS: 75<br />GENDER: Female","ENGLISH: 71<br />MATHS: 79<br />GENDER: Female","ENGLISH: 71<br />MATHS: 89<br />GENDER: Female","ENGLISH: 71<br />MATHS: 63<br />GENDER: Female","ENGLISH: 72<br />MATHS: 91<br />GENDER: Female","ENGLISH: 72<br />MATHS: 60<br />GENDER: Female","ENGLISH: 72<br />MATHS: 71<br />GENDER: Female","ENGLISH: 72<br />MATHS: 52<br />GENDER: Female","ENGLISH: 73<br />MATHS: 65<br />GENDER: Female","ENGLISH: 73<br />MATHS: 85<br />GENDER: Female","ENGLISH: 73<br />MATHS: 74<br />GENDER: Female","ENGLISH: 73<br />MATHS: 73<br />GENDER: Female","ENGLISH: 73<br />MATHS: 69<br />GENDER: Female","ENGLISH: 73<br />MATHS: 81<br />GENDER: Female","ENGLISH: 73<br />MATHS: 72<br />GENDER: Female","ENGLISH: 73<br />MATHS: 77<br />GENDER: Female","ENGLISH: 73<br />MATHS: 83<br />GENDER: Female","ENGLISH: 73<br />MATHS: 82<br />GENDER: Female","ENGLISH: 74<br />MATHS: 88<br />GENDER: Female","ENGLISH: 74<br />MATHS: 82<br />GENDER: Female","ENGLISH: 74<br />MATHS: 59<br />GENDER: Female","ENGLISH: 74<br />MATHS: 60<br />GENDER: Female","ENGLISH: 75<br />MATHS: 85<br />GENDER: Female","ENGLISH: 75<br />MATHS: 70<br />GENDER: Female","ENGLISH: 76<br />MATHS: 91<br />GENDER: Female","ENGLISH: 76<br />MATHS: 75<br />GENDER: Female","ENGLISH: 76<br />MATHS: 67<br />GENDER: Female","ENGLISH: 76<br />MATHS: 82<br />GENDER: Female","ENGLISH: 76<br />MATHS: 80<br />GENDER: Female","ENGLISH: 76<br />MATHS: 71<br />GENDER: Female","ENGLISH: 77<br />MATHS: 79<br />GENDER: Female","ENGLISH: 77<br />MATHS: 85<br />GENDER: Female","ENGLISH: 77<br />MATHS: 69<br />GENDER: Female","ENGLISH: 77<br />MATHS: 85<br />GENDER: Female","ENGLISH: 77<br />MATHS: 80<br />GENDER: Female","ENGLISH: 77<br />MATHS: 74<br />GENDER: Female","ENGLISH: 77<br />MATHS: 54<br />GENDER: Female","ENGLISH: 77<br />MATHS: 78<br />GENDER: Female","ENGLISH: 77<br />MATHS: 80<br />GENDER: Female","ENGLISH: 78<br />MATHS: 75<br />GENDER: Female","ENGLISH: 78<br />MATHS: 83<br />GENDER: Female","ENGLISH: 78<br />MATHS: 86<br />GENDER: Female","ENGLISH: 78<br />MATHS: 71<br />GENDER: Female","ENGLISH: 79<br />MATHS: 77<br />GENDER: Female","ENGLISH: 79<br />MATHS: 91<br />GENDER: Female","ENGLISH: 79<br />MATHS: 73<br />GENDER: Female","ENGLISH: 79<br />MATHS: 79<br />GENDER: Female","ENGLISH: 79<br />MATHS: 82<br />GENDER: Female","ENGLISH: 79<br />MATHS: 86<br />GENDER: Female","ENGLISH: 80<br />MATHS: 89<br />GENDER: Female","ENGLISH: 80<br />MATHS: 89<br />GENDER: Female","ENGLISH: 80<br />MATHS: 79<br />GENDER: Female","ENGLISH: 80<br />MATHS: 97<br />GENDER: Female","ENGLISH: 80<br />MATHS: 76<br />GENDER: Female","ENGLISH: 80<br />MATHS: 56<br />GENDER: Female","ENGLISH: 81<br />MATHS: 79<br />GENDER: Female","ENGLISH: 81<br />MATHS: 85<br />GENDER: Female","ENGLISH: 81<br />MATHS: 87<br />GENDER: Female","ENGLISH: 81<br />MATHS: 82<br />GENDER: Female","ENGLISH: 81<br />MATHS: 74<br />GENDER: Female","ENGLISH: 81<br />MATHS: 76<br />GENDER: Female","ENGLISH: 82<br />MATHS: 78<br />GENDER: Female","ENGLISH: 82<br />MATHS: 86<br />GENDER: Female","ENGLISH: 82<br />MATHS: 81<br />GENDER: Female","ENGLISH: 82<br />MATHS: 87<br />GENDER: Female","ENGLISH: 82<br />MATHS: 80<br />GENDER: Female","ENGLISH: 83<br />MATHS: 93<br />GENDER: Female","ENGLISH: 83<br />MATHS: 90<br />GENDER: Female","ENGLISH: 83<br />MATHS: 89<br />GENDER: Female","ENGLISH: 83<br />MATHS: 76<br />GENDER: Female","ENGLISH: 83<br />MATHS: 81<br />GENDER: Female","ENGLISH: 84<br />MATHS: 91<br />GENDER: Female","ENGLISH: 84<br />MATHS: 85<br />GENDER: Female","ENGLISH: 84<br />MATHS: 97<br />GENDER: Female","ENGLISH: 84<br />MATHS: 83<br />GENDER: Female","ENGLISH: 84<br />MATHS: 90<br />GENDER: Female","ENGLISH: 85<br />MATHS: 92<br />GENDER: Female","ENGLISH: 85<br />MATHS: 86<br />GENDER: Female","ENGLISH: 85<br />MATHS: 86<br />GENDER: Female","ENGLISH: 85<br />MATHS: 74<br />GENDER: Female","ENGLISH: 85<br />MATHS: 87<br />GENDER: Female","ENGLISH: 85<br />MATHS: 86<br />GENDER: Female","ENGLISH: 86<br />MATHS: 90<br />GENDER: Female","ENGLISH: 87<br />MATHS: 95<br />GENDER: Female","ENGLISH: 87<br />MATHS: 92<br />GENDER: Female","ENGLISH: 88<br />MATHS: 91<br />GENDER: Female","ENGLISH: 88<br />MATHS: 87<br />GENDER: Female","ENGLISH: 90<br />MATHS: 93<br />GENDER: Female","ENGLISH: 90<br />MATHS: 97<br />GENDER: Female","ENGLISH: 90<br />MATHS: 85<br />GENDER: Female","ENGLISH: 91<br />MATHS: 95<br />GENDER: Female","ENGLISH: 92<br />MATHS: 90<br />GENDER: Female","ENGLISH: 93<br />MATHS: 93<br />GENDER: Female","ENGLISH: 93<br />MATHS: 97<br />GENDER: Female"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(248,118,109,1)"}},"hoveron":"points","name":"Female","legendgroup":"Female","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[21,26,27,27,31,31,33,34,34,36,37,40,40,41,41,41,42,42,43,43,43,44,45,46,48,49,49,49,50,52,52,53,53,53,54,54,54,54,54,56,56,56,57,58,58,58,59,60,60,61,61,61,62,62,62,62,63,63,63,64,64,64,64,64,65,65,65,65,66,66,66,66,67,67,67,67,67,67,68,68,68,68,68,68,69,70,70,70,71,71,71,71,71,72,72,72,72,73,73,73,73,73,73,73,73,73,74,74,74,74,75,75,75,75,75,76,76,76,77,77,77,77,77,77,78,78,78,78,78,78,79,79,79,79,79,80,81,83,83,83,84,85,85,85,86,86,86,86,87,88,89,96],"y":[9,16,77,11,21,18,19,49,39,36,49,54,40,71,51,32,32,37,30,35,25,19,50,55,41,30,41,34,56,42,58,90,51,25,65,78,54,59,38,37,44,52,75,69,78,64,74,72,68,79,88,63,85,58,58,79,84,74,71,78,66,64,65,36,90,80,68,65,71,63,80,64,73,86,72,68,81,74,87,63,79,83,67,60,44,90,66,84,65,82,75,77,74,83,96,79,74,91,79,66,74,79,85,83,75,77,75,78,86,87,84,83,76,58,68,88,89,88,93,79,91,81,89,77,85,95,78,78,83,61,94,90,86,92,86,88,78,87,97,80,91,98,91,85,95,91,91,91,90,89,97,99],"text":["ENGLISH: 21<br />MATHS:  9<br />GENDER: Male","ENGLISH: 26<br />MATHS: 16<br />GENDER: Male","ENGLISH: 27<br />MATHS: 77<br />GENDER: Male","ENGLISH: 27<br />MATHS: 11<br />GENDER: Male","ENGLISH: 31<br />MATHS: 21<br />GENDER: Male","ENGLISH: 31<br />MATHS: 18<br />GENDER: Male","ENGLISH: 33<br />MATHS: 19<br />GENDER: Male","ENGLISH: 34<br />MATHS: 49<br />GENDER: Male","ENGLISH: 34<br />MATHS: 39<br />GENDER: Male","ENGLISH: 36<br />MATHS: 36<br />GENDER: Male","ENGLISH: 37<br />MATHS: 49<br />GENDER: Male","ENGLISH: 40<br />MATHS: 54<br />GENDER: Male","ENGLISH: 40<br />MATHS: 40<br />GENDER: Male","ENGLISH: 41<br />MATHS: 71<br />GENDER: Male","ENGLISH: 41<br />MATHS: 51<br />GENDER: Male","ENGLISH: 41<br />MATHS: 32<br />GENDER: Male","ENGLISH: 42<br />MATHS: 32<br />GENDER: Male","ENGLISH: 42<br />MATHS: 37<br />GENDER: Male","ENGLISH: 43<br />MATHS: 30<br />GENDER: Male","ENGLISH: 43<br />MATHS: 35<br />GENDER: Male","ENGLISH: 43<br />MATHS: 25<br />GENDER: Male","ENGLISH: 44<br />MATHS: 19<br />GENDER: Male","ENGLISH: 45<br />MATHS: 50<br />GENDER: Male","ENGLISH: 46<br />MATHS: 55<br />GENDER: Male","ENGLISH: 48<br />MATHS: 41<br />GENDER: Male","ENGLISH: 49<br />MATHS: 30<br />GENDER: Male","ENGLISH: 49<br />MATHS: 41<br />GENDER: Male","ENGLISH: 49<br />MATHS: 34<br />GENDER: Male","ENGLISH: 50<br />MATHS: 56<br />GENDER: Male","ENGLISH: 52<br />MATHS: 42<br />GENDER: Male","ENGLISH: 52<br />MATHS: 58<br />GENDER: Male","ENGLISH: 53<br />MATHS: 90<br />GENDER: Male","ENGLISH: 53<br />MATHS: 51<br />GENDER: Male","ENGLISH: 53<br />MATHS: 25<br />GENDER: Male","ENGLISH: 54<br />MATHS: 65<br />GENDER: Male","ENGLISH: 54<br />MATHS: 78<br />GENDER: Male","ENGLISH: 54<br />MATHS: 54<br />GENDER: Male","ENGLISH: 54<br />MATHS: 59<br />GENDER: Male","ENGLISH: 54<br />MATHS: 38<br />GENDER: Male","ENGLISH: 56<br />MATHS: 37<br />GENDER: Male","ENGLISH: 56<br />MATHS: 44<br />GENDER: Male","ENGLISH: 56<br />MATHS: 52<br />GENDER: Male","ENGLISH: 57<br />MATHS: 75<br />GENDER: Male","ENGLISH: 58<br />MATHS: 69<br />GENDER: Male","ENGLISH: 58<br />MATHS: 78<br />GENDER: Male","ENGLISH: 58<br />MATHS: 64<br />GENDER: Male","ENGLISH: 59<br />MATHS: 74<br />GENDER: Male","ENGLISH: 60<br />MATHS: 72<br />GENDER: Male","ENGLISH: 60<br />MATHS: 68<br />GENDER: Male","ENGLISH: 61<br />MATHS: 79<br />GENDER: Male","ENGLISH: 61<br />MATHS: 88<br />GENDER: Male","ENGLISH: 61<br />MATHS: 63<br />GENDER: Male","ENGLISH: 62<br />MATHS: 85<br />GENDER: Male","ENGLISH: 62<br />MATHS: 58<br />GENDER: Male","ENGLISH: 62<br />MATHS: 58<br />GENDER: Male","ENGLISH: 62<br />MATHS: 79<br />GENDER: Male","ENGLISH: 63<br />MATHS: 84<br />GENDER: Male","ENGLISH: 63<br />MATHS: 74<br />GENDER: Male","ENGLISH: 63<br />MATHS: 71<br />GENDER: Male","ENGLISH: 64<br />MATHS: 78<br />GENDER: Male","ENGLISH: 64<br />MATHS: 66<br />GENDER: Male","ENGLISH: 64<br />MATHS: 64<br />GENDER: Male","ENGLISH: 64<br />MATHS: 65<br />GENDER: Male","ENGLISH: 64<br />MATHS: 36<br />GENDER: Male","ENGLISH: 65<br />MATHS: 90<br />GENDER: Male","ENGLISH: 65<br />MATHS: 80<br />GENDER: Male","ENGLISH: 65<br />MATHS: 68<br />GENDER: Male","ENGLISH: 65<br />MATHS: 65<br />GENDER: Male","ENGLISH: 66<br />MATHS: 71<br />GENDER: Male","ENGLISH: 66<br />MATHS: 63<br />GENDER: Male","ENGLISH: 66<br />MATHS: 80<br />GENDER: Male","ENGLISH: 66<br />MATHS: 64<br />GENDER: Male","ENGLISH: 67<br />MATHS: 73<br />GENDER: Male","ENGLISH: 67<br />MATHS: 86<br />GENDER: Male","ENGLISH: 67<br />MATHS: 72<br />GENDER: Male","ENGLISH: 67<br />MATHS: 68<br />GENDER: Male","ENGLISH: 67<br />MATHS: 81<br />GENDER: Male","ENGLISH: 67<br />MATHS: 74<br />GENDER: Male","ENGLISH: 68<br />MATHS: 87<br />GENDER: Male","ENGLISH: 68<br />MATHS: 63<br />GENDER: Male","ENGLISH: 68<br />MATHS: 79<br />GENDER: Male","ENGLISH: 68<br />MATHS: 83<br />GENDER: Male","ENGLISH: 68<br />MATHS: 67<br />GENDER: Male","ENGLISH: 68<br />MATHS: 60<br />GENDER: Male","ENGLISH: 69<br />MATHS: 44<br />GENDER: Male","ENGLISH: 70<br />MATHS: 90<br />GENDER: Male","ENGLISH: 70<br />MATHS: 66<br />GENDER: Male","ENGLISH: 70<br />MATHS: 84<br />GENDER: Male","ENGLISH: 71<br />MATHS: 65<br />GENDER: Male","ENGLISH: 71<br />MATHS: 82<br />GENDER: Male","ENGLISH: 71<br />MATHS: 75<br />GENDER: Male","ENGLISH: 71<br />MATHS: 77<br />GENDER: Male","ENGLISH: 71<br />MATHS: 74<br />GENDER: Male","ENGLISH: 72<br />MATHS: 83<br />GENDER: Male","ENGLISH: 72<br />MATHS: 96<br />GENDER: Male","ENGLISH: 72<br />MATHS: 79<br />GENDER: Male","ENGLISH: 72<br />MATHS: 74<br />GENDER: Male","ENGLISH: 73<br />MATHS: 91<br />GENDER: Male","ENGLISH: 73<br />MATHS: 79<br />GENDER: Male","ENGLISH: 73<br />MATHS: 66<br />GENDER: Male","ENGLISH: 73<br />MATHS: 74<br />GENDER: Male","ENGLISH: 73<br />MATHS: 79<br />GENDER: Male","ENGLISH: 73<br />MATHS: 85<br />GENDER: Male","ENGLISH: 73<br />MATHS: 83<br />GENDER: Male","ENGLISH: 73<br />MATHS: 75<br />GENDER: Male","ENGLISH: 73<br />MATHS: 77<br />GENDER: Male","ENGLISH: 74<br />MATHS: 75<br />GENDER: Male","ENGLISH: 74<br />MATHS: 78<br />GENDER: Male","ENGLISH: 74<br />MATHS: 86<br />GENDER: Male","ENGLISH: 74<br />MATHS: 87<br />GENDER: Male","ENGLISH: 75<br />MATHS: 84<br />GENDER: Male","ENGLISH: 75<br />MATHS: 83<br />GENDER: Male","ENGLISH: 75<br />MATHS: 76<br />GENDER: Male","ENGLISH: 75<br />MATHS: 58<br />GENDER: Male","ENGLISH: 75<br />MATHS: 68<br />GENDER: Male","ENGLISH: 76<br />MATHS: 88<br />GENDER: Male","ENGLISH: 76<br />MATHS: 89<br />GENDER: Male","ENGLISH: 76<br />MATHS: 88<br />GENDER: Male","ENGLISH: 77<br />MATHS: 93<br />GENDER: Male","ENGLISH: 77<br />MATHS: 79<br />GENDER: Male","ENGLISH: 77<br />MATHS: 91<br />GENDER: Male","ENGLISH: 77<br />MATHS: 81<br />GENDER: Male","ENGLISH: 77<br />MATHS: 89<br />GENDER: Male","ENGLISH: 77<br />MATHS: 77<br />GENDER: Male","ENGLISH: 78<br />MATHS: 85<br />GENDER: Male","ENGLISH: 78<br />MATHS: 95<br />GENDER: Male","ENGLISH: 78<br />MATHS: 78<br />GENDER: Male","ENGLISH: 78<br />MATHS: 78<br />GENDER: Male","ENGLISH: 78<br />MATHS: 83<br />GENDER: Male","ENGLISH: 78<br />MATHS: 61<br />GENDER: Male","ENGLISH: 79<br />MATHS: 94<br />GENDER: Male","ENGLISH: 79<br />MATHS: 90<br />GENDER: Male","ENGLISH: 79<br />MATHS: 86<br />GENDER: Male","ENGLISH: 79<br />MATHS: 92<br />GENDER: Male","ENGLISH: 79<br />MATHS: 86<br />GENDER: Male","ENGLISH: 80<br />MATHS: 88<br />GENDER: Male","ENGLISH: 81<br />MATHS: 78<br />GENDER: Male","ENGLISH: 83<br />MATHS: 87<br />GENDER: Male","ENGLISH: 83<br />MATHS: 97<br />GENDER: Male","ENGLISH: 83<br />MATHS: 80<br />GENDER: Male","ENGLISH: 84<br />MATHS: 91<br />GENDER: Male","ENGLISH: 85<br />MATHS: 98<br />GENDER: Male","ENGLISH: 85<br />MATHS: 91<br />GENDER: Male","ENGLISH: 85<br />MATHS: 85<br />GENDER: Male","ENGLISH: 86<br />MATHS: 95<br />GENDER: Male","ENGLISH: 86<br />MATHS: 91<br />GENDER: Male","ENGLISH: 86<br />MATHS: 91<br />GENDER: Male","ENGLISH: 86<br />MATHS: 91<br />GENDER: Male","ENGLISH: 87<br />MATHS: 90<br />GENDER: Male","ENGLISH: 88<br />MATHS: 89<br />GENDER: Male","ENGLISH: 89<br />MATHS: 97<br />GENDER: Male","ENGLISH: 96<br />MATHS: 99<br />GENDER: Male"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,191,196,1)"}},"hoveron":"points","name":"Male","legendgroup":"Male","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":26.228310502283108,"r":7.3059360730593621,"b":40.182648401826498,"l":43.105022831050235},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[17.25,99.75],"tickmode":"array","ticktext":["20","40","60","80"],"tickvals":[20,40,60,80],"categoryorder":"array","categoryarray":["20","40","60","80"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"ENGLISH","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[4.5,103.5],"tickmode":"array","ticktext":["25","50","75","100"],"tickvals":[25,50,75,100],"categoryorder":"array","categoryarray":["25","50","75","100"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"MATHS","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"GENDER","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"9b78b3c0499":{"x":{},"y":{},"colour":{},"type":"scatter"}},"cur_data":"9b78b3c0499","visdat":{"9b78b3c0499":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-<ol start="4" type="1">
-<li>Interactive histogram chart</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(exam_data, <span class="fu">aes</span>(<span class="at">x =</span> ENGLISH)) <span class="sc">+</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="dv">10</span>, <span class="at">color=</span> <span class="st">"cyan4"</span>)</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="plotly html-widget html-fill-item" id="htmlwidget-ed18d622a76f1d8b9e78" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-ed18d622a76f1d8b9e78">{"x":{"data":[{"orientation":"v","width":[10,10,10,10,10,10,10,10,10],"base":[0,0,0,0,0,0,0,0,0],"x":[20,30,40,50,60,70,80,90,100],"y":[2,9,23,30,60,91,87,19,1],"text":["count:  2<br />ENGLISH:  20","count:  9<br />ENGLISH:  30","count: 23<br />ENGLISH:  40","count: 30<br />ENGLISH:  50","count: 60<br />ENGLISH:  60","count: 91<br />ENGLISH:  70","count: 87<br />ENGLISH:  80","count: 19<br />ENGLISH:  90","count:  1<br />ENGLISH: 100"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(89,89,89,1)","line":{"width":1.8897637795275593,"color":"rgba(0,139,139,1)"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":26.228310502283108,"r":7.3059360730593621,"b":40.182648401826498,"l":37.260273972602747},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[10.5,109.5],"tickmode":"array","ticktext":["25","50","75","100"],"tickvals":[25,50,75,100],"categoryorder":"array","categoryarray":["25","50","75","100"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"ENGLISH","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-4.5499999999999998,95.549999999999997],"tickmode":"array","ticktext":["0","25","50","75"],"tickvals":[0,25.000000000000004,50,75],"categoryorder":"array","categoryarray":["0","25","50","75"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"count","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"9b782708f438":{"x":{},"type":"bar"}},"cur_data":"9b782708f438","visdat":{"9b782708f438":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-<ol start="5" type="1">
-<li>Add data labels in the histograms chart</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data, <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">"cyan2"</span>, <span class="at">fill =</span> <span class="st">"light blue"</span>) <span class="sc">+</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_bin</span>(<span class="at">bins =</span> <span class="dv">20</span>,</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">geom =</span> <span class="st">"text"</span>,</span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>           <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">after_stat</span>(count)),</span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.2</span>, </span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"tan1"</span>,</span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Hands-on_Ex01_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Hands-on_Ex01_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+</section>
+<section id="interactive-scatter-plot" class="level2">
+<h2 class="anchored" data-anchor-id="interactive-scatter-plot">12.3 Interactive Scatter Plot</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(plotly)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, <span class="fu">aes</span>(<span class="at">x =</span> ENGLISH, <span class="at">y =</span> MATHS, <span class="at">color =</span> GENDER)) <span class="sc">+</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-0c44f57ef2983315589f" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-0c44f57ef2983315589f">{"x":{"data":[{"x":[24,31,36,36,38,39,39,40,40,44,45,46,48,49,50,50,51,52,52,53,54,54,54,55,55,56,57,57,57,57,57,57,58,58,59,60,60,61,61,61,61,61,62,62,63,63,63,63,63,64,64,64,65,65,65,65,66,66,66,66,66,66,67,67,67,67,68,68,68,69,69,69,70,70,70,71,71,71,71,71,72,72,72,72,73,73,73,73,73,73,73,73,73,73,74,74,74,74,75,75,76,76,76,76,76,76,77,77,77,77,77,77,77,77,77,78,78,78,78,79,79,79,79,79,79,80,80,80,80,80,80,81,81,81,81,81,81,82,82,82,82,82,83,83,83,83,83,84,84,84,84,84,85,85,85,85,85,85,86,87,87,88,88,90,90,90,91,92,93,93],"y":[22,16,35,23,30,21,24,36,20,24,32,31,56,44,35,58,74,71,55,77,52,33,48,43,56,52,74,67,63,49,47,50,47,40,58,75,43,85,62,62,58,52,74,45,64,50,70,46,67,66,69,54,78,79,49,81,76,61,72,64,70,63,70,95,80,53,74,69,61,75,67,62,70,70,63,82,75,79,89,63,91,60,71,52,65,85,74,73,69,81,72,77,83,82,88,82,59,60,85,70,91,75,67,82,80,71,79,85,69,85,80,74,54,78,80,75,83,86,71,77,91,73,79,82,86,89,89,79,97,76,56,79,85,87,82,74,76,78,86,81,87,80,93,90,89,76,81,91,85,97,83,90,92,86,86,74,87,86,90,95,92,91,87,93,97,85,95,90,93,97],"text":["ENGLISH: 24<br />MATHS: 22<br />GENDER: Female","ENGLISH: 31<br />MATHS: 16<br />GENDER: Female","ENGLISH: 36<br />MATHS: 35<br />GENDER: Female","ENGLISH: 36<br />MATHS: 23<br />GENDER: Female","ENGLISH: 38<br />MATHS: 30<br />GENDER: Female","ENGLISH: 39<br />MATHS: 21<br />GENDER: Female","ENGLISH: 39<br />MATHS: 24<br />GENDER: Female","ENGLISH: 40<br />MATHS: 36<br />GENDER: Female","ENGLISH: 40<br />MATHS: 20<br />GENDER: Female","ENGLISH: 44<br />MATHS: 24<br />GENDER: Female","ENGLISH: 45<br />MATHS: 32<br />GENDER: Female","ENGLISH: 46<br />MATHS: 31<br />GENDER: Female","ENGLISH: 48<br />MATHS: 56<br />GENDER: Female","ENGLISH: 49<br />MATHS: 44<br />GENDER: Female","ENGLISH: 50<br />MATHS: 35<br />GENDER: Female","ENGLISH: 50<br />MATHS: 58<br />GENDER: Female","ENGLISH: 51<br />MATHS: 74<br />GENDER: Female","ENGLISH: 52<br />MATHS: 71<br />GENDER: Female","ENGLISH: 52<br />MATHS: 55<br />GENDER: Female","ENGLISH: 53<br />MATHS: 77<br />GENDER: Female","ENGLISH: 54<br />MATHS: 52<br />GENDER: Female","ENGLISH: 54<br />MATHS: 33<br />GENDER: Female","ENGLISH: 54<br />MATHS: 48<br />GENDER: Female","ENGLISH: 55<br />MATHS: 43<br />GENDER: Female","ENGLISH: 55<br />MATHS: 56<br />GENDER: Female","ENGLISH: 56<br />MATHS: 52<br />GENDER: Female","ENGLISH: 57<br />MATHS: 74<br />GENDER: Female","ENGLISH: 57<br />MATHS: 67<br />GENDER: Female","ENGLISH: 57<br />MATHS: 63<br />GENDER: Female","ENGLISH: 57<br />MATHS: 49<br />GENDER: Female","ENGLISH: 57<br />MATHS: 47<br />GENDER: Female","ENGLISH: 57<br />MATHS: 50<br />GENDER: Female","ENGLISH: 58<br />MATHS: 47<br />GENDER: Female","ENGLISH: 58<br />MATHS: 40<br />GENDER: Female","ENGLISH: 59<br />MATHS: 58<br />GENDER: Female","ENGLISH: 60<br />MATHS: 75<br />GENDER: Female","ENGLISH: 60<br />MATHS: 43<br />GENDER: Female","ENGLISH: 61<br />MATHS: 85<br />GENDER: Female","ENGLISH: 61<br />MATHS: 62<br />GENDER: Female","ENGLISH: 61<br />MATHS: 62<br />GENDER: Female","ENGLISH: 61<br />MATHS: 58<br />GENDER: Female","ENGLISH: 61<br />MATHS: 52<br />GENDER: Female","ENGLISH: 62<br />MATHS: 74<br />GENDER: Female","ENGLISH: 62<br />MATHS: 45<br />GENDER: Female","ENGLISH: 63<br />MATHS: 64<br />GENDER: Female","ENGLISH: 63<br />MATHS: 50<br />GENDER: Female","ENGLISH: 63<br />MATHS: 70<br />GENDER: Female","ENGLISH: 63<br />MATHS: 46<br />GENDER: Female","ENGLISH: 63<br />MATHS: 67<br />GENDER: Female","ENGLISH: 64<br />MATHS: 66<br />GENDER: Female","ENGLISH: 64<br />MATHS: 69<br />GENDER: Female","ENGLISH: 64<br />MATHS: 54<br />GENDER: Female","ENGLISH: 65<br />MATHS: 78<br />GENDER: Female","ENGLISH: 65<br />MATHS: 79<br />GENDER: Female","ENGLISH: 65<br />MATHS: 49<br />GENDER: Female","ENGLISH: 65<br />MATHS: 81<br />GENDER: Female","ENGLISH: 66<br />MATHS: 76<br />GENDER: Female","ENGLISH: 66<br />MATHS: 61<br />GENDER: Female","ENGLISH: 66<br />MATHS: 72<br />GENDER: Female","ENGLISH: 66<br />MATHS: 64<br />GENDER: Female","ENGLISH: 66<br />MATHS: 70<br />GENDER: Female","ENGLISH: 66<br />MATHS: 63<br />GENDER: Female","ENGLISH: 67<br />MATHS: 70<br />GENDER: Female","ENGLISH: 67<br />MATHS: 95<br />GENDER: Female","ENGLISH: 67<br />MATHS: 80<br />GENDER: Female","ENGLISH: 67<br />MATHS: 53<br />GENDER: Female","ENGLISH: 68<br />MATHS: 74<br />GENDER: Female","ENGLISH: 68<br />MATHS: 69<br />GENDER: Female","ENGLISH: 68<br />MATHS: 61<br />GENDER: Female","ENGLISH: 69<br />MATHS: 75<br />GENDER: Female","ENGLISH: 69<br />MATHS: 67<br />GENDER: Female","ENGLISH: 69<br />MATHS: 62<br />GENDER: Female","ENGLISH: 70<br />MATHS: 70<br />GENDER: Female","ENGLISH: 70<br />MATHS: 70<br />GENDER: Female","ENGLISH: 70<br />MATHS: 63<br />GENDER: Female","ENGLISH: 71<br />MATHS: 82<br />GENDER: Female","ENGLISH: 71<br />MATHS: 75<br />GENDER: Female","ENGLISH: 71<br />MATHS: 79<br />GENDER: Female","ENGLISH: 71<br />MATHS: 89<br />GENDER: Female","ENGLISH: 71<br />MATHS: 63<br />GENDER: Female","ENGLISH: 72<br />MATHS: 91<br />GENDER: Female","ENGLISH: 72<br />MATHS: 60<br />GENDER: Female","ENGLISH: 72<br />MATHS: 71<br />GENDER: Female","ENGLISH: 72<br />MATHS: 52<br />GENDER: Female","ENGLISH: 73<br />MATHS: 65<br />GENDER: Female","ENGLISH: 73<br />MATHS: 85<br />GENDER: Female","ENGLISH: 73<br />MATHS: 74<br />GENDER: Female","ENGLISH: 73<br />MATHS: 73<br />GENDER: Female","ENGLISH: 73<br />MATHS: 69<br />GENDER: Female","ENGLISH: 73<br />MATHS: 81<br />GENDER: Female","ENGLISH: 73<br />MATHS: 72<br />GENDER: Female","ENGLISH: 73<br />MATHS: 77<br />GENDER: Female","ENGLISH: 73<br />MATHS: 83<br />GENDER: Female","ENGLISH: 73<br />MATHS: 82<br />GENDER: Female","ENGLISH: 74<br />MATHS: 88<br />GENDER: Female","ENGLISH: 74<br />MATHS: 82<br />GENDER: Female","ENGLISH: 74<br />MATHS: 59<br />GENDER: Female","ENGLISH: 74<br />MATHS: 60<br />GENDER: Female","ENGLISH: 75<br />MATHS: 85<br />GENDER: Female","ENGLISH: 75<br />MATHS: 70<br />GENDER: Female","ENGLISH: 76<br />MATHS: 91<br />GENDER: Female","ENGLISH: 76<br />MATHS: 75<br />GENDER: Female","ENGLISH: 76<br />MATHS: 67<br />GENDER: Female","ENGLISH: 76<br />MATHS: 82<br />GENDER: Female","ENGLISH: 76<br />MATHS: 80<br />GENDER: Female","ENGLISH: 76<br />MATHS: 71<br />GENDER: Female","ENGLISH: 77<br />MATHS: 79<br />GENDER: Female","ENGLISH: 77<br />MATHS: 85<br />GENDER: Female","ENGLISH: 77<br />MATHS: 69<br />GENDER: Female","ENGLISH: 77<br />MATHS: 85<br />GENDER: Female","ENGLISH: 77<br />MATHS: 80<br />GENDER: Female","ENGLISH: 77<br />MATHS: 74<br />GENDER: Female","ENGLISH: 77<br />MATHS: 54<br />GENDER: Female","ENGLISH: 77<br />MATHS: 78<br />GENDER: Female","ENGLISH: 77<br />MATHS: 80<br />GENDER: Female","ENGLISH: 78<br />MATHS: 75<br />GENDER: Female","ENGLISH: 78<br />MATHS: 83<br />GENDER: Female","ENGLISH: 78<br />MATHS: 86<br />GENDER: Female","ENGLISH: 78<br />MATHS: 71<br />GENDER: Female","ENGLISH: 79<br />MATHS: 77<br />GENDER: Female","ENGLISH: 79<br />MATHS: 91<br />GENDER: Female","ENGLISH: 79<br />MATHS: 73<br />GENDER: Female","ENGLISH: 79<br />MATHS: 79<br />GENDER: Female","ENGLISH: 79<br />MATHS: 82<br />GENDER: Female","ENGLISH: 79<br />MATHS: 86<br />GENDER: Female","ENGLISH: 80<br />MATHS: 89<br />GENDER: Female","ENGLISH: 80<br />MATHS: 89<br />GENDER: Female","ENGLISH: 80<br />MATHS: 79<br />GENDER: Female","ENGLISH: 80<br />MATHS: 97<br />GENDER: Female","ENGLISH: 80<br />MATHS: 76<br />GENDER: Female","ENGLISH: 80<br />MATHS: 56<br />GENDER: Female","ENGLISH: 81<br />MATHS: 79<br />GENDER: Female","ENGLISH: 81<br />MATHS: 85<br />GENDER: Female","ENGLISH: 81<br />MATHS: 87<br />GENDER: Female","ENGLISH: 81<br />MATHS: 82<br />GENDER: Female","ENGLISH: 81<br />MATHS: 74<br />GENDER: Female","ENGLISH: 81<br />MATHS: 76<br />GENDER: Female","ENGLISH: 82<br />MATHS: 78<br />GENDER: Female","ENGLISH: 82<br />MATHS: 86<br />GENDER: Female","ENGLISH: 82<br />MATHS: 81<br />GENDER: Female","ENGLISH: 82<br />MATHS: 87<br />GENDER: Female","ENGLISH: 82<br />MATHS: 80<br />GENDER: Female","ENGLISH: 83<br />MATHS: 93<br />GENDER: Female","ENGLISH: 83<br />MATHS: 90<br />GENDER: Female","ENGLISH: 83<br />MATHS: 89<br />GENDER: Female","ENGLISH: 83<br />MATHS: 76<br />GENDER: Female","ENGLISH: 83<br />MATHS: 81<br />GENDER: Female","ENGLISH: 84<br />MATHS: 91<br />GENDER: Female","ENGLISH: 84<br />MATHS: 85<br />GENDER: Female","ENGLISH: 84<br />MATHS: 97<br />GENDER: Female","ENGLISH: 84<br />MATHS: 83<br />GENDER: Female","ENGLISH: 84<br />MATHS: 90<br />GENDER: Female","ENGLISH: 85<br />MATHS: 92<br />GENDER: Female","ENGLISH: 85<br />MATHS: 86<br />GENDER: Female","ENGLISH: 85<br />MATHS: 86<br />GENDER: Female","ENGLISH: 85<br />MATHS: 74<br />GENDER: Female","ENGLISH: 85<br />MATHS: 87<br />GENDER: Female","ENGLISH: 85<br />MATHS: 86<br />GENDER: Female","ENGLISH: 86<br />MATHS: 90<br />GENDER: Female","ENGLISH: 87<br />MATHS: 95<br />GENDER: Female","ENGLISH: 87<br />MATHS: 92<br />GENDER: Female","ENGLISH: 88<br />MATHS: 91<br />GENDER: Female","ENGLISH: 88<br />MATHS: 87<br />GENDER: Female","ENGLISH: 90<br />MATHS: 93<br />GENDER: Female","ENGLISH: 90<br />MATHS: 97<br />GENDER: Female","ENGLISH: 90<br />MATHS: 85<br />GENDER: Female","ENGLISH: 91<br />MATHS: 95<br />GENDER: Female","ENGLISH: 92<br />MATHS: 90<br />GENDER: Female","ENGLISH: 93<br />MATHS: 93<br />GENDER: Female","ENGLISH: 93<br />MATHS: 97<br />GENDER: Female"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(248,118,109,1)"}},"hoveron":"points","name":"Female","legendgroup":"Female","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[21,26,27,27,31,31,33,34,34,36,37,40,40,41,41,41,42,42,43,43,43,44,45,46,48,49,49,49,50,52,52,53,53,53,54,54,54,54,54,56,56,56,57,58,58,58,59,60,60,61,61,61,62,62,62,62,63,63,63,64,64,64,64,64,65,65,65,65,66,66,66,66,67,67,67,67,67,67,68,68,68,68,68,68,69,70,70,70,71,71,71,71,71,72,72,72,72,73,73,73,73,73,73,73,73,73,74,74,74,74,75,75,75,75,75,76,76,76,77,77,77,77,77,77,78,78,78,78,78,78,79,79,79,79,79,80,81,83,83,83,84,85,85,85,86,86,86,86,87,88,89,96],"y":[9,16,77,11,21,18,19,49,39,36,49,54,40,71,51,32,32,37,30,35,25,19,50,55,41,30,41,34,56,42,58,90,51,25,65,78,54,59,38,37,44,52,75,69,78,64,74,72,68,79,88,63,85,58,58,79,84,74,71,78,66,64,65,36,90,80,68,65,71,63,80,64,73,86,72,68,81,74,87,63,79,83,67,60,44,90,66,84,65,82,75,77,74,83,96,79,74,91,79,66,74,79,85,83,75,77,75,78,86,87,84,83,76,58,68,88,89,88,93,79,91,81,89,77,85,95,78,78,83,61,94,90,86,92,86,88,78,87,97,80,91,98,91,85,95,91,91,91,90,89,97,99],"text":["ENGLISH: 21<br />MATHS:  9<br />GENDER: Male","ENGLISH: 26<br />MATHS: 16<br />GENDER: Male","ENGLISH: 27<br />MATHS: 77<br />GENDER: Male","ENGLISH: 27<br />MATHS: 11<br />GENDER: Male","ENGLISH: 31<br />MATHS: 21<br />GENDER: Male","ENGLISH: 31<br />MATHS: 18<br />GENDER: Male","ENGLISH: 33<br />MATHS: 19<br />GENDER: Male","ENGLISH: 34<br />MATHS: 49<br />GENDER: Male","ENGLISH: 34<br />MATHS: 39<br />GENDER: Male","ENGLISH: 36<br />MATHS: 36<br />GENDER: Male","ENGLISH: 37<br />MATHS: 49<br />GENDER: Male","ENGLISH: 40<br />MATHS: 54<br />GENDER: Male","ENGLISH: 40<br />MATHS: 40<br />GENDER: Male","ENGLISH: 41<br />MATHS: 71<br />GENDER: Male","ENGLISH: 41<br />MATHS: 51<br />GENDER: Male","ENGLISH: 41<br />MATHS: 32<br />GENDER: Male","ENGLISH: 42<br />MATHS: 32<br />GENDER: Male","ENGLISH: 42<br />MATHS: 37<br />GENDER: Male","ENGLISH: 43<br />MATHS: 30<br />GENDER: Male","ENGLISH: 43<br />MATHS: 35<br />GENDER: Male","ENGLISH: 43<br />MATHS: 25<br />GENDER: Male","ENGLISH: 44<br />MATHS: 19<br />GENDER: Male","ENGLISH: 45<br />MATHS: 50<br />GENDER: Male","ENGLISH: 46<br />MATHS: 55<br />GENDER: Male","ENGLISH: 48<br />MATHS: 41<br />GENDER: Male","ENGLISH: 49<br />MATHS: 30<br />GENDER: Male","ENGLISH: 49<br />MATHS: 41<br />GENDER: Male","ENGLISH: 49<br />MATHS: 34<br />GENDER: Male","ENGLISH: 50<br />MATHS: 56<br />GENDER: Male","ENGLISH: 52<br />MATHS: 42<br />GENDER: Male","ENGLISH: 52<br />MATHS: 58<br />GENDER: Male","ENGLISH: 53<br />MATHS: 90<br />GENDER: Male","ENGLISH: 53<br />MATHS: 51<br />GENDER: Male","ENGLISH: 53<br />MATHS: 25<br />GENDER: Male","ENGLISH: 54<br />MATHS: 65<br />GENDER: Male","ENGLISH: 54<br />MATHS: 78<br />GENDER: Male","ENGLISH: 54<br />MATHS: 54<br />GENDER: Male","ENGLISH: 54<br />MATHS: 59<br />GENDER: Male","ENGLISH: 54<br />MATHS: 38<br />GENDER: Male","ENGLISH: 56<br />MATHS: 37<br />GENDER: Male","ENGLISH: 56<br />MATHS: 44<br />GENDER: Male","ENGLISH: 56<br />MATHS: 52<br />GENDER: Male","ENGLISH: 57<br />MATHS: 75<br />GENDER: Male","ENGLISH: 58<br />MATHS: 69<br />GENDER: Male","ENGLISH: 58<br />MATHS: 78<br />GENDER: Male","ENGLISH: 58<br />MATHS: 64<br />GENDER: Male","ENGLISH: 59<br />MATHS: 74<br />GENDER: Male","ENGLISH: 60<br />MATHS: 72<br />GENDER: Male","ENGLISH: 60<br />MATHS: 68<br />GENDER: Male","ENGLISH: 61<br />MATHS: 79<br />GENDER: Male","ENGLISH: 61<br />MATHS: 88<br />GENDER: Male","ENGLISH: 61<br />MATHS: 63<br />GENDER: Male","ENGLISH: 62<br />MATHS: 85<br />GENDER: Male","ENGLISH: 62<br />MATHS: 58<br />GENDER: Male","ENGLISH: 62<br />MATHS: 58<br />GENDER: Male","ENGLISH: 62<br />MATHS: 79<br />GENDER: Male","ENGLISH: 63<br />MATHS: 84<br />GENDER: Male","ENGLISH: 63<br />MATHS: 74<br />GENDER: Male","ENGLISH: 63<br />MATHS: 71<br />GENDER: Male","ENGLISH: 64<br />MATHS: 78<br />GENDER: Male","ENGLISH: 64<br />MATHS: 66<br />GENDER: Male","ENGLISH: 64<br />MATHS: 64<br />GENDER: Male","ENGLISH: 64<br />MATHS: 65<br />GENDER: Male","ENGLISH: 64<br />MATHS: 36<br />GENDER: Male","ENGLISH: 65<br />MATHS: 90<br />GENDER: Male","ENGLISH: 65<br />MATHS: 80<br />GENDER: Male","ENGLISH: 65<br />MATHS: 68<br />GENDER: Male","ENGLISH: 65<br />MATHS: 65<br />GENDER: Male","ENGLISH: 66<br />MATHS: 71<br />GENDER: Male","ENGLISH: 66<br />MATHS: 63<br />GENDER: Male","ENGLISH: 66<br />MATHS: 80<br />GENDER: Male","ENGLISH: 66<br />MATHS: 64<br />GENDER: Male","ENGLISH: 67<br />MATHS: 73<br />GENDER: Male","ENGLISH: 67<br />MATHS: 86<br />GENDER: Male","ENGLISH: 67<br />MATHS: 72<br />GENDER: Male","ENGLISH: 67<br />MATHS: 68<br />GENDER: Male","ENGLISH: 67<br />MATHS: 81<br />GENDER: Male","ENGLISH: 67<br />MATHS: 74<br />GENDER: Male","ENGLISH: 68<br />MATHS: 87<br />GENDER: Male","ENGLISH: 68<br />MATHS: 63<br />GENDER: Male","ENGLISH: 68<br />MATHS: 79<br />GENDER: Male","ENGLISH: 68<br />MATHS: 83<br />GENDER: Male","ENGLISH: 68<br />MATHS: 67<br />GENDER: Male","ENGLISH: 68<br />MATHS: 60<br />GENDER: Male","ENGLISH: 69<br />MATHS: 44<br />GENDER: Male","ENGLISH: 70<br />MATHS: 90<br />GENDER: Male","ENGLISH: 70<br />MATHS: 66<br />GENDER: Male","ENGLISH: 70<br />MATHS: 84<br />GENDER: Male","ENGLISH: 71<br />MATHS: 65<br />GENDER: Male","ENGLISH: 71<br />MATHS: 82<br />GENDER: Male","ENGLISH: 71<br />MATHS: 75<br />GENDER: Male","ENGLISH: 71<br />MATHS: 77<br />GENDER: Male","ENGLISH: 71<br />MATHS: 74<br />GENDER: Male","ENGLISH: 72<br />MATHS: 83<br />GENDER: Male","ENGLISH: 72<br />MATHS: 96<br />GENDER: Male","ENGLISH: 72<br />MATHS: 79<br />GENDER: Male","ENGLISH: 72<br />MATHS: 74<br />GENDER: Male","ENGLISH: 73<br />MATHS: 91<br />GENDER: Male","ENGLISH: 73<br />MATHS: 79<br />GENDER: Male","ENGLISH: 73<br />MATHS: 66<br />GENDER: Male","ENGLISH: 73<br />MATHS: 74<br />GENDER: Male","ENGLISH: 73<br />MATHS: 79<br />GENDER: Male","ENGLISH: 73<br />MATHS: 85<br />GENDER: Male","ENGLISH: 73<br />MATHS: 83<br />GENDER: Male","ENGLISH: 73<br />MATHS: 75<br />GENDER: Male","ENGLISH: 73<br />MATHS: 77<br />GENDER: Male","ENGLISH: 74<br />MATHS: 75<br />GENDER: Male","ENGLISH: 74<br />MATHS: 78<br />GENDER: Male","ENGLISH: 74<br />MATHS: 86<br />GENDER: Male","ENGLISH: 74<br />MATHS: 87<br />GENDER: Male","ENGLISH: 75<br />MATHS: 84<br />GENDER: Male","ENGLISH: 75<br />MATHS: 83<br />GENDER: Male","ENGLISH: 75<br />MATHS: 76<br />GENDER: Male","ENGLISH: 75<br />MATHS: 58<br />GENDER: Male","ENGLISH: 75<br />MATHS: 68<br />GENDER: Male","ENGLISH: 76<br />MATHS: 88<br />GENDER: Male","ENGLISH: 76<br />MATHS: 89<br />GENDER: Male","ENGLISH: 76<br />MATHS: 88<br />GENDER: Male","ENGLISH: 77<br />MATHS: 93<br />GENDER: Male","ENGLISH: 77<br />MATHS: 79<br />GENDER: Male","ENGLISH: 77<br />MATHS: 91<br />GENDER: Male","ENGLISH: 77<br />MATHS: 81<br />GENDER: Male","ENGLISH: 77<br />MATHS: 89<br />GENDER: Male","ENGLISH: 77<br />MATHS: 77<br />GENDER: Male","ENGLISH: 78<br />MATHS: 85<br />GENDER: Male","ENGLISH: 78<br />MATHS: 95<br />GENDER: Male","ENGLISH: 78<br />MATHS: 78<br />GENDER: Male","ENGLISH: 78<br />MATHS: 78<br />GENDER: Male","ENGLISH: 78<br />MATHS: 83<br />GENDER: Male","ENGLISH: 78<br />MATHS: 61<br />GENDER: Male","ENGLISH: 79<br />MATHS: 94<br />GENDER: Male","ENGLISH: 79<br />MATHS: 90<br />GENDER: Male","ENGLISH: 79<br />MATHS: 86<br />GENDER: Male","ENGLISH: 79<br />MATHS: 92<br />GENDER: Male","ENGLISH: 79<br />MATHS: 86<br />GENDER: Male","ENGLISH: 80<br />MATHS: 88<br />GENDER: Male","ENGLISH: 81<br />MATHS: 78<br />GENDER: Male","ENGLISH: 83<br />MATHS: 87<br />GENDER: Male","ENGLISH: 83<br />MATHS: 97<br />GENDER: Male","ENGLISH: 83<br />MATHS: 80<br />GENDER: Male","ENGLISH: 84<br />MATHS: 91<br />GENDER: Male","ENGLISH: 85<br />MATHS: 98<br />GENDER: Male","ENGLISH: 85<br />MATHS: 91<br />GENDER: Male","ENGLISH: 85<br />MATHS: 85<br />GENDER: Male","ENGLISH: 86<br />MATHS: 95<br />GENDER: Male","ENGLISH: 86<br />MATHS: 91<br />GENDER: Male","ENGLISH: 86<br />MATHS: 91<br />GENDER: Male","ENGLISH: 86<br />MATHS: 91<br />GENDER: Male","ENGLISH: 87<br />MATHS: 90<br />GENDER: Male","ENGLISH: 88<br />MATHS: 89<br />GENDER: Male","ENGLISH: 89<br />MATHS: 97<br />GENDER: Male","ENGLISH: 96<br />MATHS: 99<br />GENDER: Male"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,191,196,1)"}},"hoveron":"points","name":"Male","legendgroup":"Male","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":26.228310502283108,"r":7.3059360730593621,"b":40.182648401826498,"l":43.105022831050235},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[17.25,99.75],"tickmode":"array","ticktext":["20","40","60","80"],"tickvals":[20,40,60,80],"categoryorder":"array","categoryarray":["20","40","60","80"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"ENGLISH","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[4.5,103.5],"tickmode":"array","ticktext":["25","50","75","100"],"tickvals":[25,50,75,100],"categoryorder":"array","categoryarray":["25","50","75","100"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"MATHS","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"GENDER","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"b9a47357d016":{"x":{},"y":{},"colour":{},"type":"scatter"}},"cur_data":"b9a47357d016","visdat":{"b9a47357d016":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="interactive-histogram-chart" class="level2">
+<h2 class="anchored" data-anchor-id="interactive-histogram-chart">12.4 Interactive histogram chart</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(exam_data, <span class="fu">aes</span>(<span class="at">x =</span> ENGLISH)) <span class="sc">+</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="dv">10</span>, <span class="at">color=</span> <span class="st">"cyan4"</span>)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-ed18d622a76f1d8b9e78" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-ed18d622a76f1d8b9e78">{"x":{"data":[{"orientation":"v","width":[10,10,10,10,10,10,10,10,10],"base":[0,0,0,0,0,0,0,0,0],"x":[20,30,40,50,60,70,80,90,100],"y":[2,9,23,30,60,91,87,19,1],"text":["count:  2<br />ENGLISH:  20","count:  9<br />ENGLISH:  30","count: 23<br />ENGLISH:  40","count: 30<br />ENGLISH:  50","count: 60<br />ENGLISH:  60","count: 91<br />ENGLISH:  70","count: 87<br />ENGLISH:  80","count: 19<br />ENGLISH:  90","count:  1<br />ENGLISH: 100"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(89,89,89,1)","line":{"width":1.8897637795275593,"color":"rgba(0,139,139,1)"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":26.228310502283108,"r":7.3059360730593621,"b":40.182648401826498,"l":37.260273972602747},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[10.5,109.5],"tickmode":"array","ticktext":["25","50","75","100"],"tickvals":[25,50,75,100],"categoryorder":"array","categoryarray":["25","50","75","100"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"ENGLISH","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-4.5499999999999998,95.549999999999997],"tickmode":"array","ticktext":["0","25","50","75"],"tickvals":[0,25.000000000000004,50,75],"categoryorder":"array","categoryarray":["0","25","50","75"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"count","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"b9a44200d8b2":{"x":{},"type":"bar"}},"cur_data":"b9a44200d8b2","visdat":{"b9a44200d8b2":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="add-data-labels-in-the-histograms-chart" class="level2">
+<h2 class="anchored" data-anchor-id="add-data-labels-in-the-histograms-chart">12.5 Add data labels in the histograms chart</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> exam_data, <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">"cyan2"</span>, <span class="at">fill =</span> <span class="st">"light blue"</span>) <span class="sc">+</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_bin</span>(<span class="at">bins =</span> <span class="dv">20</span>,</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">geom =</span> <span class="st">"text"</span>,</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>           <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">after_stat</span>(count)),</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.2</span>, </span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"tan1"</span>,</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex01_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="reference" class="level1">
+<h1>13 Reference</h1>
+<ul>
+<li><p>Hadley Wickham (2023)&nbsp;<a href="https://ggplot2-book.org/"><strong>ggplot2: Elegant Graphics for Data Analysis</strong></a>. Online 3rd edition.</p></li>
+<li><p>Winston Chang (2013)&nbsp;<a href="https://r-graphics.org/"><strong>R Graphics Cookbook 2nd edition</strong></a>. Online version.</p></li>
+<li><p>Healy, Kieran (2019)&nbsp;<a href="https://socviz.co/"><strong>Data Visualization: A practical introduction</strong></a>. Online version</p></li>
+<li><p><a href="https://henrywang.nl/learning-ggplot2-on-paper-components/">Learning ggplot2 on Paper – Components</a></p></li>
+<li><p><a href="https://henrywang.nl/learning-ggplot2-on-paper-layer/">Learning ggplot2 on Paper – Layer</a></p></li>
+<li><p><a href="https://henrywang.nl/tag/learning-ggplot2-on-paper/">Learning ggplot2 on Paper – Scale</a></p></li>
+</ul>
 
 
 </section>
