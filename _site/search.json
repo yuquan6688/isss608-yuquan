@@ -9,161 +9,161 @@
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "",
     "text": "The code chunk below uses p_load() of pacman package to check if tidyverse packages are installed in the computer. If they are, then they will be launched into R.\n\npacman::p_load(tidyverse)\n\n\n\n\n\nexam_data &lt;- read_csv(\"data/Exam_data.csv\")\n\nRows: 322 Columns: 7\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (4): ID, CLASS, GENDER, RACE\ndbl (3): ENGLISH, MATHS, SCIENCE\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#install-and-launching-r-packages",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#install-and-launching-r-packages",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "",
     "text": "The code chunk below uses p_load() of pacman package to check if tidyverse packages are installed in the computer. If they are, then they will be launched into R.\n\npacman::p_load(tidyverse)"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#importing-the-data",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#importing-the-data",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "",
     "text": "exam_data &lt;- read_csv(\"data/Exam_data.csv\")\n\nRows: 322 Columns: 7\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (4): ID, CLASS, GENDER, RACE\ndbl (3): ENGLISH, MATHS, SCIENCE\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#r-graphics-vs-ggplot",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#r-graphics-vs-ggplot",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "R Graphics VS ggplot",
     "text": "R Graphics VS ggplot\n\nhist(exam_data$MATHS)\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data, aes(x = MATHS)) +\n  geom_histogram(bins=10, \n                 boundary = 100,\n                 color=\"yellow\", \n                 fill=\"red\") +\n  ggtitle(\"Distribution of Maths scores\")"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_bar",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_bar",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "Geometric Objects: geom_bar",
     "text": "Geometric Objects: geom_bar\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar()"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_dotplot",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_dotplot",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "Geometric Objects: geom_dotplot",
     "text": "Geometric Objects: geom_dotplot\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot(dotsize = 0.5)\n\nBin width defaults to 1/30 of the range of the data. Pick better value with\n`binwidth`.\n\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot(binwidth=2.5,         \n               dotsize = 0.5) +      \n  scale_y_continuous(NULL,           \n                     breaks = NULL)"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_histogram",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_histogram",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "Geometric Objects: geom_histogram()",
     "text": "Geometric Objects: geom_histogram()\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_histogram()       \n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`."
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#modifying-a-geometric-object-by-changing-geom",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#modifying-a-geometric-object-by-changing-geom",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "Modifying a geometric object by changing geom()",
     "text": "Modifying a geometric object by changing geom()\n\nggplot(data=exam_data, \n       aes(x= MATHS)) +\n  geom_histogram(bins=20,            \n                 color=\"black\",      \n                 fill=\"light blue\")"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#modifying-a-geometric-object-by-changing-aes",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#modifying-a-geometric-object-by-changing-aes",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "Modifying a geometric object by changing aes()",
     "text": "Modifying a geometric object by changing aes()\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           fill = GENDER)) +\n  geom_histogram(bins=20, \n                 color=\"grey30\")"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom-density",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom-density",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "Geometric Objects: geom-density()",
     "text": "Geometric Objects: geom-density()\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_density(color=\"cyan\")           \n\n\n\n\n\n\n\n\n\nggplot(data=exam_data,\n       aes(x=MATHS,\n          color = GENDER)) +\n  geom_density()\n\n\n\n\n\n\n\n\n\nColor scheme improvement–geom-density()\n\nggplot(data = exam_data,\n       aes(x = MATHS,\n           fill = GENDER,\n           color = GENDER)) +\n  geom_density(size = 2,\n               alpha = 0.6) +\n  scale_color_manual(values = c(\"Female\" = \"#1F77B4\", \"Male\" = \"#2CA02C\")) +\n  scale_fill_manual(values = c(\"Female\" = \"#1F77B4\", \"Male\" = \"#2CA02C\")) +\n  labs(x = \"Maths Score\",\n       y = \"Density\",\n       title = \"Density of Maths Score by Gender\") +\n  theme(\n    plot.background = element_rect(fill = \"#f5f5f5\", colour = \"#f5f5f5\"),\n    plot.title = element_text(size = 16, face = \"bold\", hjust = 0.5)\n  )\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\nℹ Please use `linewidth` instead."
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_boxplot",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_boxplot",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "Geometric Objects: geom_boxplot",
     "text": "Geometric Objects: geom_boxplot\n\nggplot(data = exam_data,\n       aes(y = MATHS,\n           x = GENDER)) +\n  geom_boxplot()\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data,\n       aes(y=MATHS,\n           x=GENDER))+\n  geom_boxplot(notch = TRUE)"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_violin",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_violin",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "Geometric Objects: geom_violin",
     "text": "Geometric Objects: geom_violin\n\nggplot(data=exam_data, \n       aes(y = MATHS, \n           x= GENDER)) +\n  geom_violin()"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_point",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_point",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "Geometric Objects: geom_point()",
     "text": "Geometric Objects: geom_point()\n\nggplot(data=exam_data,\n       aes(y=MATHS,\n           x=ENGLISH))+\n  geom_point()"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom-objects-can-be-combined",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom-objects-can-be-combined",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "geom objects can be combined",
     "text": "geom objects can be combined\n\nggplot(data=exam_data,\n       aes(y=MATHS,\n           x=GENDER)) +\n  geom_boxplot() +\n  geom_point(position = \"jitter\",\n             size=0.5)"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-stat",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-stat",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "Working with stat()",
     "text": "Working with stat()\n\nggplot(data=exam_data,\n       aes(y=MATHS,x=GENDER)) +\n  geom_boxplot()"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-stat---the-stat_summary-method",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-stat---the-stat_summary-method",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "Working with stat - the stat_summary() method",
     "text": "Working with stat - the stat_summary() method\n\nggplot(data=exam_data,\n       aes(y=MATHS,\n           x=GENDER))+\n  geom_boxplot() +\n  stat_summary(geom = \"point\",\n               fun = \"mean\",\n               colour=\"red\",\n               size=4)"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-stat---the-geom-method",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-stat---the-geom-method",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "Working with stat - the geom() method",
     "text": "Working with stat - the geom() method\n\nggplot(data=exam_data,\n       aes(y=MATHS,\n           x=GENDER)) +\n  geom_boxplot() +\n  geom_point(stat=\"summary\",\n             fun=\"mean\",\n             colour=\"skyblue1\",\n             size=4)"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#adding-a-best-fit-curve-on-a-scatterplot",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#adding-a-best-fit-curve-on-a-scatterplot",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "Adding a best fit curve on a scatterplot",
     "text": "Adding a best fit curve on a scatterplot\n\nggplot(data=exam_data,\n       aes(y=MATHS,\n           x=ENGLISH))+\n  geom_point() +\n  geom_smooth(size=0.5)\n\n`geom_smooth()` using method = 'loess' and formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data,\n       aes(y=MATHS,\n           x=ENGLISH)) +\n  geom_point()+\n  geom_smooth(method = lm,\n              size=0.5)\n\n`geom_smooth()` using formula = 'y ~ x'"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-facet_wrap",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-facet_wrap",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "Working with facet_wrap()",
     "text": "Working with facet_wrap()\n\nggplot(data=exam_data,\n       aes(x=MATHS)) +\n  geom_histogram(bins = 20) +\n  facet_wrap(~ CLASS)"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#facet_grid-function",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#facet_grid-function",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "facet_grid() function",
     "text": "facet_grid() function\n\nggplot(data = exam_data,\n       aes(x=MATHS)) +\n  geom_histogram(bins = 20) +\n  facet_grid(~ CLASS)"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-coordinate",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-coordinate",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "Working with Coordinate",
     "text": "Working with Coordinate\n\nggplot(data= exam_data,\n       aes(x=RACE)) +\n  geom_bar()\n\n\n\n\n\n\n\n\n\nggplot(data = exam_data,\n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip()"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#changing-the-y--and-x-axis-range",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#changing-the-y--and-x-axis-range",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "Changing the y- and x-axis range",
     "text": "Changing the y- and x-axis range\n\nggplot(data=exam_data,\n       aes(x=MATHS,y=ENGLISH)) +\n  geom_point()+\n  geom_smooth(method = lm, size=0.5)\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data, \n       aes(x= MATHS, y=ENGLISH)) +\n  geom_point() +\n  geom_smooth(method=lm, \n              size=0.5) +  \n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100))\n\n`geom_smooth()` using formula = 'y ~ x'"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-theme",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-theme",
-    "title": "Use tabs to organize content",
+    "title": "Hand-on Exercise 1",
     "section": "Working with theme",
     "text": "Working with theme\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip() +\n  theme_gray()\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip() +\n  theme_classic()\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip() +\n  theme_minimal()"
   },
@@ -173,54 +173,5 @@
     "title": "isss608-yuquan",
     "section": "",
     "text": "Welcome to ISSS608 Visual Analytics and Applications. In this website, you will find my coursework prepared for this course."
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#r-graphics-vs-ggplot-1",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#r-graphics-vs-ggplot-1",
-    "title": "Hand-on Exercise 1",
-    "section": "3 R Graphics vs ggplot",
-    "text": "3 R Graphics vs ggplot\n\nBase R Histogram\n\npar(bg = \"#f5f5f5\")\n\nhist(exam_data$MATHS, \n     ylab='Number of Students', \n     xlab='Score', \n     main='Distribution of Maths scores',\n     col='#7F948F')\n\n\n\n\n\n\n\nggplot(data=exam_data, aes(x = MATHS)) +\n  geom_histogram(bins=10, \n                 boundary = 100,\n                 color=\"black\", \n                 fill=\"#7F948F\") +\n#  ggtitle(\"Distribution of Maths scores\")+\n  labs(x = \"Score\",\n       y = \"Number of Students\",\n       title = \"Distribution of Maths scores\")+\n  #theme_grey()+\n  theme(plot.background=element_rect(fill=\"#f5f5f5\",colour=\"#f5f5f5\"))"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#histogram-comparison",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#histogram-comparison",
-    "title": "Comparison of R Base vs ggplot2 Histogram",
-    "section": "Histogram Comparison",
-    "text": "Histogram Comparison\n\nBase R Histogram\n\n# 设置背景颜色\npar(bg = \"#f5f5f5\")\n\n# Base R 直方图\nhist(exam_data$MATHS, \n     ylab = \"Number of Students\", \n     xlab = \"Score\", \n     main = \"Distribution of Maths scores\",\n     col = \"#7F948F\")\n\n\n\n\n\n\n\n\n\nlibrary(ggplot2)\n\n# ggplot2 直方图\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 10, \n                 boundary = 100,\n                 color = \"black\", \n                 fill = \"#7F948F\") +\n  labs(x = \"Score\",\n       y = \"Number of Students\",\n       title = \"Distribution of Maths scores\") +\n  theme(plot.background = element_rect(fill = \"#f5f5f5\", colour = \"#f5f5f5\"))"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#maths-score-plots",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#maths-score-plots",
-    "title": "Math Score Visualization Tabs",
-    "section": "Maths Score Plots",
-    "text": "Maths Score Plots\n\nBase R Plot\n\n\n# 设置背景颜色并绘图\npar(bg = \"#f5f5f5\")\n\nhist(exam_data$MATHS, \n     ylab = 'Number of Students', \n     xlab = 'Score', \n     main = 'Distribution of Maths scores',\n     col = '#7F948F')\n\n\n\n\n\n\n\n\n\n\n\n点击展开查看 Base R 源码\n\npar(bg = \"#f5f5f5\")\n\nhist(exam_data$MATHS, \n     ylab = 'Number of Students', \n     xlab = 'Score', \n     main = 'Distribution of Maths scores',\n     col = '#7F948F')\n\n\n\n\nggplot2 Plot\n\n\nlibrary(ggplot2)\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 10, \n                 boundary = 100,\n                 color = \"black\", \n                 fill = \"#7F948F\") +\n  labs(x = \"Score\",\n       y = \"Number of Students\",\n       title = \"Distribution of Maths scores\") +\n  theme(plot.background = element_rect(fill = \"#f5f5f5\", colour = \"#f5f5f5\"))\n\n\n\n\n\n\n\n\n\n\n\n点击展开查看 ggplot2 源码\n\nlibrary(ggplot2)\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 10, \n                 boundary = 100,\n                 color = \"black\", \n                 fill = \"#7F948F\") +\n  labs(x = \"Score\",\n       y = \"Number of Students\",\n       title = \"Distribution of Maths scores\") +\n  theme(plot.background = element_rect(fill = \"#f5f5f5\", colour = \"#f5f5f5\"))"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#score-plots",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#score-plots",
-    "title": "Math Score Visualization Tabs",
-    "section": "Score Plots",
-    "text": "Score Plots\n\nBase R Plot\n\n\nCode\n# 设置背景颜色并绘图\npar(bg = \"#f5f5f5\")\n\nhist(exam_data$MATHS, \n     ylab = 'Number of Students', \n     xlab = 'Score', \n     main = 'Distribution of Maths scores',\n     col = '#7F948F')\n\n\n\n\n\n\n\n\n\n\n\n点击展开查看 Base R 源码\n\npar(bg = \"#f5f5f5\")\n\nhist(exam_data$MATHS, \n     ylab = 'Number of Students', \n     xlab = 'Score', \n     main = 'Distribution of Maths scores',\n     col = '#7F948F')\n\n\n\n\nggplot2 Plot\n\n\nCode\nlibrary(ggplot2)\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 10, \n                 boundary = 100,\n                 color = \"black\", \n                 fill = \"#7F948F\") +\n  labs(x = \"Score\",\n       y = \"Number of Students\",\n       title = \"Distribution of Maths scores\") +\n  theme(plot.background = element_rect(fill = \"#f5f5f5\", colour = \"#f5f5f5\"))\n\n\n\n\n\n\n\n\n\n\n\n点击展开查看 ggplot2 源码\n\nlibrary(ggplot2)\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 10, \n                 boundary = 100,\n                 color = \"black\", \n                 fill = \"#7F948F\") +\n  labs(x = \"Score\",\n       y = \"Number of Students\",\n       title = \"Distribution of Maths scores\") +\n  theme(plot.background = element_rect(fill = \"#f5f5f5\", colour = \"#f5f5f5\"))"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#results",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#results",
-    "title": "Use tabs to organize content",
-    "section": "Results",
-    "text": "Results\n\nPlots\nWe show a scatter plot in this section.\n\npar(mar = c(4, 4, .5, .1))\nplot(mpg ~ hp, data = mtcars, pch = 19)\n\n\n\n\n\n\n\n\n\n\nTables\nWe show the data in this tab.\n\nhead(mtcars)\n\n                   mpg cyl disp  hp drat    wt  qsec vs am gear carb\nMazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1\nHornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1\nHornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2\nValiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#plots",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#plots",
-    "title": "Use tabs to organize content",
-    "section": "Plots",
-    "text": "Plots\nWe show a scatter plot in this section.\n\npar(mar = c(4, 4, .5, .1))\nplot(mpg ~ hp, data = mtcars, pch = 19)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#tables",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#tables",
-    "title": "Use tabs to organize content",
-    "section": "Tables",
-    "text": "Tables\nWe show the data in this tab.\n\nhead(mtcars)\n\n                   mpg cyl disp  hp drat    wt  qsec vs am gear carb\nMazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1\nHornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1\nHornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2\nValiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1"
   }
 ]
