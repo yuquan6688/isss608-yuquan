@@ -74,7 +74,7 @@
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom-density",
     "title": "Hand-on Exercise 1",
     "section": "Geometric Objects: geom-density()",
-    "text": "Geometric Objects: geom-density()\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_density(color=\"cyan\")           \n\n\n\n\n\n\n\n\n\nggplot(data=exam_data,\n       aes(x=MATHS,\n          color = GENDER)) +\n  geom_density()\n\n\n\n\n\n\n\n\n\nColor scheme improvement–geom-density()\n\nggplot(data = exam_data,\n       aes(x = MATHS,\n           fill = GENDER,\n           color = GENDER)) +\n  geom_density(linewidth = 2,\n               alpha = 0.6) +\n  scale_color_manual(values = c(\"Female\" = \"#1F77B4\", \"Male\" = \"#2CA02C\")) +\n  scale_fill_manual(values = c(\"Female\" = \"#1F77B4\", \"Male\" = \"#2CA02C\")) +\n  labs(x = \"Maths Score\",\n       y = \"Density\",\n       title = \"Density of Maths Score by Gender\") +\n  theme(\n    plot.background = element_rect(fill = \"#f5f5f5\", colour = \"#f5f5f5\"),\n    plot.title = element_text(size = 16, face = \"bold\", hjust = 0.5)\n  )"
+    "text": "Geometric Objects: geom-density()\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_density(color=\"cyan\")           \n\n\n\n\n\n\n\n\n\nggplot(data=exam_data,\n       aes(x=MATHS,\n          color = GENDER)) +\n  geom_density()"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_boxplot",
@@ -173,5 +173,12 @@
     "title": "isss608-yuquan",
     "section": "",
     "text": "Welcome to ISSS608 Visual Analytics and Applications. In this website, you will find my coursework prepared for this course."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#color-scheme-improvementgeom-density",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#color-scheme-improvementgeom-density",
+    "title": "Hand-on Exercise 1",
+    "section": "Color scheme improvement–geom-density()",
+    "text": "Color scheme improvement–geom-density()\n\nggplot(data = exam_data,\n       aes(x = MATHS,\n           fill = GENDER,\n           color = GENDER)) +\n  geom_density(linewidth = 2,\n               alpha = 0.6) +\n  scale_color_manual(values = c(\"Female\" = \"#1F77B4\", \"Male\" = \"#2CA02C\")) +\n  scale_fill_manual(values = c(\"Female\" = \"#1F77B4\", \"Male\" = \"#2CA02C\")) +\n  labs(x = \"Maths Score\",\n       y = \"Density\") +\n  theme(\n    plot.background = element_rect(fill = \"#f5f5f5\", colour = \"#f5f5f5\"),\n    plot.title = element_text(size = 16, face = \"bold\", hjust = 0.5)\n  )"
   }
 ]
