@@ -1,6 +1,7 @@
 ---
 title: "Hand-on Exercise 1"
 author: "Li Yuquan"
+Date: "17/4/2025"
 ---
 
 # Getting Started
@@ -130,20 +131,13 @@ ggplot(data=exam_data,
 ## Color scheme improvement--geom-density()
 
 ```{r}
-ggplot(data = exam_data,
-       aes(x = MATHS,
-           fill = GENDER,
-           color = GENDER)) +
-  geom_density(linewidth = 2,
-               alpha = 0.6) +
+ggplot(data = exam_data, aes(x = MATHS, fill = GENDER, color = GENDER)) +
+  geom_density(linewidth = 2, alpha = 0.6) +
   scale_color_manual(values = c("Female" = "#1F77B4", "Male" = "#2CA02C")) +
   scale_fill_manual(values = c("Female" = "#1F77B4", "Male" = "#2CA02C")) +
-  labs(x = "Maths Score",
-       y = "Density") +
-  theme(
-    plot.background = element_rect(fill = "#f5f5f5", colour = "#f5f5f5"),
-    plot.title = element_text(size = 16, face = "bold", hjust = 0.5)
-  )
+  labs(x = "Maths Score", y = "Density") +
+  theme(plot.background = element_rect(fill = "#f5f5f5", colour = "#f5f5f5"),
+    plot.title = element_text(size = 16, face = "bold", hjust = 0.5))
 ```
 
 ## Geometric Objects: geom_boxplot
