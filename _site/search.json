@@ -35,20 +35,6 @@
     "text": "R Graphics VS ggplot\n\nhist(exam_data$MATHS)\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data, aes(x = MATHS)) +\n  geom_histogram(bins=10, \n                 boundary = 100,\n                 color=\"yellow\", \n                 fill=\"red\") +\n  ggtitle(\"Distribution of Maths scores\")"
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#essential-grammatical-elements-in-ggplot2-data",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#essential-grammatical-elements-in-ggplot2-data",
-    "title": "Hand-on Exercise 1",
-    "section": "Essential Grammatical Elements in ggplot2: data",
-    "text": "Essential Grammatical Elements in ggplot2: data\n\nggplot(data=exam_data)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#essential-grammatical-elements-in-ggplot2-aesthetic-mappings",
-    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#essential-grammatical-elements-in-ggplot2-aesthetic-mappings",
-    "title": "Hand-on Exercise 1",
-    "section": "Essential Grammatical Elements in ggplot2: Aesthetic mappings",
-    "text": "Essential Grammatical Elements in ggplot2: Aesthetic mappings\n\nggplot(data=exam_data, \n       aes(x= MATHS))"
-  },
-  {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_bar",
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_bar",
     "title": "Hand-on Exercise 1",
@@ -88,7 +74,7 @@
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom-density",
     "title": "Hand-on Exercise 1",
     "section": "Geometric Objects: geom-density()",
-    "text": "Geometric Objects: geom-density()\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_density()           \n\n\n\n\n\n\n\n\n\nggplot(data=exam_data,\n       aes(x=MATHS,\n          color = GENDER)) +\n  geom_density()"
+    "text": "Geometric Objects: geom-density()\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_density(color=\"cyan\")           \n\n\n\n\n\n\n\n\n\nggplot(data=exam_data,\n       aes(x=MATHS,\n          color = GENDER)) +\n  geom_density()"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_boxplot",
@@ -137,7 +123,7 @@
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-stat---the-geom-method",
     "title": "Hand-on Exercise 1",
     "section": "Working with stat - the geom() method",
-    "text": "Working with stat - the geom() method\n\nggplot(data=exam_data,\n       aes(y=MATHS,\n           x=GENDER)) +\n  geom_boxplot() +\n  geom_point(stat=\"summary\",\n             fun=\"mean\",\n             colour=\"red\",\n             size=4)"
+    "text": "Working with stat - the geom() method\n\nggplot(data=exam_data,\n       aes(y=MATHS,\n           x=GENDER)) +\n  geom_boxplot() +\n  geom_point(stat=\"summary\",\n             fun=\"mean\",\n             colour=\"skyblue1\",\n             size=4)"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#adding-a-best-fit-curve-on-a-scatterplot",
