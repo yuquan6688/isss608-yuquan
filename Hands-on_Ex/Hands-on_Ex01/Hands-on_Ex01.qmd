@@ -127,6 +127,26 @@ ggplot(data=exam_data,
   geom_density()
 ```
 
+### Color scheme improvement--geom-density()
+
+```{r}
+ggplot(data = exam_data,
+       aes(x = MATHS,
+           fill = GENDER,
+           color = GENDER)) +
+  geom_density(size = 2,
+               alpha = 0.6) +
+  scale_color_manual(values = c("Female" = "#1F77B4", "Male" = "#2CA02C")) +
+  scale_fill_manual(values = c("Female" = "#1F77B4", "Male" = "#2CA02C")) +
+  labs(x = "Maths Score",
+       y = "Density",
+       title = "Density of Maths Score by Gender") +
+  theme(
+    plot.background = element_rect(fill = "#f5f5f5", colour = "#f5f5f5"),
+    plot.title = element_text(size = 16, face = "bold", hjust = 0.5)
+  )
+```
+
 ## Geometric Objects: geom_boxplot
 
 ```{r}
@@ -346,7 +366,7 @@ ggplot(color_df, aes(x = x, y = y)) +
   theme(legend.position = "none") 
 ```
 
-3. Interactive Scatter Plot
+3.  Interactive Scatter Plot
 
 ```{r}
 pacman::p_load(plotly)
@@ -357,7 +377,7 @@ p <- ggplot(data=exam_data, aes(x = ENGLISH, y = MATHS, color = GENDER)) +
 ggplotly(p)
 ```
 
-4. Interactive histogram chart
+4.  Interactive histogram chart
 
 ```{r}
 p <- ggplot(exam_data, aes(x = ENGLISH)) +
@@ -365,7 +385,7 @@ p <- ggplot(exam_data, aes(x = ENGLISH)) +
 ggplotly(p)
 ```
 
-5. Add data labels in the histograms chart
+5.  Add data labels in the histograms chart
 
 ```{r}
 ggplot(data = exam_data, aes(x = MATHS)) +
