@@ -134,7 +134,7 @@ ggplot(data = exam_data,
        aes(x = MATHS,
            fill = GENDER,
            color = GENDER)) +
-  geom_density(size = 2,
+  geom_density(linewidth = 2,
                alpha = 0.6) +
   scale_color_manual(values = c("Female" = "#1F77B4", "Male" = "#2CA02C")) +
   scale_fill_manual(values = c("Female" = "#1F77B4", "Male" = "#2CA02C")) +

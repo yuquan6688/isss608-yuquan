@@ -74,7 +74,7 @@
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom-density",
     "title": "Hand-on Exercise 1",
     "section": "Geometric Objects: geom-density()",
-    "text": "Geometric Objects: geom-density()\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_density(color=\"cyan\")           \n\n\n\n\n\n\n\n\n\nggplot(data=exam_data,\n       aes(x=MATHS,\n          color = GENDER)) +\n  geom_density()\n\n\n\n\n\n\n\n\n\nColor scheme improvement–geom-density()\n\nggplot(data = exam_data,\n       aes(x = MATHS,\n           fill = GENDER,\n           color = GENDER)) +\n  geom_density(size = 2,\n               alpha = 0.6) +\n  scale_color_manual(values = c(\"Female\" = \"#1F77B4\", \"Male\" = \"#2CA02C\")) +\n  scale_fill_manual(values = c(\"Female\" = \"#1F77B4\", \"Male\" = \"#2CA02C\")) +\n  labs(x = \"Maths Score\",\n       y = \"Density\",\n       title = \"Density of Maths Score by Gender\") +\n  theme(\n    plot.background = element_rect(fill = \"#f5f5f5\", colour = \"#f5f5f5\"),\n    plot.title = element_text(size = 16, face = \"bold\", hjust = 0.5)\n  )\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\nℹ Please use `linewidth` instead."
+    "text": "Geometric Objects: geom-density()\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_density(color=\"cyan\")           \n\n\n\n\n\n\n\n\n\nggplot(data=exam_data,\n       aes(x=MATHS,\n          color = GENDER)) +\n  geom_density()\n\n\n\n\n\n\n\n\n\nColor scheme improvement–geom-density()\n\nggplot(data = exam_data,\n       aes(x = MATHS,\n           fill = GENDER,\n           color = GENDER)) +\n  geom_density(linewidth = 2,\n               alpha = 0.6) +\n  scale_color_manual(values = c(\"Female\" = \"#1F77B4\", \"Male\" = \"#2CA02C\")) +\n  scale_fill_manual(values = c(\"Female\" = \"#1F77B4\", \"Male\" = \"#2CA02C\")) +\n  labs(x = \"Maths Score\",\n       y = \"Density\",\n       title = \"Density of Maths Score by Gender\") +\n  theme(\n    plot.background = element_rect(fill = \"#f5f5f5\", colour = \"#f5f5f5\"),\n    plot.title = element_text(size = 16, face = \"bold\", hjust = 0.5)\n  )"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_boxplot",
@@ -130,7 +130,7 @@
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#adding-a-best-fit-curve-on-a-scatterplot",
     "title": "Hand-on Exercise 1",
     "section": "Adding a best fit curve on a scatterplot",
-    "text": "Adding a best fit curve on a scatterplot\n\nggplot(data=exam_data,\n       aes(y=MATHS,\n           x=ENGLISH))+\n  geom_point() +\n  geom_smooth(size=0.5)\n\n`geom_smooth()` using method = 'loess' and formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data,\n       aes(y=MATHS,\n           x=ENGLISH)) +\n  geom_point()+\n  geom_smooth(method = lm,\n              size=0.5)\n\n`geom_smooth()` using formula = 'y ~ x'"
+    "text": "Adding a best fit curve on a scatterplot\n\nggplot(data=exam_data,\n       aes(y=MATHS,\n           x=ENGLISH))+\n  geom_point() +\n  geom_smooth(size=0.5)\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\nℹ Please use `linewidth` instead.\n\n\n`geom_smooth()` using method = 'loess' and formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data,\n       aes(y=MATHS,\n           x=ENGLISH)) +\n  geom_point()+\n  geom_smooth(method = lm,\n              size=0.5)\n\n`geom_smooth()` using formula = 'y ~ x'"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-facet_wrap",
