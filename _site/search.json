@@ -189,39 +189,11 @@
     "text": "12.5 Add data labels in the histograms chart\n\nggplot(data = exam_data, aes(x = MATHS)) +\n  geom_histogram(bins = 20, color = \"cyan2\", fill = \"light blue\") +\n  stat_bin(bins = 20,\n           geom = \"text\",\n           aes(label = after_stat(count)),\n           vjust = -0.2, \n           color = \"tan1\",\n           size = 4)"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "isss608-yuquan",
-    "section": "",
-    "text": "Welcome to ISSS608 Visual Analytics and Applications. In this website, you will find my coursework prepared for this course."
-  },
-  {
     "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html",
     "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html",
     "title": "Hand-on Exercise 2 — Beyond ggplot2 Fundamentals",
     "section": "",
     "text": "In this chapter, we will be learning about ggplot2 extensions for creating more elegant and effective statistical graphics. The goals of this exercise is to:\n\ncontrol the placement of annotation on a graph by using functions provided in ggrepel package.\ncreate professional publication quality figure by using functions provided in ggthemes and hrbrthemes packages.\nand plot composite figure by combining ggplot2 graphs by using patchwork package."
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#installing-and-loading-the-required-libraries",
-    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#installing-and-loading-the-required-libraries",
-    "title": "Hand-on Exercise 2 — Beyond ggplot2 Fundamentals",
-    "section": "Installing and loading the required libraries",
-    "text": "Installing and loading the required libraries\n\npacman::p_load(ggrepel, patchwork, \n               ggthemes, hrbrthemes,\n               tidyverse)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#importing-the-data",
-    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#importing-the-data",
-    "title": "Hand-on Exercise 2 — Beyond ggplot2 Fundamentals",
-    "section": "Importing the data",
-    "text": "Importing the data\n\nexam_data &lt;- read_csv(\"data/Exam_data.csv\")\n\nRows: 322 Columns: 7\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (4): ID, CLASS, GENDER, RACE\ndbl (3): ENGLISH, MATHS, SCIENCE\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#summary",
-    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#summary",
-    "title": "Hand-on Exercise 2 — Beyond ggplot2 Fundamentals",
-    "section": "summary",
-    "text": "summary\n\nsummary(exam_data)\n\n      ID               CLASS              GENDER              RACE          \n Length:322         Length:322         Length:322         Length:322        \n Class :character   Class :character   Class :character   Class :character  \n Mode  :character   Mode  :character   Mode  :character   Mode  :character  \n                                                                            \n                                                                            \n                                                                            \n    ENGLISH          MATHS          SCIENCE     \n Min.   :21.00   Min.   : 9.00   Min.   :15.00  \n 1st Qu.:59.00   1st Qu.:58.00   1st Qu.:49.25  \n Median :70.00   Median :74.00   Median :65.00  \n Mean   :67.18   Mean   :69.33   Mean   :61.16  \n 3rd Qu.:78.00   3rd Qu.:85.00   3rd Qu.:74.75  \n Max.   :96.00   Max.   :99.00   Max.   :96.00"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#working-with-ggrepel",
@@ -235,7 +207,7 @@
     "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#working-with-ggtheme-package",
     "title": "Hand-on Exercise 2 — Beyond ggplot2 Fundamentals",
     "section": "4.1 Working with ggtheme package",
-    "text": "4.1 Working with ggtheme package\nThe ggthemes package provides ggplot2 themes that replicate the look of plots by Edward Tufte, Stephen Few, Fivethirtyeight, The Economist, ‘Stata’, ‘Excel’, and The Wall Street Journal, etc. It also provides some extra geoms and scales for ggplot2.\n\nggplot(data=exam_data,\n       aes(x = MATHS)) +\n  geom_histogram(bins=20,\n                 boundary = 100,\n                 color = \"grey25\",\n                 fill = \"grey90\") +\n  ggtitle(\"Distribution of Maths score\") +\n  theme_economist()"
+    "text": "4.1 Working with ggtheme package\nThe ggthemes package provides ggplot2 themes that replicate the look of plots by Edward Tufte, Stephen Few, Fivethirtyeight, The Economist, ‘Stata’, ‘Excel’, and The Wall Street Journal, etc. It also provides some extra geoms and scales for ggplot2.\n\neconomistwsjcalc\n\n\n\nggplot(data=exam_data,\n       aes(x = MATHS)) +\n  geom_histogram(bins=20,\n                 boundary = 100,\n                 color = \"grey25\",\n                 fill = \"grey90\") +\n  ggtitle(\"Distribution of Maths score\") +\n  theme_economist()\n\n\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data,\n       aes(x = MATHS)) +\n  geom_histogram(bins=20,\n                 boundary = 100,\n                 color = \"grey25\",\n                 fill = \"grey90\") +\n  ggtitle(\"Distribution of Maths score\") +\n    theme_wsj()\n\n\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data,\n       aes(x = MATHS)) +\n  geom_histogram(bins=20,\n                 boundary = 100,\n                 color = \"grey25\",\n                 fill = \"grey90\") +\n  ggtitle(\"Distribution of Maths score\") +\n  theme_calc()"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#working-with-hrbthems-package",
@@ -256,7 +228,7 @@
     "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#combining-two-ggplot2-graphs",
     "title": "Hand-on Exercise 2 — Beyond ggplot2 Fundamentals",
     "section": "5.2 Combining two ggplot2 graphs",
-    "text": "5.2 Combining two ggplot2 graphs\nFigure below shows a composite of two histograms created using patchwork.\n\np1 + p2"
+    "text": "5.2 Combining two ggplot2 graphs\nFigure below shows a composite of two histograms created using patchwork.\n\nTwo-Column LayoutTwo-Row LayoutSide by side in horizontal\n\n\n\np1 + p2\n\n\n\n\n\n\n\n\n\n\n\np1 / p2\n\n\n\n\n\n\n\n\n\n\n\np1 | p2"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#combining-three-ggplot2-graphs",
@@ -285,5 +257,12 @@
     "title": "Hand-on Exercise 2 — Beyond ggplot2 Fundamentals",
     "section": "5.6 Creating a composite figure by using patchwork and ggtheme",
     "text": "5.6 Creating a composite figure by using patchwork and ggtheme\nUsing both the ggthemes and patchwork packages, a composite figure with The Economist theme is created.\n\npatchwork &lt;- (p1 / p2) | p3\npatchwork & theme_economist()\n\n`geom_smooth()` using formula = 'y ~ x'"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "isss608-yuquan",
+    "section": "",
+    "text": "Welcome to ISSS608 Visual Analytics and Applications. In this website, you will find my coursework prepared for this course."
   }
 ]

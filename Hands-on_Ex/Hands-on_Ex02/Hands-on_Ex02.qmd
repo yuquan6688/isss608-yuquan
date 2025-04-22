@@ -120,6 +120,9 @@ ggplot(data=exam_data,
 
 The ggthemes package provides ggplot2 themes that replicate the look of plots by Edward Tufte, Stephen Few, Fivethirtyeight, The Economist, ‘Stata’, ‘Excel’, and The Wall Street Journal, etc. It also provides some extra geoms and scales for ggplot2.
 
+::: panel-tabset
+### economist
+
 ```{r}
 ggplot(data=exam_data,
        aes(x = MATHS)) +
@@ -130,6 +133,33 @@ ggplot(data=exam_data,
   ggtitle("Distribution of Maths score") +
   theme_economist()
 ```
+
+### wsj
+
+```{r}
+ggplot(data=exam_data,
+       aes(x = MATHS)) +
+  geom_histogram(bins=20,
+                 boundary = 100,
+                 color = "grey25",
+                 fill = "grey90") +
+  ggtitle("Distribution of Maths score") +
+    theme_wsj()
+```
+
+### calc
+
+```{r}
+ggplot(data=exam_data,
+       aes(x = MATHS)) +
+  geom_histogram(bins=20,
+                 boundary = 100,
+                 color = "grey25",
+                 fill = "grey90") +
+  ggtitle("Distribution of Maths score") +
+  theme_calc()
+```
+:::
 
 ## 4.2 Working with hrbthems package
 
@@ -204,7 +234,7 @@ p3 <- ggplot(data=exam_data,
                  y=ENGLISH)) +
   geom_point() +
   geom_smooth(method=lm, 
-              size=0.5) +  
+              linewidth=0.5) +  
   coord_cartesian(xlim=c(0,100),
                   ylim=c(0,100)) +
   ggtitle("English scores versus Maths scores for Primary 3")
@@ -227,9 +257,25 @@ Patchwork package has a very simple syntax where we can create layouts super eas
 
 Figure below shows a composite of two histograms created using patchwork.
 
+::: panel-tabset
+### Two-Column Layout
+
 ```{r}
 p1 + p2
 ```
+
+### Two-Row Layout
+
+```{r}
+p1 / p2
+```
+
+### Side by side in horizontal
+
+```{r}
+p1 | p2
+```
+:::
 
 ## 5.3 Combining three ggplot2 graphs
 
