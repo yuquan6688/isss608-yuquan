@@ -110,8 +110,8 @@ ggplot(data=exam_data,
              aes(x = MATHS)) +
   geom_histogram(bins=20, 
                  boundary = 100,
-                 color="grey25", 
-                 fill="grey90") +
+                 color="cyan4", 
+                 fill="cyan1") +
   theme_gray() +
   ggtitle("Distribution of Maths scores") 
 ```
@@ -129,7 +129,7 @@ ggplot(data=exam_data,
   geom_histogram(bins=20,
                  boundary = 100,
                  color = "grey25",
-                 fill = "grey90") +
+                 fill = "skyblue") +
   ggtitle("Distribution of Maths score") +
   theme_economist()
 ```
@@ -142,7 +142,7 @@ ggplot(data=exam_data,
   geom_histogram(bins=20,
                  boundary = 100,
                  color = "grey25",
-                 fill = "grey90") +
+                 fill = "red") +
   ggtitle("Distribution of Maths score") +
     theme_wsj()
 ```
@@ -171,7 +171,7 @@ ggplot(data=exam_data,
   geom_histogram(bins=20, 
                  boundary = 100,
                  color="grey25", 
-                 fill="grey90") +
+                 fill="yellow") +
   ggtitle("Distribution of Maths scores") +
   theme_ipsum()
 ```
@@ -186,7 +186,7 @@ ggplot(data=exam_data,
   geom_histogram(bins=20, 
                  boundary = 100,
                  color="grey25", 
-                 fill="grey90") +
+                 fill="grey99") +
   ggtitle("Distribution of Maths scores") +
   theme_ipsum(axis_title_size = 18,
               base_size = 15,
@@ -289,9 +289,24 @@ For example, the composite figure below is plotted by using:
 
 -   “()” to define the sequence of the plotting.
 
+::: panel-tabset
+### / and \| Operators
 ```{r}
 (p1 /p2) | p3
 ```
+
+### Adjust the layout 1
+```{r}
+p1 + p2 + p3 + plot_layout(ncol=1)
+```
+
+### Adjust the layout 2
+```{r}
+p3 + {
+  p1 + p2 + plot_layout(ncol=1)
+}
+```
+:::
 
 ## 5.4 Creating a composite figure with tag
 
@@ -318,10 +333,33 @@ p3 + inset_element(p2,
 
 Using both the ggthemes and patchwork packages, a composite figure with The Economist theme is created.
 
+::: panel-tabset
+### theme_economist()
+
 ```{r}
 patchwork <- (p1 / p2) | p3
-patchwork & theme_economist()
+
+patchwork & theme_economist() +
+  theme(plot.title=element_text(size =10),
+                                        axis.title.y=element_text(size = 9,
+                                                                  angle = 0,
+                                                                  vjust=0.9),
+                                         axis.title.x=element_text(size = 9))
 ```
+
+### theme_solarized_2()
+
+```{r}
+patchwork <- (p1 / p2) | p3
+
+patchwork & theme_solarized_2() +
+  theme(plot.title=element_text(size =10),
+                                        axis.title.y=element_text(size = 9,
+                                                                  angle = 0,
+                                                                  vjust=0.9),
+                                         axis.title.x=element_text(size = 9))
+```
+:::
 
 # 6 Reference
 
