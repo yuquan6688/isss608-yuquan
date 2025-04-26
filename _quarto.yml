@@ -17,7 +17,7 @@ website:
           - text: "In-Class Exercise 1"
             href: "In-Class_Exercise.html"
           - text: "In-Class Exercise 2"
-            href: "In-Class_Exercise2.html"      
+            href: "https://public.tableau.com/app/profile/yuquan.li/viz/In-classEx02SuperstoreReport/Dashboard1"      
 
     right:
       - href: index.qmd
@@ -29,6 +29,7 @@ format:
     theme: minty
     css: styles.css
     toc: true
+    smooth-scroll: true
 
 editor: visual
 

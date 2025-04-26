@@ -3,3 +3,25 @@ title: "1"
 format: html
 ---
 
+```{r}
+pacman::p_load(tidyverse)
+```
+
+```{r}
+exam_data <- read_csv("data/Exam_data.csv")
+```
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= MATHS, 
+           fill = GENDER)) +
+  geom_histogram(bins=20, 
+                 color="grey30")
+```
+
+```{r}
+ggplot(data=exam_data,
+       aes(x=MATHS,
+          color = GENDER)) +
+  geom_density()
+```

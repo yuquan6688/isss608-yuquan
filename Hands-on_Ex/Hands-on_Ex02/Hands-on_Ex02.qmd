@@ -6,6 +6,11 @@ date: "April 22, 2024"
 date-modified: "last-modified"
 format: html
 editor: visual
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  freeze: true
 ---
 
 # 1 Overview
