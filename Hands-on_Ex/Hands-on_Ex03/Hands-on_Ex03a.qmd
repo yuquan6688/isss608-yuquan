@@ -33,7 +33,7 @@ Use the pacman package to check, install and launch the following R packages:
 
 ```{r}
 pacman::p_load(ggiraph, plotly, 
-               patchwork, DT, tidyverse) 
+               patchwork, DT, tidyverse, div) 
 ```
 
 # 3 Importing the data
@@ -723,6 +723,7 @@ crosstalk::bscols(gg,
 ### The Code
 
 Code chunk below is used to implement the coordinated brushing shown above.
+
 ```{r,eval=FALSE}
 d <- highlight_key(exam_data)
 p <- ggplot(d,
@@ -740,36 +741,71 @@ crosstalk::bscols(gg,
                   widths = 5)
 ```
 
-  -**highlight()** is a function of plotly package. It sets a variety of options for brushing (i.e., highlighting) multiple plots. These options are primarily designed for linking multiple plotly graphs, and may not behave as expected when linking plotly to another htmlwidget package via crosstalk. In some cases, other htmlwidgets will respect these options, such as persistent selection in leaflet.
+\-**highlight()** is a function of plotly package. It sets a variety of options for brushing (i.e., highlighting) multiple plots. These options are primarily designed for linking multiple plotly graphs, and may not behave as expected when linking plotly to another htmlwidget package via crosstalk. In some cases, other htmlwidgets will respect these options, such as persistent selection in leaflet.
 
-  -**bscols()** is a helper function of crosstalk package. It makes it easy to put HTML elements side by side. It can be called directly from the console but is especially designed to work in an R Markdown document. Warning: This will bring in all of Bootstrap!.
+\-**bscols()** is a helper function of crosstalk package. It makes it easy to put HTML elements side by side. It can be called directly from the console but is especially designed to work in an R Markdown document. Warning: This will bring in all of Bootstrap!.
 :::
+
+
 
 ```{r}
 library(crosstalk)
+library(htmltools)
 
 d <- highlight_key(exam_data)
-p <- ggplot(d,
-            aes(ENGLISH,
-                MATHS)) +
+
+p <- ggplot(d, aes(ENGLISH, MATHS)) +
   geom_point(size=1) +
-  coord_cartesian(xlim=c(0,100),
-                  ylim=c(0,100))
+  coord_cartesian(xlim=c(0,100), ylim=c(0,100))
 
-gg <- highlight(ggplotly(p),
-                "plotly_selected")
+gg <- highlight(ggplotly(p), "plotly_selected")
 
-filter_widget <- filter_select(
-  id = "id_selector",
-  label = "Select Student ID:",
-  sharedData = d,
-  group = ~ID
+filter_widget <- div(style = "width:200px;",
+                     filter_select(
+                       id = "id_selector",
+                       label = "Select Student ID:",
+                       sharedData = d,
+                       group = ~ID
+                     ))
+
+crosstalk::bscols(
+  tagList(filter_widget, gg),
+  DT::datatable(d, options = list(scrollX = TRUE)),
+  widths = 10
 )
-
-bscols(widths = c(5,7),
-       list(filter_widget, gg),
-       DT::datatable(d))
 ```
 
 
 # 9 Reference
+
+## 9.1 ggiraph
+
+This [link](https://davidgohel.github.io/ggiraph/index.html) provides online version of the reference guide and several useful articles. Use this [link](https://cran.r-project.org/web/packages/ggiraph/ggiraph.pdf) to download the pdf version of the reference guide.
+
+-   [How to Plot With Ggiraph](https://www.r-bloggers.com/2018/04/how-to-plot-with-ggiraph/)
+
+-   [Interactive map of France with ggiraph](http://rstudio-pubs-static.s3.amazonaws.com/152833_56a4917734204de7b37881d164cf8051.html)
+
+-   [Custom interactive sunbursts with ggplot in R](https://www.pipinghotdata.com/posts/2021-06-01-custom-interactive-sunbursts-with-ggplot-in-r/)
+
+-   This [link](https://github.com/d-qn/2016_08_02_rioOlympicsAthletes) provides code example on how ggiraph is used to interactive graphs for [Swiss Olympians - the solo specialists](https://www.swissinfo.ch/eng/rio-2016-_swiss-olympiansthe-solo-specialists-/42349156?utm_content=bufferd148b&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer).
+
+## 9.2 plotly for R
+
+-   [Getting Started with Plotly in R](https://plotly.com/r/getting-started/)
+
+-   A collection of plotly R graphs are available via this [link](https://plotly.com/r/).
+
+-   Carson Sievert (2020) **Interactive web-based data visualization with R, plotly, and shiny**, Chapman and Hall/CRC is the best resource to learn plotly for R. The online version is available via this [link](https://plotly-r.com/)
+
+-   [Plotly R Figure Reference](https://plotly.com/r/reference/index/) provides a comprehensive discussion of each visual representations.
+
+-   [Plotly R Library Fundamentals](https://plotly.com/r/plotly-fundamentals/) is a good place to learn the fundamental features of Plotly’s R API.
+
+-   [Getting Started](https://gganimate.com/articles/gganimate.html)
+
+-   Visit this [link](https://rpubs.com/raymondteo/dataviz8) for a very interesting implementation of gganimate by your senior.
+
+-   [Building an animation step-by-step with gganimate](https://www.alexcookson.com/post/2020-10-18-building-an-animation-step-by-step-with-gganimate/).
+
+-   [Creating a composite gif with multiple gganimate panels](https://solarchemist.se/2021/08/02/composite-gif-gganimate/)

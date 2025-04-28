@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -160,8 +194,27 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link active" data-scroll-target="#getting-started">2 Getting Started</a>
+  <ul class="collapse">
+  <li><a href="#loading-the-r-packages" id="toc-loading-the-r-packages" class="nav-link" data-scroll-target="#loading-the-r-packages">2.1 Loading the R packages</a></li>
+  <li><a href="#importing-the-data" id="toc-importing-the-data" class="nav-link" data-scroll-target="#importing-the-data">2.2 Importing the data</a></li>
+  <li><a href="#animated-data-visualisation-gganimate-methods" id="toc-animated-data-visualisation-gganimate-methods" class="nav-link" data-scroll-target="#animated-data-visualisation-gganimate-methods">3 Animated Data Visualisation: gganimate methods</a></li>
+  <li><a href="#building-a-static-population-bubble-plot" id="toc-building-a-static-population-bubble-plot" class="nav-link" data-scroll-target="#building-a-static-population-bubble-plot">3.1 Building a static population bubble plot</a></li>
+  <li><a href="#building-the-animated-bubble-plot" id="toc-building-the-animated-bubble-plot" class="nav-link" data-scroll-target="#building-the-animated-bubble-plot">3.2 Building the animated bubble plot</a></li>
+  </ul></li>
+  <li><a href="#animated-data-visualisation-plotly" id="toc-animated-data-visualisation-plotly" class="nav-link" data-scroll-target="#animated-data-visualisation-plotly">4 Animated Data Visualisation: plotly</a>
+  <ul class="collapse">
+  <li><a href="#building-an-animated-bubble-plot-ggplotlymethod" id="toc-building-an-animated-bubble-plot-ggplotlymethod" class="nav-link" data-scroll-target="#building-an-animated-bubble-plot-ggplotlymethod">4.1 Building an animated bubble plot:&nbsp;<code>ggplotly()</code>method</a></li>
+  <li><a href="#building-an-animated-bubble-plot-plot_lymethod" id="toc-building-an-animated-bubble-plot-plot_lymethod" class="nav-link" data-scroll-target="#building-an-animated-bubble-plot-plot_lymethod">4.2 Building an animated bubble plot:&nbsp;<code>plot_ly()</code>method</a></li>
+  </ul></li>
+  <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference">5 Reference</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -203,8 +256,48 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="getting-started" class="level1">
+<h1>2 Getting Started</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(readxl, gifski, gapminder,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               plotly, gganimate, tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="loading-the-r-packages" class="level2">
+<h2 class="anchored" data-anchor-id="loading-the-r-packages">2.1 Loading the R packages</h2>
+</section>
+<section id="importing-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="importing-the-data">2.2 Importing the data</h2>
+</section>
+<section id="animated-data-visualisation-gganimate-methods" class="level2">
+<h2 class="anchored" data-anchor-id="animated-data-visualisation-gganimate-methods">3 Animated Data Visualisation: gganimate methods</h2>
+</section>
+<section id="building-a-static-population-bubble-plot" class="level2">
+<h2 class="anchored" data-anchor-id="building-a-static-population-bubble-plot">3.1 Building a static population bubble plot</h2>
+</section>
+<section id="building-the-animated-bubble-plot" class="level2">
+<h2 class="anchored" data-anchor-id="building-the-animated-bubble-plot">3.2 Building the animated bubble plot</h2>
+</section>
+</section>
+<section id="animated-data-visualisation-plotly" class="level1">
+<h1>4 Animated Data Visualisation: plotly</h1>
+<section id="building-an-animated-bubble-plot-ggplotlymethod" class="level2">
+<h2 class="anchored" data-anchor-id="building-an-animated-bubble-plot-ggplotlymethod">4.1 Building an animated bubble plot:&nbsp;<code>ggplotly()</code>method</h2>
+</section>
+<section id="building-an-animated-bubble-plot-plot_lymethod" class="level2">
+<h2 class="anchored" data-anchor-id="building-an-animated-bubble-plot-plot_lymethod">4.2 Building an animated bubble plot:&nbsp;<code>plot_ly()</code>method</h2>
+</section>
+</section>
+<section id="reference" class="level1">
+<h1>5 Reference</h1>
+<ul>
+<li><p><a href="https://gganimate.com/articles/gganimate.html">Getting Started</a></p></li>
+<li><p>Visit this&nbsp;<a href="https://rpubs.com/raymondteo/dataviz8">link</a>&nbsp;for a very interesting implementation of gganimate by your senior.</p></li>
+<li><p><a href="https://www.alexcookson.com/post/2020-10-18-building-an-animation-step-by-step-with-gganimate/">Building an animation step-by-step with gganimate</a>.</p></li>
+<li><p><a href="https://solarchemist.se/2021/08/02/composite-gif-gganimate/">Creating a composite gif with multiple gganimate panels</a></p></li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

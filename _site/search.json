@@ -298,7 +298,42 @@
     "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#linked-brushing-crosstalk-method",
     "title": "Hand-on Exercise 3a — Programming Interactive Data Visualisation with R",
     "section": "8.2 Linked brushing: crosstalk method",
-    "text": "8.2 Linked brushing: crosstalk method\n\nThe PlotThe Code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCode chunk below is used to implement the coordinated brushing shown above.\n\nd &lt;- highlight_key(exam_data)\np &lt;- ggplot(d,\n            aes(ENGLISH,\n                MATHS)) +\n  geom_point(size=1) +\n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100))\n\ngg &lt;- highlight(ggplotly(p),\n                \"plotly_selected\")\n\ncrosstalk::bscols(gg,\n                  DT::datatable(d),\n                  widths = 5)\n\n-highlight() is a function of plotly package. It sets a variety of options for brushing (i.e., highlighting) multiple plots. These options are primarily designed for linking multiple plotly graphs, and may not behave as expected when linking plotly to another htmlwidget package via crosstalk. In some cases, other htmlwidgets will respect these options, such as persistent selection in leaflet.\n-bscols() is a helper function of crosstalk package. It makes it easy to put HTML elements side by side. It can be called directly from the console but is especially designed to work in an R Markdown document. Warning: This will bring in all of Bootstrap!.\n\n\n\n\nlibrary(crosstalk)\n\nd &lt;- highlight_key(exam_data)\np &lt;- ggplot(d,\n            aes(ENGLISH,\n                MATHS)) +\n  geom_point(size=1) +\n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100))\n\ngg &lt;- highlight(ggplotly(p),\n                \"plotly_selected\")\n\nfilter_widget &lt;- filter_select(\n  id = \"id_selector\",\n  label = \"Select Student ID:\",\n  sharedData = d,\n  group = ~ID\n)\n\nbscols(widths = c(5,7),\n       list(filter_widget, gg),\n       DT::datatable(d))\n\n\n\n\n\nSelect Student ID:"
+    "text": "8.2 Linked brushing: crosstalk method\n\nThe PlotThe Code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCode chunk below is used to implement the coordinated brushing shown above.\n\nd &lt;- highlight_key(exam_data)\np &lt;- ggplot(d,\n            aes(ENGLISH,\n                MATHS)) +\n  geom_point(size=1) +\n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100))\n\ngg &lt;- highlight(ggplotly(p),\n                \"plotly_selected\")\n\ncrosstalk::bscols(gg,\n                  DT::datatable(d),\n                  widths = 5)\n\n-highlight() is a function of plotly package. It sets a variety of options for brushing (i.e., highlighting) multiple plots. These options are primarily designed for linking multiple plotly graphs, and may not behave as expected when linking plotly to another htmlwidget package via crosstalk. In some cases, other htmlwidgets will respect these options, such as persistent selection in leaflet.\n-bscols() is a helper function of crosstalk package. It makes it easy to put HTML elements side by side. It can be called directly from the console but is especially designed to work in an R Markdown document. Warning: This will bring in all of Bootstrap!.\n\n\n\n\nlibrary(crosstalk)\nlibrary(htmltools)\n\nd &lt;- highlight_key(exam_data)\n\np &lt;- ggplot(d, aes(ENGLISH, MATHS)) +\n  geom_point(size=1) +\n  coord_cartesian(xlim=c(0,100), ylim=c(0,100))\n\ngg &lt;- highlight(ggplotly(p), \"plotly_selected\")\n\nfilter_widget &lt;- div(style = \"width:200px;\",\n                     filter_select(\n                       id = \"id_selector\",\n                       label = \"Select Student ID:\",\n                       sharedData = d,\n                       group = ~ID\n                     ))\n\ncrosstalk::bscols(\n  tagList(filter_widget, gg),\n  DT::datatable(d, options = list(scrollX = TRUE)),\n  widths = 10\n)\n\n\n\n\n\n\nSelect Student ID:"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#ggiraph",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#ggiraph",
+    "title": "Hand-on Exercise 3a — Programming Interactive Data Visualisation with R",
+    "section": "9.1 ggiraph",
+    "text": "9.1 ggiraph\nThis link provides online version of the reference guide and several useful articles. Use this link to download the pdf version of the reference guide.\n\nHow to Plot With Ggiraph\nInteractive map of France with ggiraph\nCustom interactive sunbursts with ggplot in R\nThis link provides code example on how ggiraph is used to interactive graphs for Swiss Olympians - the solo specialists."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#plotly-for-r",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#plotly-for-r",
+    "title": "Hand-on Exercise 3a — Programming Interactive Data Visualisation with R",
+    "section": "9.2 plotly for R",
+    "text": "9.2 plotly for R\n\nGetting Started with Plotly in R\nA collection of plotly R graphs are available via this link.\nCarson Sievert (2020) Interactive web-based data visualization with R, plotly, and shiny, Chapman and Hall/CRC is the best resource to learn plotly for R. The online version is available via this link\nPlotly R Figure Reference provides a comprehensive discussion of each visual representations.\nPlotly R Library Fundamentals is a good place to learn the fundamental features of Plotly’s R API.\nGetting Started\nVisit this link for a very interesting implementation of gganimate by your senior.\nBuilding an animation step-by-step with gganimate.\nCreating a composite gif with multiple gganimate panels"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html",
+    "title": "Hand-on Exercise 3b — Programming Animated Statistical Graphics with R",
+    "section": "",
+    "text": "pacman::p_load(readxl, gifski, gapminder,\n               plotly, gganimate, tidyverse)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html#building-an-animated-bubble-plot-ggplotlymethod",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html#building-an-animated-bubble-plot-ggplotlymethod",
+    "title": "Hand-on Exercise 3b — Programming Animated Statistical Graphics with R",
+    "section": "4.1 Building an animated bubble plot: ggplotly()method",
+    "text": "4.1 Building an animated bubble plot: ggplotly()method"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html#building-an-animated-bubble-plot-plot_lymethod",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html#building-an-animated-bubble-plot-plot_lymethod",
+    "title": "Hand-on Exercise 3b — Programming Animated Statistical Graphics with R",
+    "section": "4.2 Building an animated bubble plot: plot_ly()method",
+    "text": "4.2 Building an animated bubble plot: plot_ly()method"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html",

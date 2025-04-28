@@ -12,3 +12,36 @@ execute:
   warning: false
   freeze: true
 ---
+
+# 2 Getting Started
+
+```{r}
+pacman::p_load(readxl, gifski, gapminder,
+               plotly, gganimate, tidyverse)
+```
+
+## 2.1 Loading the R packages
+
+## 2.2 Importing the data
+
+## 3 Animated Data Visualisation: gganimate methods
+
+## 3.1 Building a static population bubble plot
+
+## 3.2 Building the animated bubble plot
+
+# 4 Animated Data Visualisation: plotly
+
+## 4.1 Building an animated bubble plot: `ggplotly()`method
+
+## 4.2 Building an animated bubble plot: `plot_ly()`method
+
+# 5 Reference
+
+-   [Getting Started](https://gganimate.com/articles/gganimate.html)
+
+-   Visit this [link](https://rpubs.com/raymondteo/dataviz8) for a very interesting implementation of gganimate by your senior.
+
+-   [Building an animation step-by-step with gganimate](https://www.alexcookson.com/post/2020-10-18-building-an-animation-step-by-step-with-gganimate/).
+
+-   [Creating a composite gif with multiple gganimate panels](https://solarchemist.se/2021/08/02/composite-gif-gganimate/)

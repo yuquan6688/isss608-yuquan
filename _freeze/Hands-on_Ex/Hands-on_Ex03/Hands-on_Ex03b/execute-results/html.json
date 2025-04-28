@@ -1,0 +1,15 @@
+{
+  "hash": "e3ccd16abcb88fef72c52b03a91b39db",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Hand-on Exercise 3b --- Programming Animated Statistical Graphics with R\"\nauthor: \"Li Yuquan\"\ndescription: \"\"\ndate: \"April 29, 2024\"\ndate-modified: \"last-modified\"\nformat: html\neditor: visual\nexecute: \n  eval: true\n  echo: true\n  warning: false\n  freeze: true\n---\n\n\n\n# 2 Getting Started\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(readxl, gifski, gapminder,\n               plotly, gganimate, tidyverse)\n```\n:::\n\n\n\n## 2.1 Loading the R packages\n\n## 2.2 Importing the data\n\n## 3 Animated Data Visualisation: gganimate methods\n\n## 3.1 Building a static population bubble plot\n\n## 3.2 Building the animated bubble plot\n\n# 4 Animated Data Visualisation: plotly\n\n## 4.1 Building an animated bubble plot: `ggplotly()`method\n\n## 4.2 Building an animated bubble plot: `plot_ly()`method\n\n# 5 Reference\n\n-   [Getting Started](https://gganimate.com/articles/gganimate.html)\n\n-   Visit this [link](https://rpubs.com/raymondteo/dataviz8) for a very interesting implementation of gganimate by your senior.\n\n-   [Building an animation step-by-step with gganimate](https://www.alexcookson.com/post/2020-10-18-building-an-animation-step-by-step-with-gganimate/).\n\n-   [Creating a composite gif with multiple gganimate panels](https://solarchemist.se/2021/08/02/composite-gif-gganimate/)\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
