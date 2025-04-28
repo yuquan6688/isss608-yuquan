@@ -745,4 +745,31 @@ crosstalk::bscols(gg,
   -**bscols()** is a helper function of crosstalk package. It makes it easy to put HTML elements side by side. It can be called directly from the console but is especially designed to work in an R Markdown document. Warning: This will bring in all of Bootstrap!.
 :::
 
+```{r}
+library(crosstalk)
+
+d <- highlight_key(exam_data)
+p <- ggplot(d,
+            aes(ENGLISH,
+                MATHS)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+
+gg <- highlight(ggplotly(p),
+                "plotly_selected")
+
+filter_widget <- filter_select(
+  id = "id_selector",
+  label = "Select Student ID:",
+  sharedData = d,
+  group = ~ID
+)
+
+bscols(widths = c(5,7),
+       list(filter_widget, gg),
+       DT::datatable(d))
+```
+
+
 # 9 Reference
