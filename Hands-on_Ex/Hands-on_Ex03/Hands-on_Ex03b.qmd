@@ -1,0 +1,14 @@
+---
+title: "Hand-on Exercise 3b --- Programming Animated Statistical Graphics with R"
+author: "Li Yuquan"
+description: ""
+date: "April 29, 2024"
+date-modified: "last-modified"
+format: html
+editor: visual
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  freeze: true
+---

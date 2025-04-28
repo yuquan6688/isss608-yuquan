@@ -11,6 +11,10 @@ website:
             href: "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html"
           - text: "Hands-on Exercise 2"
             href: "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html"
+          - text: "Hands-on Exercise 3a"
+            href: "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html"
+          - text: "Hands-on Exercise 3b"
+            href: "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html"            
 
       - text: "In-Class Exercise"
         menu:
@@ -18,6 +22,16 @@ website:
             href: "In-Class_Exercise.html"
           - text: "In-Class Exercise 2"
             href: "https://public.tableau.com/app/profile/yuquan.li/viz/In-classEx02SuperstoreReport/Dashboard1"      
+
+      - text: "Take-home Exercise"
+        menu:
+          - text: "Take-home Exercise 1"
+            href: ""
+          - text: "Take-home Exercise 2"
+            href: ""
+          - text: "Take-home Exercise 3"
+            href: ""
+
 
     right:
       - href: index.qmd

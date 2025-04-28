@@ -25,3 +25,35 @@ ggplot(data=exam_data,
           color = GENDER)) +
   geom_density()
 ```
+
+### CSS Highlight
+
+When the mouse is placed on a certain point, it will highlight the point using a specific color.
+
+```{r}
+library(ggiraph)
+
+p <- ggplot(data = exam_data, 
+            aes(x = MATHS)) +
+  geom_dotplot_interactive(
+    aes(
+      tooltip = ID,
+      data_id = ID 
+    ),
+    stackgroups = TRUE, 
+    binwidth = 1, 
+    method = "histodot"
+  ) +
+  scale_y_continuous(NULL, breaks = NULL)
+
+girafe(
+  ggobj = p,
+  width_svg = 6,
+  height_svg = 6 * 0.618,
+  options = list(
+    opts_hover(css = "fill:skyblue;r:2pt;")
+  )
+)
+```
+
+:::

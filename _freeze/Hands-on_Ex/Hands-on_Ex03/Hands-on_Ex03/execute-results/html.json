@@ -1,0 +1,15 @@
+{
+  "hash": "62aa0e4c5e36bb455eeba9632f3590dd",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Hand-on Exercise 3 --- Programming Interactive Data Visualisation with R\"\nauthor: \"Li Yuquan\"\ndescription: \"\"\ndate: \"April 22, 2024\"\ndate-modified: \"last-modified\"\nformat: html\neditor: visual\nexecute: \n  eval: true\n  echo: true\n  warning: false\n  freeze: true\n---\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(ggiraph, plotly, \n               patchwork, DT, tidyverse) \n```\n:::\n\n\n\n\n::: panel-tabset\n## Importing the data\n\nThe dataset for this hands-on exercise is imported into the R environment using the read_csv() function in the readr package and stored as the R object, exam_data.\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nexam_data <- read_csv(\"data/Exam_data.csv\")\n```\n:::\n\n\n\n## summary\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nsummary(exam_data)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n      ID               CLASS              GENDER              RACE          \n Length:322         Length:322         Length:322         Length:322        \n Class :character   Class :character   Class :character   Class :character  \n Mode  :character   Mode  :character   Mode  :character   Mode  :character  \n                                                                            \n                                                                            \n                                                                            \n    ENGLISH          MATHS          SCIENCE     \n Min.   :21.00   Min.   : 9.00   Min.   :15.00  \n 1st Qu.:59.00   1st Qu.:58.00   1st Qu.:49.25  \n Median :70.00   Median :74.00   Median :65.00  \n Mean   :67.18   Mean   :69.33   Mean   :61.16  \n 3rd Qu.:78.00   3rd Qu.:85.00   3rd Qu.:74.75  \n Max.   :96.00   Max.   :99.00   Max.   :96.00  \n```\n\n\n:::\n:::\n\n\n\n## glimpse()\n\nThe variables in each column\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nglimpse(exam_data)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\nRows: 322\nColumns: 7\n$ ID      <chr> \"Student321\", \"Student305\", \"Student289\", \"Student227\", \"Stude…\n$ CLASS   <chr> \"3I\", \"3I\", \"3H\", \"3F\", \"3I\", \"3I\", \"3I\", \"3I\", \"3I\", \"3H\", \"3…\n$ GENDER  <chr> \"Male\", \"Female\", \"Male\", \"Male\", \"Male\", \"Female\", \"Male\", \"M…\n$ RACE    <chr> \"Malay\", \"Malay\", \"Chinese\", \"Chinese\", \"Malay\", \"Malay\", \"Chi…\n$ ENGLISH <dbl> 21, 24, 26, 27, 27, 31, 31, 31, 33, 34, 34, 36, 36, 36, 37, 38…\n$ MATHS   <dbl> 9, 22, 16, 77, 11, 16, 21, 18, 19, 49, 39, 35, 23, 36, 49, 30,…\n$ SCIENCE <dbl> 15, 16, 16, 31, 25, 16, 25, 27, 15, 37, 42, 22, 32, 36, 35, 45…\n```\n\n\n:::\n:::\n\n\n\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
