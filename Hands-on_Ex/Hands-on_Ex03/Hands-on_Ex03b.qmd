@@ -56,7 +56,7 @@ We use `p_load` from `pacman` package to check, install and load the following R
 
 ```{r}
 pacman::p_load(readxl, gifski, gapminder,
-               plotly, gganimate, tidyverse)
+               plotly, gganimate, tidyverse,ggrepel)
 ```
 
 ### Importing the data

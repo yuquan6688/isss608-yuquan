@@ -1,11 +1,121 @@
 ---
-title: "isss608-yuquan"
+title: "Visual Analytics & Applications"
+format:
+  html:
+    toc: false
+    page-layout: full
+    theme: minty
+    smooth-scroll: true
+    css: styles.css
+
+listing:
+  contents: 
+    - Hands-on_Ex/
+    - In-class_Ex/
+    - Take-home_Ex/
+
+  type: grid   
+  sort: "date desc"
+  fields: [image, title, description, author,date]
+  categories: false
+  grid-columns: 3  
+  max-items: 3
 ---
 
 Welcome to **ISSS608 Visual Analytics and Applications**. In this website, you will find my coursework prepared for this course.
 
+
+
+
+
+
+<!--
 :::: {style="display: flex; flex-wrap: wrap; justify-content: space-evenly;"}
 ::: card
 <img src="images/hands-on.png" alt="Hands-on Exercise"/>
 :::
 ::::
+-->
+
+
+
+# **Last Post**
+
+```{=html}
+<div class="announcement-bar">
+  <div class="announcement-content">
+    🔔 <strong>NEW (29/04)</strong> – 
+    <a href="Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html">Hands-on Exercise 3a</a> and 
+    <a href="Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html">Hands-on Exercise 3b</a> are published!
+    🔔 <strong>NEW (29/04)</strong> –     
+     <a href="Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html">Take-home Exercise 1</a> are published!
+  </div>
+</div>
+
+<style>
+.announcement-bar {
+  position: sticky;    
+  top: 0;
+  z-index: 9999;
+  background-color: #78C2AD; 
+  padding: 8px 20px;
+  overflow: hidden;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.announcement-content {
+  display: inline-block;
+  white-space: nowrap;
+  animation: scroll-left 15s linear infinite;
+  font-size: 16px;
+  color: #000;
+}
+
+.announcement-bar a {
+  color: #2563eb;
+  text-decoration: underline;
+  margin: 0 4px;
+  font-weight: 500;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+</style>
+
+```
+
+
+
+
+<!-- 插入 SweetAlert2 弹窗-->
+
+```{=html}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+```
+
+```{=html}
+<script>
+window.onload = function() {
+  Swal.fire({
+    imageUrl: 'images/tc.png',  
+    imageWidth: 1200,                
+    imageHeight: 675,               
+    background: 'transparent',      
+    padding: '0px',                  
+    backdrop: true,                   
+    showConfirmButton: true,         
+    confirmButtonText: 'OK',          
+    confirmButtonColor: '#78C2AD'      
+  })
+}
+</script>
+```

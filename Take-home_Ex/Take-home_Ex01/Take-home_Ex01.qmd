@@ -1,0 +1,20 @@
+---
+title: "Take-home Exercise 1"
+author: "Li Yuquan"
+description: ""
+date: "April 30, 2024"
+date-modified: "last-modified"
+format: html
+editor: visual
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  freeze: true
+---
+
+# 1 Overview
+
+# 2 Data Pre-processing & data exploration
+
+# 3 Data Visualization

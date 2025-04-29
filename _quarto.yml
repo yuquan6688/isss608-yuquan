@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "ISSS608-VAA"
+  title: "<img src='/images/logo.png' style='height:40px;'>"
   navbar:
     left:
       - text: "Hands-on Exercise"
@@ -14,7 +14,15 @@ website:
           - text: "Hands-on Exercise 3a"
             href: "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html"
           - text: "Hands-on Exercise 3b"
-            href: "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html"            
+            href: "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html" 
+          - text: "Hands-on Exercise 4a"
+            href: "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04a.html"
+          - text: "Hands-on Exercise 4b"
+            href: "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04b.html"  
+          - text: "Hands-on Exercise 4c"
+            href: "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html"
+          - text: "Hands-on Exercise 4d"
+            href: "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html"   
 
       - text: "In-Class Exercise"
         menu:
@@ -26,17 +34,30 @@ website:
       - text: "Take-home Exercise"
         menu:
           - text: "Take-home Exercise 1"
-            href: ""
+            href: "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html"
           - text: "Take-home Exercise 2"
-            href: ""
+            href: "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html"
           - text: "Take-home Exercise 3"
-            href: ""
+            href: "Take-home_Ex/Take-home_Ex03/Take-home_Ex03.html"
 
-
+      - text: "Group Project"
+        href: ""
+            
+            
     right:
       - href: index.qmd
         text: Home
       - about.qmd
+    
+    after:
+      - text: |
+          <div class="announcement-bar">
+            <div class="announcement-content">
+              🔔 <strong>NEW (29/04)</strong> –
+              <a href="Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html">Exercise 3a</a> and
+              <a href="Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html">Exercise 3b</a> are published!
+            </div>
+          </div>
 
 format:
   html:
