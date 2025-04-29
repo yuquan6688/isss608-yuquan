@@ -16,7 +16,7 @@ listing:
 
   type: grid   
   sort: "date desc"
-  fields: [image, title, description, author,date]
+  fields: [image, title, author,date]
   categories: false
   grid-columns: 3  
   max-items: 3

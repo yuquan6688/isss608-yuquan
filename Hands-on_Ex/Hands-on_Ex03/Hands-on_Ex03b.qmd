@@ -6,12 +6,20 @@ date: "April 29, 2024"
 date-modified: "last-modified"
 format: html
 editor: visual
+image: globalPop.mp4
 execute: 
   eval: true
   echo: true
   warning: false
   freeze: true
 ---
+
+```{=html}
+<video autoplay loop muted playsinline width="100%" style="margin-bottom: 20px;">
+  <source src="globalPop.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+```
 
 # 1 Overview
 
@@ -244,8 +252,9 @@ ggplotly(gg)
 
 Notice that although `show.legend = FALSE` argument was used, the legend still appears on the plot. To overcome this problem, `theme(legend.position='none')` should be used as shown in the plot and code chunk below.
 
-:::panel-tabset
+::: panel-tabset
 ### The Plot
+
 ```{r}
 #| echo: false
 gg <- ggplot(globalPop, 
@@ -266,6 +275,7 @@ ggplotly(gg)
 ```
 
 ### The Code
+
 ```{r,eval=FALSE}
 gg <- ggplot(globalPop, 
        aes(x = Old, 
@@ -283,17 +293,15 @@ gg <- ggplot(globalPop,
 
 ggplotly(gg)
 ```
-
 :::
-
 
 ## 4.2 Building an animated bubble plot: `plot_ly()`method
 
 In this sub-section, we will create an animated bubble plot by using `plot_ly()` method.
 
-:::panel-tabset
-
+::: panel-tabset
 ### The Plot
+
 ```{r}
 #| echo: false
 bp <- globalPop %>%
@@ -313,6 +321,7 @@ bp
 ```
 
 ### The code
+
 ```{r,eval=FALSE}
 bp <- globalPop %>%
   plot_ly(x = ~Old, 
@@ -330,6 +339,7 @@ bp <- globalPop %>%
 bp
 ```
 :::
+
 # 5 Reference
 
 -   [Getting Started](https://gganimate.com/articles/gganimate.html)
