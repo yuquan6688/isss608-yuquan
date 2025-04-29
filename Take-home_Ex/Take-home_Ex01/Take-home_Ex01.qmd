@@ -5,6 +5,7 @@ description: ""
 date: "April 30, 2024"
 date-modified: "last-modified"
 format: html
+image: ../../images/smu.png
 editor: visual
 execute: 
   eval: true
@@ -12,6 +13,7 @@ execute:
   warning: false
   freeze: true
 ---
+
 
 # 1 Overview
 
