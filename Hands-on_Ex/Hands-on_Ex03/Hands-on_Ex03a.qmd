@@ -747,6 +747,11 @@ crosstalk::bscols(gg,
 \-**bscols()** is a helper function of crosstalk package. It makes it easy to put HTML elements side by side. It can be called directly from the console but is especially designed to work in an R Markdown document. Warning: This will bring in all of Bootstrap!.
 :::
 
+
+
+# 9 Exploration
+
+## 9.1 Select Student ID
 ```{r}
 library(crosstalk)
 library(htmltools)
@@ -774,9 +779,46 @@ crosstalk::bscols(
 )
 ```
 
-# 9 Reference
+## 9.2 Scatterplot with marginal histogram
+```{r}
+library(ggplot2)
+library(ggExtra)
+p <- ggplot(data = exam_data, aes(x = SCIENCE, y = MATHS)) +
+  geom_point(alpha = 0.5, color = "steelblue") +
+  labs(title = "Science vs. Maths",
+       x = "Science",
+       y = "Maths") +
+  theme_minimal()
+ggMarginal(p, type = "histogram", fill = "steelblue", alpha = 0.5)
+```
 
-## 9.1 ggiraph
+## 9.3 Marginal Histogram
+```{r}
+avg_scores <- exam_data %>%
+  group_by(CLASS) %>%
+  summarise(
+    ENGLISH = mean(ENGLISH, na.rm = TRUE),
+    MATHS = mean(MATHS, na.rm = TRUE),
+    SCIENCE = mean(SCIENCE, na.rm = TRUE)
+  )
+
+avg_scores_long <- avg_scores %>%
+  pivot_longer(cols = c(ENGLISH, MATHS, SCIENCE),
+               names_to = "Subject",
+               values_to = "AverageScore")
+
+ggplot(avg_scores_long, aes(x = Subject, y = CLASS, fill = AverageScore)) +
+  geom_tile(color = "white") +
+  geom_text(aes(label = round(AverageScore, 1)), color = "white", size = 3) +
+  scale_fill_gradient(low = "#deebf7", high = "#3182bd") +
+  labs(title = "Average Scores per Subject by Class", x = "", y = "Class") +
+  theme_minimal()
+
+```
+
+# 10 Reference
+
+## 10.1 ggiraph
 
 This [link](https://davidgohel.github.io/ggiraph/index.html) provides online version of the reference guide and several useful articles. Use this [link](https://cran.r-project.org/web/packages/ggiraph/ggiraph.pdf) to download the pdf version of the reference guide.
 
@@ -788,7 +830,7 @@ This [link](https://davidgohel.github.io/ggiraph/index.html) provides online v
 
 -   This [link](https://github.com/d-qn/2016_08_02_rioOlympicsAthletes) provides code example on how ggiraph is used to interactive graphs for [Swiss Olympians - the solo specialists](https://www.swissinfo.ch/eng/rio-2016-_swiss-olympiansthe-solo-specialists-/42349156?utm_content=bufferd148b&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer).
 
-## 9.2 plotly for R
+## 10.2 plotly for R
 
 -   [Getting Started with Plotly in R](https://plotly.com/r/getting-started/)
 

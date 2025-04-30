@@ -133,6 +133,20 @@
     "text": "3.2 Building the animated bubble plot\nIn the code chunk below,\n\ntransition_time() of gganimate is used to create transition through distinct states in time (i.e. Year).\nease_aes() is used to control easing of aesthetics. The default is linear. Other methods are: quadratic, cubic, quartic, quintic, sine, circular, exponential, elastic, back, and bounce.\n\n\nggplot(globalPop, aes(x = Old, y = Young,\n                      size = Population,\n                      colour = Country)) +\n  geom_point(alpha = 0.7,\n             show.legend = FALSE) +\n  scale_colour_manual(values = country_colors) +\n  scale_size(range = c(2,12)) +\n  labs(title = 'Year: {frame_time}',\n       x = '% Aged',\n       y = '% Young') +\n  transition_time(Year) +\n  ease_aes('linear')"
   },
   {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html#exlore-for-geom_text_repel",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html#exlore-for-geom_text_repel",
+    "title": "Hand-on Exercise 3b — Programming Animated Statistical Graphics with R",
+    "section": "3.3 Exlore for geom_text_repel",
+    "text": "3.3 Exlore for geom_text_repel\n\nt &lt;- ggplot(data= globalPop,\n       aes(x= Old,\n           y=Young,\n           size= Population,\n           color=Country)) +\n  geom_point(alpha = 0.7,\n             show.legend = FALSE) +\n    scale_color_manual(values=country_colors) + \n    scale_size(range= c(2,12)) +\n  labs(title = \"Age Distribution Across Time\",\n      subtitle ='Year: {frame_time}',\n         x = '% Aged',\n         y= '% Young')+\n    geom_text(data=globalPop,              \n            aes(x=Old + 1.2,                \n                y=Young + 1.2,            \n                label=Country,\n                color = \"Black\",             \n                hjust=0,\n                vjust= 1.2),\n                size=2.5,\n                show.legend = FALSE)+       \n  theme(plot.background = element_rect(fill = \"#f5f5f5\", color = \"#f5f5f5\")) +  \n  transition_time(Year) +\n  ease_aes(\"linear\")\n\nt"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html#explor-for-shape",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html#explor-for-shape",
+    "title": "Hand-on Exercise 3b — Programming Animated Statistical Graphics with R",
+    "section": "3.4 Explor for shape",
+    "text": "3.4 Explor for shape\n\nggplot(data= globalPop,\n       aes(x= Old,\n           y=Young,\n           size= Population,\n           color=Country,\n           label=Country)) +                 \n  geom_point(alpha = 0.85,\n             shape=21,\n             stroke =2,\n             show.legend = FALSE) +\n  scale_color_manual(values=country_colors) + \n  scale_size(range= c(2,12)) +\n  labs(title = \"Age Distribution Across Time\",\n      subtitle ='Year: {frame_time}',\n       x = '% Aged',\n       y= '% Young')+\n  geom_text_repel(data=globalPop,           \n            aes(x=Old + 1.2,                \n                y=Young + 1.2,              \n                label=Country,\n                color = \"Black\",          \n                hjust=0,\n                vjust= 1.2),\n            size=2.5,\n            show.legend = FALSE,           \n            max.overlaps=)+\n  theme(plot.background = element_rect(fill = \"#f5f5f5\", color = \"#f5f5f5\")) +\n  transition_time(Year) +\n  ease_aes(\"linear\")"
+  },
+  {
     "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html#building-an-animated-bubble-plot-ggplotlymethod",
     "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html#building-an-animated-bubble-plot-ggplotlymethod",
     "title": "Hand-on Exercise 3b — Programming Animated Statistical Graphics with R",
@@ -256,21 +270,42 @@
     "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#linked-brushing-crosstalk-method",
     "title": "Hand-on Exercise 3a — Programming Interactive Data Visualisation with R",
     "section": "8.2 Linked brushing: crosstalk method",
-    "text": "8.2 Linked brushing: crosstalk method\n\nThe PlotThe Code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCode chunk below is used to implement the coordinated brushing shown above.\n\nd &lt;- highlight_key(exam_data)\np &lt;- ggplot(d,\n            aes(ENGLISH,\n                MATHS)) +\n  geom_point(size=1) +\n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100))\n\ngg &lt;- highlight(ggplotly(p),\n                \"plotly_selected\")\n\ncrosstalk::bscols(gg,\n                  DT::datatable(d),\n                  widths = 5)\n\n-highlight() is a function of plotly package. It sets a variety of options for brushing (i.e., highlighting) multiple plots. These options are primarily designed for linking multiple plotly graphs, and may not behave as expected when linking plotly to another htmlwidget package via crosstalk. In some cases, other htmlwidgets will respect these options, such as persistent selection in leaflet.\n-bscols() is a helper function of crosstalk package. It makes it easy to put HTML elements side by side. It can be called directly from the console but is especially designed to work in an R Markdown document. Warning: This will bring in all of Bootstrap!.\n\n\n\n\nlibrary(crosstalk)\nlibrary(htmltools)\n\nd &lt;- highlight_key(exam_data)\n\np &lt;- ggplot(d, aes(ENGLISH, MATHS)) +\n  geom_point(size=1) +\n  coord_cartesian(xlim=c(0,100), ylim=c(0,100))\n\ngg &lt;- highlight(ggplotly(p), \"plotly_selected\")\n\nfilter_widget &lt;- div(style = \"width:200px;\",\n                     filter_select(\n                       id = \"id_selector\",\n                       label = \"Select Student ID:\",\n                       sharedData = d,\n                       group = ~ID\n                     ))\n\ncrosstalk::bscols(\n  tagList(filter_widget, gg),\n  DT::datatable(d, options = list(scrollX = TRUE)),\n  widths = 10\n)\n\n\n\n\n\n\nSelect Student ID:"
+    "text": "8.2 Linked brushing: crosstalk method\n\nThe PlotThe Code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCode chunk below is used to implement the coordinated brushing shown above.\n\nd &lt;- highlight_key(exam_data)\np &lt;- ggplot(d,\n            aes(ENGLISH,\n                MATHS)) +\n  geom_point(size=1) +\n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100))\n\ngg &lt;- highlight(ggplotly(p),\n                \"plotly_selected\")\n\ncrosstalk::bscols(gg,\n                  DT::datatable(d),\n                  widths = 5)\n\n-highlight() is a function of plotly package. It sets a variety of options for brushing (i.e., highlighting) multiple plots. These options are primarily designed for linking multiple plotly graphs, and may not behave as expected when linking plotly to another htmlwidget package via crosstalk. In some cases, other htmlwidgets will respect these options, such as persistent selection in leaflet.\n-bscols() is a helper function of crosstalk package. It makes it easy to put HTML elements side by side. It can be called directly from the console but is especially designed to work in an R Markdown document. Warning: This will bring in all of Bootstrap!."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#select-student-id",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#select-student-id",
+    "title": "Hand-on Exercise 3a — Programming Interactive Data Visualisation with R",
+    "section": "9.1 Select Student ID",
+    "text": "9.1 Select Student ID\n\nlibrary(crosstalk)\nlibrary(htmltools)\n\nd &lt;- highlight_key(exam_data)\n\np &lt;- ggplot(d, aes(ENGLISH, MATHS)) +\n  geom_point(size=1) +\n  coord_cartesian(xlim=c(0,100), ylim=c(0,100))\n\ngg &lt;- highlight(ggplotly(p), \"plotly_selected\")\n\nfilter_widget &lt;- div(style = \"width:200px;\",\n                     filter_select(\n                       id = \"id_selector\",\n                       label = \"Select Student ID:\",\n                       sharedData = d,\n                       group = ~ID\n                     ))\n\ncrosstalk::bscols(\n  tagList(filter_widget, gg),\n  DT::datatable(d, options = list(scrollX = TRUE)),\n  widths = 10\n)\n\n\n\n\n\n\nSelect Student ID:"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#scatterplot-with-marginal-histogram",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#scatterplot-with-marginal-histogram",
+    "title": "Hand-on Exercise 3a — Programming Interactive Data Visualisation with R",
+    "section": "9.2 Scatterplot with marginal histogram",
+    "text": "9.2 Scatterplot with marginal histogram\n\nlibrary(ggplot2)\nlibrary(ggExtra)\np &lt;- ggplot(data = exam_data, aes(x = SCIENCE, y = MATHS)) +\n  geom_point(alpha = 0.5, color = \"steelblue\") +\n  labs(title = \"Science vs. Maths\",\n       x = \"Science\",\n       y = \"Maths\") +\n  theme_minimal()\nggMarginal(p, type = \"histogram\", fill = \"steelblue\", alpha = 0.5)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#marginal-histogram",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#marginal-histogram",
+    "title": "Hand-on Exercise 3a — Programming Interactive Data Visualisation with R",
+    "section": "9.3 Marginal Histogram",
+    "text": "9.3 Marginal Histogram\n\navg_scores &lt;- exam_data %&gt;%\n  group_by(CLASS) %&gt;%\n  summarise(\n    ENGLISH = mean(ENGLISH, na.rm = TRUE),\n    MATHS = mean(MATHS, na.rm = TRUE),\n    SCIENCE = mean(SCIENCE, na.rm = TRUE)\n  )\n\navg_scores_long &lt;- avg_scores %&gt;%\n  pivot_longer(cols = c(ENGLISH, MATHS, SCIENCE),\n               names_to = \"Subject\",\n               values_to = \"AverageScore\")\n\nggplot(avg_scores_long, aes(x = Subject, y = CLASS, fill = AverageScore)) +\n  geom_tile(color = \"white\") +\n  geom_text(aes(label = round(AverageScore, 1)), color = \"white\", size = 3) +\n  scale_fill_gradient(low = \"#deebf7\", high = \"#3182bd\") +\n  labs(title = \"Average Scores per Subject by Class\", x = \"\", y = \"Class\") +\n  theme_minimal()"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#ggiraph",
     "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#ggiraph",
     "title": "Hand-on Exercise 3a — Programming Interactive Data Visualisation with R",
-    "section": "9.1 ggiraph",
-    "text": "9.1 ggiraph\nThis link provides online version of the reference guide and several useful articles. Use this link to download the pdf version of the reference guide.\n\nHow to Plot With Ggiraph\nInteractive map of France with ggiraph\nCustom interactive sunbursts with ggplot in R\nThis link provides code example on how ggiraph is used to interactive graphs for Swiss Olympians - the solo specialists."
+    "section": "10.1 ggiraph",
+    "text": "10.1 ggiraph\nThis link provides online version of the reference guide and several useful articles. Use this link to download the pdf version of the reference guide.\n\nHow to Plot With Ggiraph\nInteractive map of France with ggiraph\nCustom interactive sunbursts with ggplot in R\nThis link provides code example on how ggiraph is used to interactive graphs for Swiss Olympians - the solo specialists."
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#plotly-for-r",
     "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#plotly-for-r",
     "title": "Hand-on Exercise 3a — Programming Interactive Data Visualisation with R",
-    "section": "9.2 plotly for R",
-    "text": "9.2 plotly for R\n\nGetting Started with Plotly in R\nA collection of plotly R graphs are available via this link.\nCarson Sievert (2020) Interactive web-based data visualization with R, plotly, and shiny, Chapman and Hall/CRC is the best resource to learn plotly for R. The online version is available via this link\nPlotly R Figure Reference provides a comprehensive discussion of each visual representations.\nPlotly R Library Fundamentals is a good place to learn the fundamental features of Plotly’s R API.\nGetting Started\nVisit this link for a very interesting implementation of gganimate by your senior.\nBuilding an animation step-by-step with gganimate.\nCreating a composite gif with multiple gganimate panels"
+    "section": "10.2 plotly for R",
+    "text": "10.2 plotly for R\n\nGetting Started with Plotly in R\nA collection of plotly R graphs are available via this link.\nCarson Sievert (2020) Interactive web-based data visualization with R, plotly, and shiny, Chapman and Hall/CRC is the best resource to learn plotly for R. The online version is available via this link\nPlotly R Figure Reference provides a comprehensive discussion of each visual representations.\nPlotly R Library Fundamentals is a good place to learn the fundamental features of Plotly’s R API.\nGetting Started\nVisit this link for a very interesting implementation of gganimate by your senior.\nBuilding an animation step-by-step with gganimate.\nCreating a composite gif with multiple gganimate panels"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html",
