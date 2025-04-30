@@ -44,9 +44,10 @@ website:
             
             
     right:
+      - about.qmd    
       - href: index.qmd
-        text: Home
-      - about.qmd
+        text: "<img src='/images/home.png' style='height:25px;'>"
+
     
     after:
       - text: |
