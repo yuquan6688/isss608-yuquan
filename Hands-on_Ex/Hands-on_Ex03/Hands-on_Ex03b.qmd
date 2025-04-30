@@ -139,7 +139,7 @@ summary(globalPop)
 :::
 :::::
 
-## 3 Animated Data Visualisation: gganimate methods
+# 3 Animated Data Visualisation: gganimate methods
 
 [**gganimate**](https://gganimate.com/) extends the grammar of graphics as implemented by ggplot2 to include the description of animation. It does this by providing a range of new grammar classes that can be added to the plot object in order to customise how it should change with time.
 
