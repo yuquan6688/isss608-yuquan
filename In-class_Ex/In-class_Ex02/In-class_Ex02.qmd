@@ -6,7 +6,7 @@ date: "April 26, 2024"
 date-modified: "last-modified"
 format: html
 editor: visual
-image: globalPop.mp4
+image: ../../images/i1fm.png
 execute: 
   eval: true
   echo: true
@@ -24,7 +24,6 @@ execute:
   <img src="../../images/tableau.png" alt="Tableau Logo" style="height: 28px;">
 </h2>
 ```
-
 
 ```{=html}
 <div class='tableauPlaceholder' id='viz1745918238786' style='position: relative'>

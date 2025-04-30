@@ -6,6 +6,7 @@ date: "April 22, 2024"
 date-modified: "last-modified"
 format: html
 editor: visual
+image: ../../images/2fm.png
 execute: 
   eval: true
   echo: true
@@ -300,16 +301,19 @@ For example, the composite figure below is plotted by using:
 
 ::: panel-tabset
 ### / and \| Operators
+
 ```{r}
 (p1 /p2) | p3
 ```
 
 ### Adjust the layout 1
+
 ```{r}
 p1 + p2 + p3 + plot_layout(ncol=1)
 ```
 
 ### Adjust the layout 2
+
 ```{r}
 p3 + {
   p1 + p2 + plot_layout(ncol=1)

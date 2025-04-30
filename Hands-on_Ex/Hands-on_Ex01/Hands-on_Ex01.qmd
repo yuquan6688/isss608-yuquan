@@ -6,6 +6,7 @@ date: "April 9, 2024"
 date-modified: "last-modified"
 format: html
 editor: visual
+image: ../../images/1fm.png
 execute: 
   eval: true
   echo: true

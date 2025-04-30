@@ -1,0 +1,16 @@
+---
+title: "all-posts"
+format: html
+
+listing:
+  contents:
+    - Hands-on_Ex/
+    - In-class_Ex/
+    - Take-home_Ex/
+  type: grid
+  sort: "date desc"
+  fields: [image, title, author, date]
+  grid-columns: 3
+  categories: false
+---
+
