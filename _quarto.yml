@@ -28,7 +28,8 @@ website:
         menu:
           - text: "In-Class Exercise 2"
             href: "In-class_Ex/In-class_Ex02/In-class_Ex02.html"
-            
+          - text: "In-Class Exercise 3"
+            href: "In-class_Ex/In-class_Ex03/In-class_Ex03.html"  
             
       - text: "Take-home Exercise"
         menu:

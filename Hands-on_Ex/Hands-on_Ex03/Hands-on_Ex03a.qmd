@@ -747,11 +747,10 @@ crosstalk::bscols(gg,
 \-**bscols()** is a helper function of crosstalk package. It makes it easy to put HTML elements side by side. It can be called directly from the console but is especially designed to work in an R Markdown document. Warning: This will bring in all of Bootstrap!.
 :::
 
-
-
 # 9 Exploration
 
 ## 9.1 Select Student ID
+
 ```{r}
 library(crosstalk)
 library(htmltools)
@@ -780,6 +779,7 @@ crosstalk::bscols(
 ```
 
 ## 9.2 Scatterplot with marginal histogram
+
 ```{r}
 library(ggplot2)
 library(ggExtra)
@@ -793,6 +793,7 @@ ggMarginal(p, type = "histogram", fill = "steelblue", alpha = 0.5)
 ```
 
 ## 9.3 Marginal Histogram
+
 ```{r}
 avg_scores <- exam_data %>%
   group_by(CLASS) %>%

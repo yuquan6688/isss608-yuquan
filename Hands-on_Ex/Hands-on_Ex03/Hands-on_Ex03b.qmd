@@ -55,7 +55,7 @@ Before creating animated graphs, it is important to consider whether the effort 
 We use `p_load` from `pacman` package to check, install and load the following R packages:
 
 | Package | Description |
-|:----------------------------------|:------------------------------------|
+|:---|:---|
 | [**plotly**](https://plotly.com/r/) | R library for plotting interactive statistical graphs. |
 | [**gganimate**](https://gganimate.com/) | An ggplot extension for creating animated statistical graphs. |
 | [**gifski**](https://cran.r-project.org/web/packages/gifski/index.html) | Converts video frames to GIF animations using efficient cross-frame palettes and temporal dithering. |
@@ -193,9 +193,7 @@ ggplot(globalPop, aes(x = Old, y = Young,
   ease_aes('linear')
 ```
 
-
 ## 3.3 Exlore for geom_text_repel
-
 
 ```{r}
 t <- ggplot(data= globalPop,
@@ -260,10 +258,6 @@ ggplot(data= globalPop,
   transition_time(Year) +
   ease_aes("linear")
 ```
-
-
-
-
 
 # 4 Animated Data Visualisation: plotly
 
@@ -411,9 +405,6 @@ bp <- globalPop %>%
 bp
 ```
 :::
-
-
-
 
 # 5 Reference
 
