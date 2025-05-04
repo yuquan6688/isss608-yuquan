@@ -820,7 +820,8 @@ p7 <- ggplot(v2_p7,
   geom_text(aes(label = round(abs(Percent), 1)),
             position = position_stack(vjust = 0.5),
             size = 3, color = "black") +
-  scale_x_continuous(labels = function(x) paste0(abs(x), "%")) +
+  scale_x_continuous(limits = c(-60, 60),
+                     labels = function(x) paste0(abs(x), "%")) +
   scale_fill_manual(values = c("Males" = "#58c3c3", 
                                "Females" = "#f08080")) +
   labs(
@@ -875,6 +876,7 @@ p8 <- ggplot(v2_p8, aes(x = Elderly_Rate_plot,
 
 ```{r,  eval=FALSE}
 
+
 # common theme
 common_theme_v2 <- theme(
   plot.title = element_text(size = 12, 
@@ -928,7 +930,8 @@ p7 <- ggplot(v2_p7,
   geom_text(aes(label = round(abs(Percent), 1)),
             position = position_stack(vjust = 0.5),
             size = 3, color = "black") +
-  scale_x_continuous(labels = function(x) paste0(abs(x), "%")) +
+  scale_x_continuous(limits = c(-60, 60),
+                     labels = function(x) paste0(abs(x), "%")) +
   scale_fill_manual(values = c("Males" = "#58c3c3", 
                                "Females" = "#f08080")) +
   labs(
@@ -1048,10 +1051,11 @@ p10 <- ggplot(v3_p10,
   ) +
   scale_fill_manual(values = c("Males" = "#58c3c3", 
                                "Females" = "#f08080")) +
+  scale_x_continuous(breaks = seq(0, 90, by = 10), limits = c(0, 90)) + 
   labs(
     title = "Age Distribution by Region",
-    x = "Age",
-    y = "Region",
+    x = NULL,
+    y = NULL,
     fill = NULL
   ) +
   theme_minimal() +
@@ -1078,10 +1082,11 @@ p11 <- ggplot() +
   ) +
   scale_color_manual(values = c("Males" = "#58c3c3", 
                                 "Females" = "#f08080")) +
+  scale_y_continuous(breaks = seq(0, 90, by = 10), limits = c(0, 90))+
   labs(
     title = "Age Distribution by Region and Gender",
-    x = "Region",
-    y = "Age",
+    x = NULL,
+    y = NULL,
     color = NULL
   ) +
   theme_minimal() +
@@ -1106,10 +1111,11 @@ p12 <- ggplot(v3_ridges, aes(x = Age, y = fct_rev(Region),
   
   scale_fill_brewer(palette = "Set3") +
   scale_color_brewer(palette = "Dark2") +
+  scale_x_continuous(breaks = seq(0, 90, by = 10), limits = c(0, 90)) + 
   labs(
     title = "Age Distribution Across Regions in Singapore",
-    x = "Age",
-    y = "Region"
+      x = NULL,
+    y = NULL
   ) +
   theme_minimal(base_size = 12) +
   theme(
@@ -1177,10 +1183,11 @@ p10 <- ggplot(v3_p10,
   ) +
   scale_fill_manual(values = c("Males" = "#58c3c3", 
                                "Females" = "#f08080")) +
+  scale_x_continuous(breaks = seq(0, 90, by = 10), limits = c(0, 90)) + 
   labs(
     title = "Age Distribution by Region",
-    x = "Age",
-    y = "Region",
+    x = NULL,
+    y = NULL,
     fill = NULL
   ) +
   theme_minimal() +
@@ -1207,10 +1214,11 @@ p11 <- ggplot() +
   ) +
   scale_color_manual(values = c("Males" = "#58c3c3", 
                                 "Females" = "#f08080")) +
+  scale_y_continuous(breaks = seq(0, 90, by = 10), limits = c(0, 90))+
   labs(
     title = "Age Distribution by Region and Gender",
-    x = "Region",
-    y = "Age",
+    x = NULL,
+    y = NULL,
     color = NULL
   ) +
   theme_minimal() +
@@ -1235,10 +1243,11 @@ p12 <- ggplot(v3_ridges, aes(x = Age, y = fct_rev(Region),
   
   scale_fill_brewer(palette = "Set3") +
   scale_color_brewer(palette = "Dark2") +
+  scale_x_continuous(breaks = seq(0, 90, by = 10), limits = c(0, 90)) + 
   labs(
     title = "Age Distribution Across Regions in Singapore",
-    x = "Age",
-    y = "Region"
+      x = NULL,
+    y = NULL
   ) +
   theme_minimal(base_size = 12) +
   theme(

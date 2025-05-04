@@ -490,7 +490,7 @@ $ Time &lt;dbl&gt; 2024, 2024, 2024, 2024, 2024, 2024, 2024, 2024, 2024, 2024, 2
 <pre><code>                             size isdir mode               mtime
 data/respopagesex2024.csv 2521616 FALSE  644 2024-09-23 17:44:00
                                         ctime               atime uid gid
-data/respopagesex2024.csv 2025-05-02 17:13:57 2025-05-04 16:31:32 501  20
+data/respopagesex2024.csv 2025-05-02 17:13:57 2025-05-04 17:36:18 501  20
                              uname grname
 data/respopagesex2024.csv liyuquan  staff</code></pre>
 </div>
@@ -1199,55 +1199,56 @@ Insight
 <span id="cb29-51"><a href="#cb29-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(<span class="fu">abs</span>(Percent), <span class="dv">1</span>)),</span>
 <span id="cb29-52"><a href="#cb29-52" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>),</span>
 <span id="cb29-53"><a href="#cb29-53" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb29-54"><a href="#cb29-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(<span class="fu">abs</span>(x), <span class="st">"%"</span>)) <span class="sc">+</span></span>
-<span id="cb29-55"><a href="#cb29-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Males"</span> <span class="ot">=</span> <span class="st">"#58c3c3"</span>, </span>
-<span id="cb29-56"><a href="#cb29-56" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"Females"</span> <span class="ot">=</span> <span class="st">"#f08080"</span>)) <span class="sc">+</span></span>
-<span id="cb29-57"><a href="#cb29-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb29-58"><a href="#cb29-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Gender Composition by Planning Area"</span>,</span>
-<span id="cb29-59"><a href="#cb29-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Percentage of Population (%)"</span>,</span>
-<span id="cb29-60"><a href="#cb29-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Planning Area"</span>,</span>
-<span id="cb29-61"><a href="#cb29-61" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Sex"</span></span>
-<span id="cb29-62"><a href="#cb29-62" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb29-63"><a href="#cb29-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb29-64"><a href="#cb29-64" aria-hidden="true" tabindex="-1"></a>  common_theme_v2</span>
-<span id="cb29-65"><a href="#cb29-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-66"><a href="#cb29-66" aria-hidden="true" tabindex="-1"></a><span class="co"># p8</span></span>
-<span id="cb29-67"><a href="#cb29-67" aria-hidden="true" tabindex="-1"></a>p8 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(v2_p8, <span class="fu">aes</span>(<span class="at">x =</span> Elderly_Rate_plot, </span>
-<span id="cb29-68"><a href="#cb29-68" aria-hidden="true" tabindex="-1"></a>                        <span class="at">y =</span> PA, </span>
-<span id="cb29-69"><a href="#cb29-69" aria-hidden="true" tabindex="-1"></a>                        <span class="at">fill =</span> Sex)) <span class="sc">+</span></span>
-<span id="cb29-70"><a href="#cb29-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb29-71"><a href="#cb29-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
-<span id="cb29-72"><a href="#cb29-72" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">subset</span>(v2_p8, </span>
-<span id="cb29-73"><a href="#cb29-73" aria-hidden="true" tabindex="-1"></a>                  Sex <span class="sc">==</span> <span class="st">"Females"</span>),</span>
-<span id="cb29-74"><a href="#cb29-74" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(<span class="fu">abs</span>(Elderly_Rate), <span class="dv">1</span>), <span class="st">"%"</span>)),</span>
-<span id="cb29-75"><a href="#cb29-75" aria-hidden="true" tabindex="-1"></a>    <span class="at">nudge_x =</span> <span class="sc">-</span><span class="dv">9</span>,</span>
-<span id="cb29-76"><a href="#cb29-76" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">3</span>,</span>
-<span id="cb29-77"><a href="#cb29-77" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"black"</span></span>
-<span id="cb29-78"><a href="#cb29-78" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb29-79"><a href="#cb29-79" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb29-80"><a href="#cb29-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
-<span id="cb29-81"><a href="#cb29-81" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">subset</span>(v2_p8, </span>
-<span id="cb29-82"><a href="#cb29-82" aria-hidden="true" tabindex="-1"></a>                  Sex <span class="sc">==</span> <span class="st">"Males"</span>),</span>
-<span id="cb29-83"><a href="#cb29-83" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(<span class="fu">abs</span>(Elderly_Rate), <span class="dv">1</span>), <span class="st">"%"</span>)),</span>
-<span id="cb29-84"><a href="#cb29-84" aria-hidden="true" tabindex="-1"></a>    <span class="at">nudge_x =</span> <span class="dv">9</span>,</span>
-<span id="cb29-85"><a href="#cb29-85" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">3</span>,</span>
-<span id="cb29-86"><a href="#cb29-86" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"black"</span></span>
-<span id="cb29-87"><a href="#cb29-87" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb29-88"><a href="#cb29-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(<span class="fu">abs</span>(x), <span class="st">"%"</span>)) <span class="sc">+</span></span>
-<span id="cb29-89"><a href="#cb29-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Males"</span> <span class="ot">=</span> <span class="st">"#58c3c3"</span>, </span>
-<span id="cb29-90"><a href="#cb29-90" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"Females"</span> <span class="ot">=</span> <span class="st">"#f08080"</span>)) <span class="sc">+</span></span>
-<span id="cb29-91"><a href="#cb29-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb29-92"><a href="#cb29-92" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Top 10 &amp; Bottom 10 Areas by Elderly Rate</span><span class="sc">\n</span><span class="st">(≥ 65) by Gender"</span>,</span>
-<span id="cb29-93"><a href="#cb29-93" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Elderly Population Ratio (%)"</span>,</span>
-<span id="cb29-94"><a href="#cb29-94" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Planning Area"</span>,</span>
-<span id="cb29-95"><a href="#cb29-95" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Sex"</span></span>
-<span id="cb29-96"><a href="#cb29-96" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb29-97"><a href="#cb29-97" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">50</span>, <span class="dv">50</span>)) <span class="sc">+</span>  </span>
-<span id="cb29-98"><a href="#cb29-98" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb29-99"><a href="#cb29-99" aria-hidden="true" tabindex="-1"></a>  common_theme_v2</span>
-<span id="cb29-100"><a href="#cb29-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-54"><a href="#cb29-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">60</span>, <span class="dv">60</span>),</span>
+<span id="cb29-55"><a href="#cb29-55" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(<span class="fu">abs</span>(x), <span class="st">"%"</span>)) <span class="sc">+</span></span>
+<span id="cb29-56"><a href="#cb29-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Males"</span> <span class="ot">=</span> <span class="st">"#58c3c3"</span>, </span>
+<span id="cb29-57"><a href="#cb29-57" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"Females"</span> <span class="ot">=</span> <span class="st">"#f08080"</span>)) <span class="sc">+</span></span>
+<span id="cb29-58"><a href="#cb29-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb29-59"><a href="#cb29-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Gender Composition by Planning Area"</span>,</span>
+<span id="cb29-60"><a href="#cb29-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Percentage of Population (%)"</span>,</span>
+<span id="cb29-61"><a href="#cb29-61" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Planning Area"</span>,</span>
+<span id="cb29-62"><a href="#cb29-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Sex"</span></span>
+<span id="cb29-63"><a href="#cb29-63" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb29-64"><a href="#cb29-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb29-65"><a href="#cb29-65" aria-hidden="true" tabindex="-1"></a>  common_theme_v2</span>
+<span id="cb29-66"><a href="#cb29-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-67"><a href="#cb29-67" aria-hidden="true" tabindex="-1"></a><span class="co"># p8</span></span>
+<span id="cb29-68"><a href="#cb29-68" aria-hidden="true" tabindex="-1"></a>p8 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(v2_p8, <span class="fu">aes</span>(<span class="at">x =</span> Elderly_Rate_plot, </span>
+<span id="cb29-69"><a href="#cb29-69" aria-hidden="true" tabindex="-1"></a>                        <span class="at">y =</span> PA, </span>
+<span id="cb29-70"><a href="#cb29-70" aria-hidden="true" tabindex="-1"></a>                        <span class="at">fill =</span> Sex)) <span class="sc">+</span></span>
+<span id="cb29-71"><a href="#cb29-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb29-72"><a href="#cb29-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb29-73"><a href="#cb29-73" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">subset</span>(v2_p8, </span>
+<span id="cb29-74"><a href="#cb29-74" aria-hidden="true" tabindex="-1"></a>                  Sex <span class="sc">==</span> <span class="st">"Females"</span>),</span>
+<span id="cb29-75"><a href="#cb29-75" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(<span class="fu">abs</span>(Elderly_Rate), <span class="dv">1</span>), <span class="st">"%"</span>)),</span>
+<span id="cb29-76"><a href="#cb29-76" aria-hidden="true" tabindex="-1"></a>    <span class="at">nudge_x =</span> <span class="sc">-</span><span class="dv">9</span>,</span>
+<span id="cb29-77"><a href="#cb29-77" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb29-78"><a href="#cb29-78" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"black"</span></span>
+<span id="cb29-79"><a href="#cb29-79" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb29-80"><a href="#cb29-80" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-81"><a href="#cb29-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb29-82"><a href="#cb29-82" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">subset</span>(v2_p8, </span>
+<span id="cb29-83"><a href="#cb29-83" aria-hidden="true" tabindex="-1"></a>                  Sex <span class="sc">==</span> <span class="st">"Males"</span>),</span>
+<span id="cb29-84"><a href="#cb29-84" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(<span class="fu">abs</span>(Elderly_Rate), <span class="dv">1</span>), <span class="st">"%"</span>)),</span>
+<span id="cb29-85"><a href="#cb29-85" aria-hidden="true" tabindex="-1"></a>    <span class="at">nudge_x =</span> <span class="dv">9</span>,</span>
+<span id="cb29-86"><a href="#cb29-86" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb29-87"><a href="#cb29-87" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"black"</span></span>
+<span id="cb29-88"><a href="#cb29-88" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb29-89"><a href="#cb29-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(<span class="fu">abs</span>(x), <span class="st">"%"</span>)) <span class="sc">+</span></span>
+<span id="cb29-90"><a href="#cb29-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Males"</span> <span class="ot">=</span> <span class="st">"#58c3c3"</span>, </span>
+<span id="cb29-91"><a href="#cb29-91" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"Females"</span> <span class="ot">=</span> <span class="st">"#f08080"</span>)) <span class="sc">+</span></span>
+<span id="cb29-92"><a href="#cb29-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb29-93"><a href="#cb29-93" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Top 10 &amp; Bottom 10 Areas by Elderly Rate</span><span class="sc">\n</span><span class="st">(≥ 65) by Gender"</span>,</span>
+<span id="cb29-94"><a href="#cb29-94" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Elderly Population Ratio (%)"</span>,</span>
+<span id="cb29-95"><a href="#cb29-95" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Planning Area"</span>,</span>
+<span id="cb29-96"><a href="#cb29-96" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Sex"</span></span>
+<span id="cb29-97"><a href="#cb29-97" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb29-98"><a href="#cb29-98" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">50</span>, <span class="dv">50</span>)) <span class="sc">+</span>  </span>
+<span id="cb29-99"><a href="#cb29-99" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb29-100"><a href="#cb29-100" aria-hidden="true" tabindex="-1"></a>  common_theme_v2</span>
 <span id="cb29-101"><a href="#cb29-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-102"><a href="#cb29-102" aria-hidden="true" tabindex="-1"></a>(p6 <span class="sc">/</span> p8) <span class="sc">|</span> p7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-102"><a href="#cb29-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-103"><a href="#cb29-103" aria-hidden="true" tabindex="-1"></a>(p6 <span class="sc">/</span> p8) <span class="sc">|</span> p7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1339,81 +1340,84 @@ Insight
 <span id="cb30-47"><a href="#cb30-47" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb30-48"><a href="#cb30-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Males"</span> <span class="ot">=</span> <span class="st">"#58c3c3"</span>, </span>
 <span id="cb30-49"><a href="#cb30-49" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"Females"</span> <span class="ot">=</span> <span class="st">"#f08080"</span>)) <span class="sc">+</span></span>
-<span id="cb30-50"><a href="#cb30-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb30-51"><a href="#cb30-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Age Distribution by Region"</span>,</span>
-<span id="cb30-52"><a href="#cb30-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Age"</span>,</span>
-<span id="cb30-53"><a href="#cb30-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Region"</span>,</span>
-<span id="cb30-54"><a href="#cb30-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="cn">NULL</span></span>
-<span id="cb30-55"><a href="#cb30-55" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb30-56"><a href="#cb30-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb30-57"><a href="#cb30-57" aria-hidden="true" tabindex="-1"></a>  common_theme_v3 </span>
-<span id="cb30-58"><a href="#cb30-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-59"><a href="#cb30-59" aria-hidden="true" tabindex="-1"></a><span class="co"># p11</span></span>
-<span id="cb30-60"><a href="#cb30-60" aria-hidden="true" tabindex="-1"></a>p11 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb30-61"><a href="#cb30-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(</span>
-<span id="cb30-62"><a href="#cb30-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> v3_p10,</span>
-<span id="cb30-63"><a href="#cb30-63" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> Region, </span>
-<span id="cb30-64"><a href="#cb30-64" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> Age, </span>
-<span id="cb30-65"><a href="#cb30-65" aria-hidden="true" tabindex="-1"></a>        <span class="at">color =</span> Sex),</span>
-<span id="cb30-66"><a href="#cb30-66" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.75</span>),</span>
-<span id="cb30-67"><a href="#cb30-67" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb30-68"><a href="#cb30-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
-<span id="cb30-69"><a href="#cb30-69" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> v3_p11,</span>
-<span id="cb30-70"><a href="#cb30-70" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> Region, </span>
-<span id="cb30-71"><a href="#cb30-71" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> Age, </span>
-<span id="cb30-72"><a href="#cb30-72" aria-hidden="true" tabindex="-1"></a>        <span class="at">color =</span> Sex),</span>
-<span id="cb30-73"><a href="#cb30-73" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_jitterdodge</span>(<span class="at">jitter.width =</span> <span class="fl">0.3</span>, </span>
-<span id="cb30-74"><a href="#cb30-74" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">dodge.width =</span> <span class="fl">0.75</span>),</span>
-<span id="cb30-75"><a href="#cb30-75" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">0.5</span>,</span>
-<span id="cb30-76"><a href="#cb30-76" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.4</span></span>
-<span id="cb30-77"><a href="#cb30-77" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb30-78"><a href="#cb30-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Males"</span> <span class="ot">=</span> <span class="st">"#58c3c3"</span>, </span>
-<span id="cb30-79"><a href="#cb30-79" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Females"</span> <span class="ot">=</span> <span class="st">"#f08080"</span>)) <span class="sc">+</span></span>
-<span id="cb30-80"><a href="#cb30-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb30-81"><a href="#cb30-81" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Age Distribution by Region and Gender"</span>,</span>
-<span id="cb30-82"><a href="#cb30-82" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Region"</span>,</span>
-<span id="cb30-83"><a href="#cb30-83" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Age"</span>,</span>
-<span id="cb30-84"><a href="#cb30-84" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="cn">NULL</span></span>
-<span id="cb30-85"><a href="#cb30-85" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb30-86"><a href="#cb30-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb30-87"><a href="#cb30-87" aria-hidden="true" tabindex="-1"></a>  common_theme_v3</span>
-<span id="cb30-88"><a href="#cb30-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-89"><a href="#cb30-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-90"><a href="#cb30-90" aria-hidden="true" tabindex="-1"></a>p12 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(v3_ridges, <span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">y =</span> <span class="fu">fct_rev</span>(Region), </span>
-<span id="cb30-91"><a href="#cb30-91" aria-hidden="true" tabindex="-1"></a>                             <span class="at">fill =</span> Region)) <span class="sc">+</span></span>
-<span id="cb30-92"><a href="#cb30-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(<span class="at">scale =</span> <span class="fl">0.9</span>, </span>
-<span id="cb30-93"><a href="#cb30-93" aria-hidden="true" tabindex="-1"></a>                      <span class="at">alpha =</span> <span class="fl">0.6</span>, </span>
-<span id="cb30-94"><a href="#cb30-94" aria-hidden="true" tabindex="-1"></a>                      <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb30-95"><a href="#cb30-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-96"><a href="#cb30-96" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">data =</span> v3_points,</span>
-<span id="cb30-97"><a href="#cb30-97" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> Age, </span>
-<span id="cb30-98"><a href="#cb30-98" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> Region_numeric <span class="sc">+</span> <span class="fl">0.25</span>, </span>
-<span id="cb30-99"><a href="#cb30-99" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color =</span> Region),</span>
-<span id="cb30-100"><a href="#cb30-100" aria-hidden="true" tabindex="-1"></a>              <span class="at">height =</span> <span class="fl">0.2</span>, </span>
-<span id="cb30-101"><a href="#cb30-101" aria-hidden="true" tabindex="-1"></a>              <span class="at">width =</span> <span class="dv">0</span>, </span>
-<span id="cb30-102"><a href="#cb30-102" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="fl">0.05</span>, </span>
-<span id="cb30-103"><a href="#cb30-103" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.6</span>,</span>
-<span id="cb30-104"><a href="#cb30-104" aria-hidden="true" tabindex="-1"></a>              <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb30-105"><a href="#cb30-105" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb30-106"><a href="#cb30-106" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set3"</span>) <span class="sc">+</span></span>
-<span id="cb30-107"><a href="#cb30-107" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
-<span id="cb30-108"><a href="#cb30-108" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb30-109"><a href="#cb30-109" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Age Distribution Across Regions in Singapore"</span>,</span>
-<span id="cb30-110"><a href="#cb30-110" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Age"</span>,</span>
-<span id="cb30-111"><a href="#cb30-111" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Region"</span></span>
-<span id="cb30-112"><a href="#cb30-112" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb30-113"><a href="#cb30-113" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb30-114"><a href="#cb30-114" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb30-115"><a href="#cb30-115" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
-<span id="cb30-116"><a href="#cb30-116" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb30-117"><a href="#cb30-117" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb30-118"><a href="#cb30-118" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">1</span>),</span>
-<span id="cb30-119"><a href="#cb30-119" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>),</span>
-<span id="cb30-120"><a href="#cb30-120" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb30-121"><a href="#cb30-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-122"><a href="#cb30-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-123"><a href="#cb30-123" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> (p9 <span class="sc">+</span> p10) <span class="sc">/</span> (p11<span class="sc">+</span>p12)</span>
-<span id="cb30-124"><a href="#cb30-124" aria-hidden="true" tabindex="-1"></a>a </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb30-50"><a href="#cb30-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">90</span>, <span class="at">by =</span> <span class="dv">10</span>), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">90</span>)) <span class="sc">+</span> </span>
+<span id="cb30-51"><a href="#cb30-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb30-52"><a href="#cb30-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Age Distribution by Region"</span>,</span>
+<span id="cb30-53"><a href="#cb30-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb30-54"><a href="#cb30-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb30-55"><a href="#cb30-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="cn">NULL</span></span>
+<span id="cb30-56"><a href="#cb30-56" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb30-57"><a href="#cb30-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb30-58"><a href="#cb30-58" aria-hidden="true" tabindex="-1"></a>  common_theme_v3 </span>
+<span id="cb30-59"><a href="#cb30-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-60"><a href="#cb30-60" aria-hidden="true" tabindex="-1"></a><span class="co"># p11</span></span>
+<span id="cb30-61"><a href="#cb30-61" aria-hidden="true" tabindex="-1"></a>p11 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb30-62"><a href="#cb30-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(</span>
+<span id="cb30-63"><a href="#cb30-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> v3_p10,</span>
+<span id="cb30-64"><a href="#cb30-64" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> Region, </span>
+<span id="cb30-65"><a href="#cb30-65" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> Age, </span>
+<span id="cb30-66"><a href="#cb30-66" aria-hidden="true" tabindex="-1"></a>        <span class="at">color =</span> Sex),</span>
+<span id="cb30-67"><a href="#cb30-67" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.75</span>),</span>
+<span id="cb30-68"><a href="#cb30-68" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb30-69"><a href="#cb30-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb30-70"><a href="#cb30-70" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> v3_p11,</span>
+<span id="cb30-71"><a href="#cb30-71" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> Region, </span>
+<span id="cb30-72"><a href="#cb30-72" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> Age, </span>
+<span id="cb30-73"><a href="#cb30-73" aria-hidden="true" tabindex="-1"></a>        <span class="at">color =</span> Sex),</span>
+<span id="cb30-74"><a href="#cb30-74" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_jitterdodge</span>(<span class="at">jitter.width =</span> <span class="fl">0.3</span>, </span>
+<span id="cb30-75"><a href="#cb30-75" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">dodge.width =</span> <span class="fl">0.75</span>),</span>
+<span id="cb30-76"><a href="#cb30-76" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">0.5</span>,</span>
+<span id="cb30-77"><a href="#cb30-77" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.4</span></span>
+<span id="cb30-78"><a href="#cb30-78" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb30-79"><a href="#cb30-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Males"</span> <span class="ot">=</span> <span class="st">"#58c3c3"</span>, </span>
+<span id="cb30-80"><a href="#cb30-80" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Females"</span> <span class="ot">=</span> <span class="st">"#f08080"</span>)) <span class="sc">+</span></span>
+<span id="cb30-81"><a href="#cb30-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">90</span>, <span class="at">by =</span> <span class="dv">10</span>), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">90</span>))<span class="sc">+</span></span>
+<span id="cb30-82"><a href="#cb30-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb30-83"><a href="#cb30-83" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Age Distribution by Region and Gender"</span>,</span>
+<span id="cb30-84"><a href="#cb30-84" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb30-85"><a href="#cb30-85" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb30-86"><a href="#cb30-86" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="cn">NULL</span></span>
+<span id="cb30-87"><a href="#cb30-87" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb30-88"><a href="#cb30-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb30-89"><a href="#cb30-89" aria-hidden="true" tabindex="-1"></a>  common_theme_v3</span>
+<span id="cb30-90"><a href="#cb30-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-91"><a href="#cb30-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-92"><a href="#cb30-92" aria-hidden="true" tabindex="-1"></a>p12 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(v3_ridges, <span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">y =</span> <span class="fu">fct_rev</span>(Region), </span>
+<span id="cb30-93"><a href="#cb30-93" aria-hidden="true" tabindex="-1"></a>                             <span class="at">fill =</span> Region)) <span class="sc">+</span></span>
+<span id="cb30-94"><a href="#cb30-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(<span class="at">scale =</span> <span class="fl">0.9</span>, </span>
+<span id="cb30-95"><a href="#cb30-95" aria-hidden="true" tabindex="-1"></a>                      <span class="at">alpha =</span> <span class="fl">0.6</span>, </span>
+<span id="cb30-96"><a href="#cb30-96" aria-hidden="true" tabindex="-1"></a>                      <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb30-97"><a href="#cb30-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-98"><a href="#cb30-98" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">data =</span> v3_points,</span>
+<span id="cb30-99"><a href="#cb30-99" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> Age, </span>
+<span id="cb30-100"><a href="#cb30-100" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> Region_numeric <span class="sc">+</span> <span class="fl">0.25</span>, </span>
+<span id="cb30-101"><a href="#cb30-101" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color =</span> Region),</span>
+<span id="cb30-102"><a href="#cb30-102" aria-hidden="true" tabindex="-1"></a>              <span class="at">height =</span> <span class="fl">0.2</span>, </span>
+<span id="cb30-103"><a href="#cb30-103" aria-hidden="true" tabindex="-1"></a>              <span class="at">width =</span> <span class="dv">0</span>, </span>
+<span id="cb30-104"><a href="#cb30-104" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="fl">0.05</span>, </span>
+<span id="cb30-105"><a href="#cb30-105" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.6</span>,</span>
+<span id="cb30-106"><a href="#cb30-106" aria-hidden="true" tabindex="-1"></a>              <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb30-107"><a href="#cb30-107" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-108"><a href="#cb30-108" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set3"</span>) <span class="sc">+</span></span>
+<span id="cb30-109"><a href="#cb30-109" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb30-110"><a href="#cb30-110" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">90</span>, <span class="at">by =</span> <span class="dv">10</span>), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">90</span>)) <span class="sc">+</span> </span>
+<span id="cb30-111"><a href="#cb30-111" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb30-112"><a href="#cb30-112" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Age Distribution Across Regions in Singapore"</span>,</span>
+<span id="cb30-113"><a href="#cb30-113" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb30-114"><a href="#cb30-114" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span></span>
+<span id="cb30-115"><a href="#cb30-115" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb30-116"><a href="#cb30-116" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb30-117"><a href="#cb30-117" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb30-118"><a href="#cb30-118" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
+<span id="cb30-119"><a href="#cb30-119" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb30-120"><a href="#cb30-120" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb30-121"><a href="#cb30-121" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb30-122"><a href="#cb30-122" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb30-123"><a href="#cb30-123" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb30-124"><a href="#cb30-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-125"><a href="#cb30-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-126"><a href="#cb30-126" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> (p9 <span class="sc">+</span> p10) <span class="sc">/</span> (p11<span class="sc">+</span>p12)</span>
+<span id="cb30-127"><a href="#cb30-127" aria-hidden="true" tabindex="-1"></a>a </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
