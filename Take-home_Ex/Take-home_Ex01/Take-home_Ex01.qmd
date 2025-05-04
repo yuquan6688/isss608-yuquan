@@ -1,11 +1,12 @@
 ---
 title: "Take-home Exercise 1"
+subtitle: "Visual Analytics of Population Structure Across Different Planning Areas in Singapore"
 author: "Li Yuquan"
 description: ""
 date: "April 30, 2024"
 date-modified: "last-modified"
 format: html
-image: ../../images/smu.png
+image: images/fm.png
 editor: visual
 
 
@@ -15,6 +16,8 @@ execute:
   warning: false
   freeze: true
 ---
+
+![](images/fm.png)
 
 # 1 Overview
 
@@ -47,7 +50,7 @@ The dataset used for this analysis is “Singapore Resident Population by Planni
 ## 2.2 Loading R packages
 
 | Library | Purpose |
-|-------------------------|-----------------------------------------------|
+|------------------------------------|------------------------------------|
 |  `tidyverse`  | Include dplyr for data manipulation (mutate, group_by, summarize), ggplot2 for visualization (histograms, boxplots), and forcats for factor handling and variable ordering |
 |  `ggrepel`  | an R package provides geoms for ggplot2 to repel overlapping text labels |
 |  `ggthemes`  | an R package provides some extra themes, geoms, and scales for ‘ggplot2’ |
@@ -81,7 +84,7 @@ data <- read_csv("data/respopagesex2024.csv")
 Explore the basic information of the dataset by using  `summary()` ,  `glimpse()`  and  `file.info()` . The dataset contains 60,424 observations and 6 variables, describing population counts disaggregated by planning areas, subzones, age groups, sex, and time (year).The size of the dataset is 2.5MB.
 
 | Variable | Description |
-|--------------------------------|----------------------------------------|
+|------------------------------------|------------------------------------|
 | `PA (Planning Area)` | Character variable indicating planning areas |
 | `SZ (Subzone)` | Character variable indicating subzones |
 | `Age` | Character variable representing age groups |
@@ -166,7 +169,10 @@ v2 <- data1 %>%
   mutate(
     Age_Group = cut(
       Age,
-      breaks = c(seq(0, 90, by = 5), Inf),
+      breaks = c(seq(0, 
+                     90, 
+                     by = 5), 
+                 Inf),
       right = FALSE,
       labels = c(
         "00_to_04", "05_to_09", "10_to_14", "15_to_19", "20_to_24",
@@ -278,10 +284,14 @@ The `top_bottom_elderly`, `top_bottom_youth`, and `top_bottom_middle` subsets ex
 v1_grouped_all <- v1 %>%
   group_by(PA) %>%
   summarise(
-    Elderly = sum(Pop[Age >= 65], na.rm = TRUE),
-    Youth = sum(Pop[Age <= 21], na.rm = TRUE),
-    Middle = sum(Pop[Age > 21 & Age < 65], na.rm = TRUE),
-    Total = sum(Pop, na.rm = TRUE),
+    Elderly = sum(Pop[Age >= 65], 
+                  na.rm = TRUE),
+    Youth = sum(Pop[Age <= 21], 
+                na.rm = TRUE),
+    Middle = sum(Pop[Age > 21 & Age < 65], 
+                 na.rm = TRUE),
+    Total = sum(Pop, 
+                na.rm = TRUE),
     Elderly_Rate = Elderly / Total,
     Youth_Rate = Youth / Total,
     Middle_Rate = Middle / Total,
@@ -291,22 +301,37 @@ v1_grouped_all <- v1 %>%
 
 # filter top_bottom for p1 p2 p3
 top_bottom_elderly <- bind_rows(
-  slice_max(v1_grouped_all, Elderly_Rate, n = 10),
-  slice_min(v1_grouped_all, Elderly_Rate, n = 10)
+  slice_max(v1_grouped_all, 
+            Elderly_Rate, 
+            n = 10),
+  slice_min(v1_grouped_all, 
+            Elderly_Rate, 
+            n = 10)
 ) %>%
-  mutate(PA = fct_reorder(PA, Elderly_Rate))
+  mutate(PA = fct_reorder(PA, 
+                          Elderly_Rate))
 
 top_bottom_youth <- bind_rows(
-  slice_max(v1_grouped_all, Youth_Rate, n = 10),
-  slice_min(v1_grouped_all, Youth_Rate, n = 10)
+  slice_max(v1_grouped_all, 
+            Youth_Rate, 
+            n = 10),
+  slice_min(v1_grouped_all, 
+            Youth_Rate, 
+            n = 10)
 ) %>%
-  mutate(PA = fct_reorder(PA, Youth_Rate))
+  mutate(PA = fct_reorder(PA, 
+                          Youth_Rate))
 
 top_bottom_middle <- bind_rows(
-  slice_max(v1_grouped_all, Middle_Rate, n = 10),
-  slice_min(v1_grouped_all, Middle_Rate, n = 10)
+  slice_max(v1_grouped_all, 
+            Middle_Rate, 
+            n = 10),
+  slice_min(v1_grouped_all, 
+            Middle_Rate, 
+            n = 10)
 ) %>%
-  mutate(PA = fct_reorder(PA, Middle_Rate))
+  mutate(PA = fct_reorder(PA, 
+                          Middle_Rate))
 
 # p4
 v1_p4 <- v1 %>%
@@ -333,7 +358,9 @@ v1_p5 <- v1 %>%
   summarise(Pop = sum(Pop), .groups = "drop") %>%
   mutate(
     Prop = Pop / sum(Pop),
-    Percent = paste0(Age_Group, ": ", round(Prop * 100, 1), "%"),
+    Percent = paste0(Age_Group, ": ", 
+                     round(Prop * 100, 1), 
+                     "%"),
     xmin = cumsum(lag(Prop, default = 0)),
     xmax = cumsum(Prop),
     label_x = (xmin + xmax) / 2
@@ -362,7 +389,9 @@ v2_p6 <- v2 %>%
   summarise(Pop = sum(Pop), .groups = "drop") %>%
   mutate(
     Percent = Pop / sum(Pop) * 100,
-    Percent_plot = ifelse(Sex == "Males", Percent, -Percent)
+    Percent_plot = ifelse(Sex == "Males", 
+                          Percent, 
+                          -Percent)
   )
 
 # p7
@@ -374,10 +403,14 @@ total_pa <- v2_p7 %>%
   group_by(PA) %>%
   summarise(Total = sum(Pop), .groups = "drop")
 
-v2_p7 <- left_join(v2_p7, total_pa, by = "PA") %>%
+v2_p7 <- left_join(v2_p7, 
+                   total_pa, 
+                   by = "PA") %>%
   mutate(
     Percent = Pop / Total * 100,
-    Percent_plot = ifelse(Sex == "Males", Percent, -Percent)
+    Percent_plot = ifelse(Sex == "Males", 
+                          Percent, 
+                          -Percent)
   ) %>%
   group_by(PA) %>%
   filter(sum(Pop) > 0) %>%
@@ -393,8 +426,11 @@ v2_p8 <- v2 %>%
     .groups = "drop"
   ) %>%
   mutate(
-    Elderly_Rate = ifelse(Total > 0, Elderly / Total * 100, 0),
-    Elderly_Rate_plot = ifelse(Sex == "Males", Elderly_Rate, -Elderly_Rate)
+    Elderly_Rate = ifelse(Total > 0, 
+                          Elderly / Total * 100, 0),
+    Elderly_Rate_plot = ifelse(Sex == "Males", 
+                               Elderly_Rate, 
+                               -Elderly_Rate)
   )
 
 valid_PA <- v2_p8 %>%
@@ -410,8 +446,12 @@ pa_avg <- v2_p8 %>%
   summarise(Avg_Elderly_Rate = mean(Elderly_Rate), .groups = "drop")
 
 selected_PA <- bind_rows(
-  slice_max(pa_avg, Avg_Elderly_Rate, n = 10),
-  slice_min(pa_avg, Avg_Elderly_Rate, n = 10)
+  slice_max(pa_avg, 
+            Avg_Elderly_Rate, 
+            n = 10),
+  slice_min(pa_avg, 
+            Avg_Elderly_Rate, 
+            n = 10)
 ) %>%
   arrange(desc(Avg_Elderly_Rate)) %>%
   pull(PA)
@@ -428,26 +468,24 @@ v2_p8 <- v2_p8 %>%
 ::: panel-tabset
 ##### Description
 
-`v3_p9` calculates the total population and percentage share of males and females within each region. It also generates visualization labels and mirrored population values (positive for males, negative for females), and reorders the Region factor based on total population.
+`v3_p9`This dataset aggregates the total population by region and calculates each region’s percentage share of the overall population. A new Label column is also created to display the region name, total population , and its percentage share.
 
 `v3_p10` expands the original region-level aggregated population data into individual-level rows, where each row represents a single person.
 
 `v3_p11` draws approximately 0.07% of the data by region and sex as a sample, in order to support visually cleaner and more efficient distribution visualizations.
 
+`v3_points` extracts a further small sample (0.02%) from the full individual-level dataset, stratified by Region and Age. A numeric mapping of Region is added (Region_numeric) to enable vertical jittering in visualizations by numerical y-position.
+
 ##### The Code
 
 ```{r}
 v3_p9 <- v3_region %>%
-  group_by(Region, Sex) %>%
-  summarise(Pop = sum(Pop), .groups = "drop") %>%
   group_by(Region) %>%
+  summarise(Total_Pop = sum(Pop, na.rm = TRUE)) %>%
   mutate(
-    Total = sum(Pop),
-    Percent = Pop / Total * 100,
-    Label = paste0(format(Pop, big.mark = ","), "\n", round(Percent, 1), "%"),
-    Pop_plot = ifelse(Sex == "Males", Pop, -Pop)
-  ) %>%
-  mutate(Region = fct_reorder(Region, Total))
+    Percent = Total_Pop / sum(Total_Pop) * 100,
+    Label = paste0(Region, "\n", comma(Total_Pop), "\n", round(Percent, 1), "%")
+  )
 
 v3_p10 <- v3_region %>%
   uncount(weights = Pop)
@@ -455,6 +493,14 @@ v3_p10 <- v3_region %>%
 v3_p11 <- v3_p10 %>%
   group_by(Region, Sex) %>%
   sample_frac(0.0007)
+
+v3_ridges <- v3_p10 
+v3_points <- v3_p10 %>%
+  group_by(Region, Age) %>%
+  sample_frac(0.0002)
+region_levels <- levels(fct_rev(factor(v3_ridges$Region)))
+v3_points <- v3_points %>%
+  mutate(Region_numeric = match(Region, region_levels))
 ```
 :::
 
@@ -966,29 +1012,28 @@ common_theme_v3 <- theme_minimal() +
 
 
 # p9
-p9 <- ggplot(v3_p9, 
-             aes(x = Pop_plot, 
-                 y = Region, 
-                 fill = Sex)) +
-  geom_col(width = 0.85) +
-  geom_text(aes(label = Label),
-            position = position_stack(vjust = 0.5),
-            size = 3.5,
-            color = "black") +
-  scale_x_continuous(labels = 
-                       scales::label_number(scale = 1/1000, 
-                                            suffix = "K", 
-                                            big.mark = ",")) +
-  scale_fill_manual(values = c("Males" = "#a6cee3", 
-                               "Females" = "#f4a6a6")) +
-  labs(
-    title = "Gender by Region",
-    x = "Total Population",
-    y = "Region",
-    fill = NULL
+p9 <- ggplot(v3_p9, aes(x = 2, 
+                        y = Total_Pop, 
+                        fill = Region)) +
+  geom_col(width = 1, 
+           color = "white") +
+  coord_polar(theta = "y") +
+  xlim(c(1, 2.5)) + 
+  geom_text(
+    aes(label = Label),
+    position = position_stack(vjust = 0.5),
+    size = 3
   ) +
-  theme_minimal() +
-  common_theme_v3
+  labs(title = "Population Distribution by Region") +
+  theme_void() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    legend.position = "none"
+  ) +
+  scale_fill_brewer(palette = "Set3")
+
+  
+  
 
 # p10
 p10 <- ggplot(v3_p10, 
@@ -1010,7 +1055,7 @@ p10 <- ggplot(v3_p10,
     fill = NULL
   ) +
   theme_minimal() +
-  common_theme_v3
+  common_theme_v3 
 
 # p11
 p11 <- ggplot() +
@@ -1042,7 +1087,41 @@ p11 <- ggplot() +
   theme_minimal() +
   common_theme_v3
 
-a <- (p9 + p10) / p11
+
+p12 <- ggplot(v3_ridges, aes(x = Age, y = fct_rev(Region), 
+                             fill = Region)) +
+  geom_density_ridges(scale = 0.9, 
+                      alpha = 0.6, 
+                      color = "black") +
+
+  geom_jitter(data = v3_points,
+              aes(x = Age, 
+                  y = Region_numeric + 0.25, 
+                  color = Region),
+              height = 0.2, 
+              width = 0, 
+              size = 0.05, 
+              alpha = 0.6,
+              inherit.aes = FALSE) +
+  
+  scale_fill_brewer(palette = "Set3") +
+  scale_color_brewer(palette = "Dark2") +
+  labs(
+    title = "Age Distribution Across Regions in Singapore",
+    x = "Age",
+    y = "Region"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "none",
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.title.x = element_text(hjust = 1),
+    plot.title = element_text(face = "bold", size = 14),
+  )
+
+
+a <- (p9 + p10) / (p11+p12)
 a 
 ```
 
@@ -1062,29 +1141,28 @@ common_theme_v3 <- theme_minimal() +
 
 
 # p9
-p9 <- ggplot(v3_p9, 
-             aes(x = Pop_plot, 
-                 y = Region, 
-                 fill = Sex)) +
-  geom_col(width = 0.85) +
-  geom_text(aes(label = Label),
-            position = position_stack(vjust = 0.5),
-            size = 3.5,
-            color = "black") +
-  scale_x_continuous(labels = 
-                       scales::label_number(scale = 1/1000, 
-                                            suffix = "K", 
-                                            big.mark = ",")) +
-  scale_fill_manual(values = c("Males" = "#a6cee3", 
-                               "Females" = "#f4a6a6")) +
-  labs(
-    title = "Gender by Region",
-    x = "Total Population",
-    y = "Region",
-    fill = NULL
+p9 <- ggplot(v3_p9, aes(x = 2, 
+                        y = Total_Pop, 
+                        fill = Region)) +
+  geom_col(width = 1, 
+           color = "white") +
+  coord_polar(theta = "y") +
+  xlim(c(1, 2.5)) + 
+  geom_text(
+    aes(label = Label),
+    position = position_stack(vjust = 0.5),
+    size = 3
   ) +
-  theme_minimal() +
-  common_theme_v3
+  labs(title = "Population Distribution by Region") +
+  theme_void() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    legend.position = "none"
+  ) +
+  scale_fill_brewer(palette = "Set3")
+
+  
+  
 
 # p10
 p10 <- ggplot(v3_p10, 
@@ -1106,7 +1184,7 @@ p10 <- ggplot(v3_p10,
     fill = NULL
   ) +
   theme_minimal() +
-  common_theme_v3
+  common_theme_v3 
 
 # p11
 p11 <- ggplot() +
@@ -1138,16 +1216,53 @@ p11 <- ggplot() +
   theme_minimal() +
   common_theme_v3
 
-(p9 + p10) / p11
+
+p12 <- ggplot(v3_ridges, aes(x = Age, y = fct_rev(Region), 
+                             fill = Region)) +
+  geom_density_ridges(scale = 0.9, 
+                      alpha = 0.6, 
+                      color = "black") +
+
+  geom_jitter(data = v3_points,
+              aes(x = Age, 
+                  y = Region_numeric + 0.25, 
+                  color = Region),
+              height = 0.2, 
+              width = 0, 
+              size = 0.05, 
+              alpha = 0.6,
+              inherit.aes = FALSE) +
+  
+  scale_fill_brewer(palette = "Set3") +
+  scale_color_brewer(palette = "Dark2") +
+  labs(
+    title = "Age Distribution Across Regions in Singapore",
+    x = "Age",
+    y = "Region"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "none",
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.title.x = element_text(hjust = 1),
+    plot.title = element_text(face = "bold", size = 14),
+  )
+
+
+a <- (p9 + p10) / (p11+p12)
+a 
 ```
 :::
 
 ::: {.callout-tip title="Insight"}
--   The top-left visualization illustrates the gender structure and total population size across the five regions. While the overall population is relatively similar in each region (approximately 450,000 to 510,000 residents), there are slight differences in gender composition. The Central region has the highest female proportion at 52.2%, noticeably higher than the others. In contrast, the West and North regions show near gender parity (with female shares at 50.8% and 50.5%, respectively), possibly reflecting a concentration of male-dominated labor sectors such as manufacturing and logistics.
+-   The pie chart in the top-left shows that Singapore’s population is relatively evenly distributed across regions, with the North-East and Central areas having the highest populations, while the North has the smallest.
 
--   The top-right visualization shows age distributions by gender across different regions. The Central region’s age density curve shifts significantly to the right, peaking above age 50, indicating a higher concentration of elderly residents. In West and North-East, a significant proportion of the population falls between the ages of 25 and 45. In all regions, the proportion of females exceeds that of males in the 75+ age group, consistent with longer female life expectancy.
+-   The top-right visualisation displays the age distribution by gender across different regions. The age density curve for the Central region skews noticeably to the right, peaking above age 50, indicating a higher proportion of elderly residents. In the West and North-East, the 25 to 45 age group is more prominent. Across all regions, females aged 75 and above outnumber males, consistent with higher female life expectancy.
 
--   The bottom visualization depicts gender-specific age distributions in each region. Central stands out as the most aged region, with a noticeably higher median age—especially among females, whose upper quartile nears age 60—suggesting a concentration of retirees. East and North have narrower boxplots, indicating more concentrated age distributions, likely in more stable and mature communities. Across most regions, females tend to have slightly higher median ages and more outliers in the older age range, reinforcing their greater presence among the elderly. Overall, the similarity in whisker lengths across regions suggests a generally balanced population age structure.
+-   The bottom-left chart illustrates the age distribution by gender within each region. The Central region stands out as the most aged. The East and North show narrower boxplots, indicating more concentrated age distributions, possibly reflecting more stable and mature communities. Overall, similar interquartile ranges suggest a generally balanced age structure across regions.
+
+-   The bottom-right chart further highlights intra-regional differences, with higher elderly population densities in the Central and Eastern regions. These patterns suggest that although all regions span a wide age range, some may be aging more rapidly, which could influence regional planning and healthcare needs.
 :::
 
 # 4 Conclusion

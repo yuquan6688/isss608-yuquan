@@ -1,0 +1,231 @@
+---
+title: "Hands-on_Ex04b---Visual Statistical Analysis"
+author: "Li Yuquan"
+description: ""
+date: "May 5, 2024"
+date-modified: "last-modified"
+format: html
+editor: visual
+image: ../../images/3afm.png
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  freeze: true
+---
+
+# 1 Learning Outcome
+
+In this hands-on exercise, we will gain hands-on experience on using:
+
+-   ggstatsplot package to create visual graphics with rich statistical information,
+
+-   performance package to visualise model diagnostics, and
+
+-   parameters package to visualise model parameters
+
+# 2 Visual Statistical Analysis with ggstatsplot
+
+**`ggstatsplot`** is an extension of [**ggplot2**](https://ggplot2.tidyverse.org/) package for creating graphics with details from statistical tests included in the information-rich plots themselves.
+
+\- To provide alternative statistical inference methods by default. - To follow best practices for statistical reporting. For all statistical tests reported in the plots, the default template abides by the \[APA\](https://my.ilstu.edu/\~jhkahn/apastats.html) gold standard for statistical reporting. For example, here are results from a robust t-test: ![](images/image2.jpg)
+
+# 3 Getting Started
+
+:::: panel-tabset
+## Loading the packages
+
+The following R packages will be used, they are:
+
+-   `tidyverse`, a family of R packages to meet the modern data science and visual communication needs.
+
+-   `ggstatsplot`, an R package, combines statistical analysis and data visualization by producing ggplot2-based graphics with embedded statistical results, streamlining the process of creating publication-ready plots with minimal code.
+
+```{r}
+pacman::p_load(ggstatsplot, tidyverse)
+```
+
+## Import Data
+
+Import The dataset for this hands-on exercise is imported into the R environment using the `read_csv()` function in the readr package and stored as the R object.
+
+```{r}
+exam <- read_csv("data/Exam_data.csv")
+```
+
+## Data Overview
+
+::: panel-tabset
+### summary()
+
+```{r}
+summary(exam)
+```
+
+### glimpse()
+
+```{r}
+glimpse(exam)
+```
+
+### head()
+
+```{r}
+head(exam,100)
+```
+:::
+::::
+
+# 4 Visualization
+
+## 4.1 One-sample test: gghistostats() method
+
+In the code chunk below, [*gghistostats()*](https://indrajeetpatil.github.io/ggstatsplot/reference/gghistostats.html) is used to to build an visual of one-sample test on English scores.
+
+```{r}
+set.seed(1234)
+
+gghistostats(
+  data = exam,
+  x = ENGLISH,
+  type = "bayes",
+  test.value = 60,
+  xlab = "English scores"
+)
+```
+
+Default information: - statistical details - Bayes Factor - sample sizes - distribution summary
+
+## 4.2 Unpacking the Bayes Factor
+
+A Bayes factor is the ratio of the likelihood of one particular hypothesis to the likelihood of another. It can be interpreted as a measure of the strength of evidence in favor of one theory among two competing theories.
+
+That’s because the Bayes factor gives us a way to evaluate the data in favor of a null hypothesis, and to use external information to do so. It tells us what the weight of the evidence is in favor of a given hypothesis.
+
+When we are comparing two hypotheses, H1 (the alternate hypothesis) and H0 (the null hypothesis), the Bayes Factor is often written as B10. It can be defined mathematically as
+
+![](images/image5.jpg)
+
+-   The [**Schwarz criterion**](https://www.statisticshowto.com/bayesian-information-criterion/) is one of the easiest ways to calculate rough approximation of the Bayes Factor.
+
+## 4.3 How to interpret Bayes Factor
+
+A **Bayes Factor** can be any positive number. One of the most common interpretations is this one—first proposed by Harold Jeffereys (1961) and slightly modified by [Lee and Wagenmakers](https://www-tandfonline-com.libproxy.smu.edu.sg/doi/pdf/10.1080/00031305.1999.10474443?needAccess=true) in 2013:
+
+![](images/image6.jpg)
+
+## 4.4 Two-sample mean test: ggbetweenstats()
+
+In the code chunk below, [*ggbetweenstats()*](https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html) is used to build a visual for two-sample mean test of Maths scores by gender.
+
+```{r}
+ggbetweenstats(data = exam,
+               x = GENDER,
+               y = MATHS,
+               type = "np", #non-parametric
+               messages = FALSE)
+```
+
+## 4.5  Oneway ANOVA Test: ggbetweenstats() method
+
+In the code chunk below, [*ggbetweenstats()*](https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html) is used to build a visual for One-way ANOVA test on English score by race.
+
+```{r}
+ggbetweenstats(
+  data = exam,
+  x = RACE, 
+  y = ENGLISH,
+  type = "p",
+  mean.ci = TRUE, 
+  pairwise.comparisons = TRUE, 
+  pairwise.display = "s",
+  p.adjust.method = "fdr",
+  messages = FALSE
+)
+```
+
+-   “ns” → only non-significant
+
+-   “s” → only significant
+
+-   “all” → everything
+
+### 4.5.1 ggbetweenstats - Summary of tests
+
+![](images/image7-01.jpg)
+
+![](images/image8.jpg)
+
+![](images/image9.jpg)
+
+## 4.6 Significant Test of Correlation: ggscatterstats()
+
+In the code chunk below, [*ggscatterstats()*](https://indrajeetpatil.github.io/ggstatsplot/reference/ggscatterstats.html) is used to build a visual for Significant Test of Correlation between Maths scores and English scores.
+
+```{r}
+ggscatterstats(data = exam,
+               x = MATHS,
+               y = ENGLISH,
+               marginal = FALSE,
+               )
+```
+
+## 4.7 Significant Test of Association (Depedence) : ggbarstats() methods
+
+In the code chunk below, the Maths scores is binned into a 4-class variable by using [*cut()*](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/cut).
+
+```{r}
+exam1 <- exam %>%
+  mutate(MATHS_bins =
+           cut(MATHS,
+               breaks = c(0,60,75,85,100)))
+```
+
+In this code chunk below [*ggbarstats()*](https://indrajeetpatil.github.io/ggstatsplot/reference/ggbarstats.html) is used to build a visual for Significant Test of Association
+
+```{r}
+ggbarstats(exam1,
+           x = MATHS_bins,
+           y = GENDER)
+```
+
+# 5 Exploration
+
+## 5.1 ggwithinstats()
+In the code chunk below, [ggwithinstats()] is used to create a paired comparison visual between students’ English and Maths scores. This method transforms the data into long format and performs a non-parametric statistical test to determine whether there is a significant difference between the two subjects.
+```{r}
+exam2 <- exam %>%
+  pivot_longer(cols = c(ENGLISH, MATHS),
+               names_to = "Subject",
+               values_to = "Score")
+
+ggwithinstats(
+  data = exam2,
+  x = Subject,
+  y = Score,
+  paired = TRUE,
+  type = "np"
+)
+```
+
+## 5.2 ggpiestats()
+In the code chunk below, [ggpiestats()] is applied to examine the association between gender and Maths passing status (Pass/Fail). The function generates a pie chart annotated with statistical test results (e.g., chi-squared test), allowing for an intuitive understanding of categorical variable relationships.
+```{r}
+exam3 <- exam %>%
+  mutate(MATHS_PASS = if_else(MATHS >= 50, "Pass", "Fail"))
+
+ggpiestats(data = exam3, x = GENDER, y = MATHS_PASS)
+```
+
+## 5.3 ggcorrmat()
+In the code chunk below, [ggcorrmat()] is used to display a correlation matrix among English, Maths, and Science scores. This function computes pairwise correlation coefficients (Pearson’s method in this case) and visualizes them in a heatmap with embedded significance markers for each pair.
+
+```{r}
+ggcorrmat(data = exam,
+          cor.vars = c(ENGLISH, MATHS, SCIENCE),
+          type = "p")
+```
+
+# 6 Reference
+
+-   Kam, T.S. (2023). [Visual Statistical Analysis](https://r4va.netlify.app/chap10).

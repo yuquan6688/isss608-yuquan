@@ -20,6 +20,7 @@ listing:
   grid-columns: 3  
   max-items: 3
 ---
+
 Welcome to Yuquan’s Visual Analytics Website!
 
 Here, you’ll find all the coursework I’ve completed for the ISSS608 Visual Analytics and Applications course, including Hands-on Exercises, In-Class Exercises, Take-home Exercises, and the Group Project.
@@ -32,7 +33,6 @@ This website is a space where I document my learning journey, practice data visu
 :::
 ::::
 
-
 ```{=html}
 <h2 style="border-bottom: 2px solid #78C2AD; padding-bottom: 4px; color: #78C2AD;">
   <a href="all-posts.qmd" style="color: inherit; text-decoration: none;">
@@ -43,13 +43,17 @@ This website is a space where I document my learning journey, practice data visu
   </a>
 </h2>
 ```
+
 ```{=html}
 <div class="announcement-bar">
   <div class="announcement-content">
-    🔔 <strong>NEW (29/04)</strong> – 
-    <a href="Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html">Hands-on Exercise 3a</a> and 
-    <a href="Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html">Hands-on Exercise 3b</a> are published!
-    🔔 <strong>NEW (29/04)</strong> –     
+    🔔 <strong>NEW (4/05)</strong> – 
+    <a href="Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04a.html">Hands-on Exercise 4a</a> and 
+     <a href="Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04b.html">Hands-on Exercise 4b</a> and
+      <a href="Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html">Hands-on Exercise 4c</a> and
+     <a href="Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html">Hands-on Exercise 4d</a> are published!
+     
+    🔔 <strong>NEW (3/05)</strong> –     
      <a href="Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html">Take-home Exercise 1</a> are published!
   </div>
 </div>

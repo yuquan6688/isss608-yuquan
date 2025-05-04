@@ -1,0 +1,15 @@
+---
+title: "Hands-on_Ex04d"
+author: "Li Yuquan"
+description: ""
+date: "April 28, 2024"
+date-modified: "last-modified"
+format: html
+editor: visual
+image: ../../images/3afm.png
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  freeze: true
+---

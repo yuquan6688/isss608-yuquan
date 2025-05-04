@@ -1,0 +1,86 @@
+---
+title: "Hands-on_Ex04c---Visualising Uncertainty"
+author: "Li Yuquan"
+description: ""
+date: "May 5, 2024"
+date-modified: "last-modified"
+format: html
+editor: visual
+image: ../../images/3afm.png
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  freeze: true
+---
+
+# 1 Learning Outcome
+
+Visualising uncertainty is relatively new in statistical graphics. In this chapter, we will gain hands-on experience on creating statistical graphics for visualising uncertainty. By the end of this chapter we will be able:
+
+-   to plot statistics error bars by using ggplot2,
+
+-   to plot interactive error bars by combining ggplot2, plotly and DT,
+
+-   to create advanced by using ggdist, and
+
+-   to create hypothetical outcome plots (HOPs) by using ungeviz package.
+
+# 2 Getting Started
+
+:::: panel-tabset
+## Loading the packages
+
+The following R packages will be used, they are:
+
+-   tidyverse, a family of R packages for data science process,
+
+-   plotly for creating interactive plot,
+
+-   gganimate for creating animation plot,
+
+-   DT for displaying interactive html table,
+
+-   crosstalk for for implementing cross-widget interactions (currently, linked brushing and filtering), and
+
+-   ggdist for visualising distribution and uncertainty.
+
+```{r}
+pacman::p_load(plotly, crosstalk, DT, 
+               ggdist, ggridges, colorspace,
+               gganimate, tidyverse)
+```
+
+## Import Data
+
+Import The dataset for this hands-on exercise is imported into the R environment using the `read_csv()` function in the readr package and stored as the R object.
+
+```{r}
+exam <- read_csv("data/Exam_data.csv")
+```
+
+## Data Overview
+
+::: panel-tabset
+### summary()
+
+```{r}
+summary(exam)
+```
+
+### glimpse()
+
+```{r}
+glimpse(exam)
+```
+
+### head()
+
+```{r}
+head(exam,100)
+```
+:::
+::::
+
+# 3 Visualizing the uncertainty of point estimates: ggplot2 methods
+A point estimate is a single number, such as a mean. Uncertainty, on the other hand, is expressed as standard error, confidence interval, or credible interval.
