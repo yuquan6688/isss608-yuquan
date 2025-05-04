@@ -11,7 +11,7 @@
     "href": "all-posts.html",
     "title": "all-posts",
     "section": "",
-    "text": "Hands-on_Ex04c—Visualising Uncertainty\n\n\n\nLi Yuquan\n\n\nMay 5, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHands-on_Ex04b—Visual Statistical Analysis\n\n\n\nLi Yuquan\n\n\nMay 5, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHands-on_Ex04a—Visualising Distribution\n\n\n\nLi Yuquan\n\n\nMay 5, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIn-class Exercise 3\n\n\n\nLi Yuquan\n\n\nMay 3, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTake-home Exercise 1\n\n\n\nLi Yuquan\n\n\nApr 30, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHand-on Exercise 3b — Programming Animated Statistical Graphics with R\n\n\n\nLi Yuquan\n\n\nApr 29, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHands-on_Ex04d\n\n\n\nLi Yuquan\n\n\nApr 28, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHand-on Exercise 3a — Programming Interactive Data Visualisation with R\n\n\n\nLi Yuquan\n\n\nApr 28, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIn-class Exercise 2\n\n\n\nLi Yuquan\n\n\nApr 26, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHand-on Exercise 2 — Beyond ggplot2 Fundamentals\n\n\n\nLi Yuquan\n\n\nApr 22, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHand-on Exercise 1 — A Layered Grammar of Graphics: ggplot2 methods\n\n\n\nLi Yuquan\n\n\nApr 9, 2024\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Hands-on_Ex04c—Visualising Uncertainty\n\n\n\nLi Yuquan\n\n\nMay 5, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHands-on_Ex04b—Visual Statistical Analysis\n\n\n\nLi Yuquan\n\n\nMay 5, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHands-on_Ex04a—Visualising Distribution\n\n\n\nLi Yuquan\n\n\nMay 5, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHands-on_Ex04d— Visualising Models\n\n\n\nLi Yuquan\n\n\nMay 5, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIn-class Exercise 3\n\n\n\nLi Yuquan\n\n\nMay 3, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTake-home Exercise 1\n\n\n\nLi Yuquan\n\n\nApr 30, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHand-on Exercise 3b — Programming Animated Statistical Graphics with R\n\n\n\nLi Yuquan\n\n\nApr 29, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHand-on Exercise 3a — Programming Interactive Data Visualisation with R\n\n\n\nLi Yuquan\n\n\nApr 28, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIn-class Exercise 2\n\n\n\nLi Yuquan\n\n\nApr 26, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHand-on Exercise 2 — Beyond ggplot2 Fundamentals\n\n\n\nLi Yuquan\n\n\nApr 22, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHand-on Exercise 1 — A Layered Grammar of Graphics: ggplot2 methods\n\n\n\nLi Yuquan\n\n\nApr 9, 2024\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html",
@@ -424,7 +424,7 @@
     "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html",
     "title": "Hands-on_Ex04c—Visualising Uncertainty",
     "section": "",
-    "text": "1 Learning Outcome\nVisualising uncertainty is relatively new in statistical graphics. In this chapter, we will gain hands-on experience on creating statistical graphics for visualising uncertainty. By the end of this chapter we will be able:\n\nto plot statistics error bars by using ggplot2,\nto plot interactive error bars by combining ggplot2, plotly and DT,\nto create advanced by using ggdist, and\nto create hypothetical outcome plots (HOPs) by using ungeviz package.\n\n\n\n2 Getting Started\n\nLoading the packagesImport DataData Overview\n\n\nThe following R packages will be used, they are:\n\ntidyverse, a family of R packages for data science process,\nplotly for creating interactive plot,\ngganimate for creating animation plot,\nDT for displaying interactive html table,\ncrosstalk for for implementing cross-widget interactions (currently, linked brushing and filtering), and\nggdist for visualising distribution and uncertainty.\n\n\npacman::p_load(plotly, crosstalk, DT, \n               ggdist, ggridges, colorspace,\n               gganimate, tidyverse)\n\n\n\nImport The dataset for this hands-on exercise is imported into the R environment using the read_csv() function in the readr package and stored as the R object.\n\nexam &lt;- read_csv(\"data/Exam_data.csv\")\n\n\n\n\nsummary()glimpse()head()\n\n\n\nsummary(exam)\n\n      ID               CLASS              GENDER              RACE          \n Length:322         Length:322         Length:322         Length:322        \n Class :character   Class :character   Class :character   Class :character  \n Mode  :character   Mode  :character   Mode  :character   Mode  :character  \n                                                                            \n                                                                            \n                                                                            \n    ENGLISH          MATHS          SCIENCE     \n Min.   :21.00   Min.   : 9.00   Min.   :15.00  \n 1st Qu.:59.00   1st Qu.:58.00   1st Qu.:49.25  \n Median :70.00   Median :74.00   Median :65.00  \n Mean   :67.18   Mean   :69.33   Mean   :61.16  \n 3rd Qu.:78.00   3rd Qu.:85.00   3rd Qu.:74.75  \n Max.   :96.00   Max.   :99.00   Max.   :96.00  \n\n\n\n\n\nglimpse(exam)\n\nRows: 322\nColumns: 7\n$ ID      &lt;chr&gt; \"Student321\", \"Student305\", \"Student289\", \"Student227\", \"Stude…\n$ CLASS   &lt;chr&gt; \"3I\", \"3I\", \"3H\", \"3F\", \"3I\", \"3I\", \"3I\", \"3I\", \"3I\", \"3H\", \"3…\n$ GENDER  &lt;chr&gt; \"Male\", \"Female\", \"Male\", \"Male\", \"Male\", \"Female\", \"Male\", \"M…\n$ RACE    &lt;chr&gt; \"Malay\", \"Malay\", \"Chinese\", \"Chinese\", \"Malay\", \"Malay\", \"Chi…\n$ ENGLISH &lt;dbl&gt; 21, 24, 26, 27, 27, 31, 31, 31, 33, 34, 34, 36, 36, 36, 37, 38…\n$ MATHS   &lt;dbl&gt; 9, 22, 16, 77, 11, 16, 21, 18, 19, 49, 39, 35, 23, 36, 49, 30,…\n$ SCIENCE &lt;dbl&gt; 15, 16, 16, 31, 25, 16, 25, 27, 15, 37, 42, 22, 32, 36, 35, 45…\n\n\n\n\n\nhead(exam,100)\n\n# A tibble: 100 × 7\n   ID         CLASS GENDER RACE    ENGLISH MATHS SCIENCE\n   &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;\n 1 Student321 3I    Male   Malay        21     9      15\n 2 Student305 3I    Female Malay        24    22      16\n 3 Student289 3H    Male   Chinese      26    16      16\n 4 Student227 3F    Male   Chinese      27    77      31\n 5 Student318 3I    Male   Malay        27    11      25\n 6 Student306 3I    Female Malay        31    16      16\n 7 Student313 3I    Male   Chinese      31    21      25\n 8 Student316 3I    Male   Malay        31    18      27\n 9 Student312 3I    Male   Malay        33    19      15\n10 Student297 3H    Male   Indian       34    49      37\n# ℹ 90 more rows\n\n\n\n\n\n\n\n\n\n\n3 Visualizing the uncertainty of point estimates: ggplot2 methods\nA point estimate is a single number, such as a mean. Uncertainty, on the other hand, is expressed as standard error, confidence interval, or credible interval."
+    "text": "Visualising uncertainty is relatively new in statistical graphics. In this chapter, we will gain hands-on experience on creating statistical graphics for visualising uncertainty. By the end of this chapter we will be able:\n\nto plot statistics error bars by using ggplot2,\nto plot interactive error bars by combining ggplot2, plotly and DT,\nto create advanced by using ggdist, and\nto create hypothetical outcome plots (HOPs) by using ungeviz package."
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04a.html",
@@ -719,5 +719,131 @@
     "title": "In-class Exercise 3",
     "section": "",
     "text": "Go to Tableau Public"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html#plotting-standard-error-bars-of-point-estimates",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html#plotting-standard-error-bars-of-point-estimates",
+    "title": "Hands-on_Ex04c—Visualising Uncertainty",
+    "section": "3.1 Plotting standard error bars of point estimates",
+    "text": "3.1 Plotting standard error bars of point estimates\nNow we are ready to plot the standard error bars of mean maths score by race as shown below.\n\nThe PlotThe Code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nggplot(my_sum) +\n  geom_errorbar(\n    aes(x=RACE, \n        ymin=mean-se, \n        ymax=mean+se), \n    width=0.2, \n    colour=\"black\", \n    alpha=0.9, \n    linewidth=0.5) +\n  geom_point(aes\n           (x=RACE, \n            y=mean), \n           stat=\"identity\", \n           color=\"red\",\n           size = 1.5,\n           alpha=1) +\n  ggtitle(\"Standard error of mean maths score by rac\")\n\n\n\n\n\n\n\nThings to learn from the code chunk above\n\n\n\n\nThe error bars are computed by using the formula mean ± se.\n\nFor geom_point(), it is important to indicate stat = \"identity\"."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html#plotting-confidence-interval-of-point-estimates",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html#plotting-confidence-interval-of-point-estimates",
+    "title": "Hands-on_Ex04c—Visualising Uncertainty",
+    "section": "3.2 Plotting confidence interval of point estimates",
+    "text": "3.2 Plotting confidence interval of point estimates\nInstead of plotting the standard error bar of point estimates, we can also plot the confidence intervals of mean maths score by race.\n\nThe PlotThe Code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nggplot(my_sum) +\n  geom_errorbar(\n    aes(x=reorder(RACE, -mean), \n        ymin=mean-1.96*se, \n        ymax=mean+1.96*se), \n    width=0.2, \n    colour=\"black\", \n    alpha=0.9, \n    linewidth=0.5) +\n  geom_point(aes\n           (x=RACE, \n            y=mean), \n           stat=\"identity\", \n           color=\"red\",\n           size = 1.5,\n           alpha=1) +\n  labs(x = \"Maths score\",\n       title = \"95% confidence interval of mean maths score by race\")\n\n\n\n\n\n\n\nThings to learn from the code chunk above\n\n\n\n\nThe confidence intervals are computed by using the formula mean ± 1.96 × se.\n\nThe error bars are sorted by using the average maths scores.\n\nlabs() argument of ggplot2 is used to change the x-axis label."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html#visualizing-the-uncertainty-of-point-estimates-with-interactive-error-bars",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html#visualizing-the-uncertainty-of-point-estimates-with-interactive-error-bars",
+    "title": "Hands-on_Ex04c—Visualising Uncertainty",
+    "section": "3.3 Visualizing the uncertainty of point estimates with interactive error bars",
+    "text": "3.3 Visualizing the uncertainty of point estimates with interactive error bars\nIn this section, we will learn how to plot interactive error bars for the 99% confidence interval of mean maths score by race as shown in the figure below.\n\nThe PlotThe Code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nshared_df = SharedData$new(my_sum)\n\nbscols(widths = c(4,8),\n       ggplotly((ggplot(shared_df) +\n                   geom_errorbar(aes(\n                     x=reorder(RACE, -mean),\n                     ymin=mean-2.58*se, \n                     ymax=mean+2.58*se), \n                     width=0.2, \n                     colour=\"black\", \n                     alpha=0.9, \n                     size=0.5) +\n                   geom_point(aes(\n                     x=RACE, \n                     y=mean, \n                     text = paste(\"Race:\", `RACE`, \n                                  \"&lt;br&gt;N:\", `n`,\n                                  \"&lt;br&gt;Avg. Scores:\", round(mean, digits = 2),\n                                  \"&lt;br&gt;95% CI:[\", \n                                  round((mean-2.58*se), digits = 2), \",\",\n                                  round((mean+2.58*se), digits = 2),\"]\")),\n                     stat=\"identity\", \n                     color=\"red\", \n                     size = 1.5, \n                     alpha=1) + \n                   xlab(\"Race\") + \n                   ylab(\"Average Scores\") + \n                   theme_minimal() + \n                   theme(axis.text.x = element_text(\n                     angle = 45, vjust = 0.5, hjust=1)) +\n                   ggtitle(\"99% Confidence interval of average /&lt;br&gt;maths scores by race\")), \n                tooltip = \"text\"), \n       DT::datatable(shared_df, \n                     rownames = FALSE, \n                     class=\"compact\", \n                     width=\"100%\", \n                     options = list(pageLength = 10,\n                                    scrollX=T), \n                     colnames = c(\"No. of pupils\", \n                                  \"Avg Scores\",\n                                  \"Std Dev\",\n                                  \"Std Error\")) %&gt;%\n         formatRound(columns=c('mean', 'sd', 'se'),\n                     digits=2))"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html#visualizing-the-uncertainty-of-point-estimates-ggdist-methods",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html#visualizing-the-uncertainty-of-point-estimates-ggdist-methods",
+    "title": "Hands-on_Ex04c—Visualising Uncertainty",
+    "section": "4.1 Visualizing the uncertainty of point estimates: ggdist methods",
+    "text": "4.1 Visualizing the uncertainty of point estimates: ggdist methods\nIn the code chunk below, stat_pointinterval() of ggdist is used to build a visual for displaying distribution of maths scores by race.\n\nexam %&gt;%\n  ggplot(aes(x = RACE, \n             y = MATHS)) +\n  stat_pointinterval() +\n  labs(\n    title = \"Visualising confidence intervals of mean math score\",\n    subtitle = \"Mean Point + Multiple-interval plot\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nThis function comes with many arguments, students are advised to read the syntax reference for more detail.\n\n\nFor example, in the code chunk below the following arguments are used:\n\n.width = 0.95\n.point = median\n.interval = qi\n\n\nexam %&gt;%\n  ggplot(aes(x = RACE, y = MATHS)) +\n  stat_pointinterval(.width = 0.95,\n  .point = median,\n  .interval = qi) +\n  labs(\n    title = \"Visualising confidence intervals of median math score\",\n    subtitle = \"Median Point + Multiple-interval plot\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html#visualizing-the-uncertainty-of-point-estimates-ggdist-methods-1",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html#visualizing-the-uncertainty-of-point-estimates-ggdist-methods-1",
+    "title": "Hands-on_Ex04c—Visualising Uncertainty",
+    "section": "4.2 Visualizing the uncertainty of point estimates: ggdist methods",
+    "text": "4.2 Visualizing the uncertainty of point estimates: ggdist methods\n\nCI=1CI=0.95CI=0.99\n\n\n\nexam %&gt;%\n  ggplot(aes(x = RACE, \n             y = MATHS)) +\n  stat_pointinterval(.width = 1,\n    show.legend = FALSE) +   \n  labs(\n    title = \"Visualising confidence intervals of mean math score\",\n    subtitle = \"Mean Point + Multiple-interval plot\")\n\n\n\n\n\n\n\n\n\n\n\nexam %&gt;%\n  ggplot(aes(x = RACE, \n             y = MATHS)) +\n  stat_pointinterval(.width = 0.95,\n    show.legend = FALSE) +   \n  labs(\n    title = \"Visualising confidence intervals of mean math score\",\n    subtitle = \"Mean Point + Multiple-interval plot\")\n\n\n\n\n\n\n\n\n\n\n\nexam %&gt;%\n  ggplot(aes(x = RACE, \n             y = MATHS)) +\n  stat_pointinterval(.width = 0.99,\n    show.legend = FALSE) +   \n  labs(\n    title = \"Visualising confidence intervals of mean math score\",\n    subtitle = \"Mean Point + Multiple-interval plot\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html#visualizing-the-uncertainty-of-point-estimates-ggdist-methods-2",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html#visualizing-the-uncertainty-of-point-estimates-ggdist-methods-2",
+    "title": "Hands-on_Ex04c—Visualising Uncertainty",
+    "section": "4.3 Visualizing the uncertainty of point estimates: ggdist methods",
+    "text": "4.3 Visualizing the uncertainty of point estimates: ggdist methods\nIn the code chunk below, stat_gradientinterval() of ggdist is used to build a visual for displaying distribution of maths scores by race.\n\nThe PlotThe Code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nexam %&gt;%\n  ggplot(aes(x = RACE, \n             y = MATHS)) +\n  stat_gradientinterval(   \n    fill = \"skyblue\",      \n    show.legend = TRUE     \n  ) +                        \n  labs(\n    title = \"Visualising confidence intervals of mean math score\",\n    subtitle = \"Gradient + interval plot\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html#installing-ungeviz-package",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html#installing-ungeviz-package",
+    "title": "Hands-on_Ex04c—Visualising Uncertainty",
+    "section": "5.1 Installing ungeviz package",
+    "text": "5.1 Installing ungeviz package\n\ndevtools::install_github(\"wilkelab/ungeviz\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html#launch-the-application-in-r",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html#launch-the-application-in-r",
+    "title": "Hands-on_Ex04c—Visualising Uncertainty",
+    "section": "5.2 Launch the application in R",
+    "text": "5.2 Launch the application in R\n\nlibrary(ungeviz)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html#visualising-uncertainty-with-hypothetical-outcome-plots-hops-1",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html#visualising-uncertainty-with-hypothetical-outcome-plots-hops-1",
+    "title": "Hands-on_Ex04c—Visualising Uncertainty",
+    "section": "5.3 Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)",
+    "text": "5.3 Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)\nNext, the code chunk below will be used to build the HOPs.\n\nThe PlotThe Code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nggplot(data = exam, \n       (aes(x = factor(RACE), \n            y = MATHS))) +\n  geom_point(position = position_jitter(\n    height = 0.3, \n    width = 0.05), \n    size = 0.4, \n    color = \"#0072B2\", \n    alpha = 1/2) +\n  geom_hpline(data = sampler(25, \n                             group = RACE), \n              height = 0.6, \n              color = \"#D55E00\") +\n  theme_bw() + \n  transition_states(.draw, 1, 3)\n\n\n\n\n\nThe PlotThe Code"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html",
+    "title": "Hands-on_Ex04d— Visualising Models",
+    "section": "",
+    "text": "In this section, we will learn how to visualise model diagnostic and model parameters by using parameters package."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html#the-case",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html#the-case",
+    "title": "Hands-on_Ex04d— Visualising Models",
+    "section": "2.1 The case",
+    "text": "2.1 The case\nToyota Corolla case study will be used. The purpose of study is to build a model to discover factors affecting prices of used-cars by taking into consideration a set of explanatory variables."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html#multiple-regression-model-using-lm",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html#multiple-regression-model-using-lm",
+    "title": "Hands-on_Ex04d— Visualising Models",
+    "section": "3.1 Multiple Regression Model using lm()",
+    "text": "3.1 Multiple Regression Model using lm()\nThe code chunk below is used to calibrate a multiple linear regression model by using lm() of Base Stats of R.\n\nmodel &lt;- lm(Price ~ Age_08_04 + Mfg_Year + KM + \n              Weight + Guarantee_Period, data = car_resale)\nmodel\n\n\nCall:\nlm(formula = Price ~ Age_08_04 + Mfg_Year + KM + Weight + Guarantee_Period, \n    data = car_resale)\n\nCoefficients:\n     (Intercept)         Age_08_04          Mfg_Year                KM  \n      -2.637e+06        -1.409e+01         1.315e+03        -2.323e-02  \n          Weight  Guarantee_Period  \n       1.903e+01         2.770e+01"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html#model-diagnostic-checking-for-multicolinearity",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html#model-diagnostic-checking-for-multicolinearity",
+    "title": "Hands-on_Ex04d— Visualising Models",
+    "section": "3.2 Model Diagnostic: checking for multicolinearity:",
+    "text": "3.2 Model Diagnostic: checking for multicolinearity:\nIn the code chunk, check_collinearity() of performance package.\n\ncheck_collinearity(model)\n\n# Check for Multicollinearity\n\nLow Correlation\n\n             Term  VIF     VIF 95% CI Increased SE Tolerance Tolerance 95% CI\n               KM 1.46 [ 1.37,  1.57]         1.21      0.68     [0.64, 0.73]\n           Weight 1.41 [ 1.32,  1.51]         1.19      0.71     [0.66, 0.76]\n Guarantee_Period 1.04 [ 1.01,  1.17]         1.02      0.97     [0.86, 0.99]\n\nHigh Correlation\n\n      Term   VIF     VIF 95% CI Increased SE Tolerance Tolerance 95% CI\n Age_08_04 31.07 [28.08, 34.38]         5.57      0.03     [0.03, 0.04]\n  Mfg_Year 31.16 [28.16, 34.48]         5.58      0.03     [0.03, 0.04]\n\n\n\ncheck_c &lt;- check_collinearity(model)\nplot(check_c)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html#model-diagnostic-checking-normality-assumption",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html#model-diagnostic-checking-normality-assumption",
+    "title": "Hands-on_Ex04d— Visualising Models",
+    "section": "3.3 Model Diagnostic: checking normality assumption",
+    "text": "3.3 Model Diagnostic: checking normality assumption\n\nmodel1 &lt;- lm(Price ~ Age_08_04 + KM + \n              Weight + Guarantee_Period, data = car_resale)\n\n\ncheck_n &lt;- check_normality(model1)\n\n\nplot(check_n)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html#model-diagnostic-check-model-for-homogeneity-of-variances",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html#model-diagnostic-check-model-for-homogeneity-of-variances",
+    "title": "Hands-on_Ex04d— Visualising Models",
+    "section": "3.4 Model Diagnostic: Check model for homogeneity of variances",
+    "text": "3.4 Model Diagnostic: Check model for homogeneity of variances\nIn the code chunk, check_heteroscedasticity() of performance package.\n\ncheck_h &lt;- check_heteroscedasticity(model1)\n\n\nplot(check_h)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html#model-diagnostic-complete-check",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html#model-diagnostic-complete-check",
+    "title": "Hands-on_Ex04d— Visualising Models",
+    "section": "3.5 Model Diagnostic: Complete check",
+    "text": "3.5 Model Diagnostic: Complete check\nWe can also perform the complete by using check_model().\n\ncheck_model(model1)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html#visualising-regression-parameters-see-methods",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html#visualising-regression-parameters-see-methods",
+    "title": "Hands-on_Ex04d— Visualising Models",
+    "section": "3.6 Visualising Regression Parameters: see methods",
+    "text": "3.6 Visualising Regression Parameters: see methods\nIn the code below, plot() of see package and parameters() of parameters package is used to visualise the parameters of a regression model.\n\n# plot(parameters(model1))"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html#visualising-regression-parameters-ggcoefstats-methods",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html#visualising-regression-parameters-ggcoefstats-methods",
+    "title": "Hands-on_Ex04d— Visualising Models",
+    "section": "3.7 Visualising Regression Parameters: ggcoefstats() methods",
+    "text": "3.7 Visualising Regression Parameters: ggcoefstats() methods\nIn the code below, ggcoefstats() of ggstatsplot package to visualise the parameters of a regression model.\n\nggcoefstats(model1, \n            output = \"plot\")"
   }
 ]
