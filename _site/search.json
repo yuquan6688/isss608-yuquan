@@ -781,7 +781,7 @@
     "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html#visualising-uncertainty-with-hypothetical-outcome-plots-hops-1",
     "title": "Hands-on_Ex04c—Visualising Uncertainty",
     "section": "5.3 Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)",
-    "text": "5.3 Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)\nNext, the code chunk below will be used to build the HOPs.\n\nThe PlotThe Code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nggplot(data = exam, \n       (aes(x = factor(RACE), \n            y = MATHS))) +\n  geom_point(position = position_jitter(\n    height = 0.3, \n    width = 0.05), \n    size = 0.4, \n    color = \"#0072B2\", \n    alpha = 1/2) +\n  geom_hpline(data = sampler(25, \n                             group = RACE), \n              height = 0.6, \n              color = \"#D55E00\") +\n  theme_bw() + \n  transition_states(.draw, 1, 3)\n\n\n\n\n\nThe PlotThe Code"
+    "text": "5.3 Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)\nNext, the code chunk below will be used to build the HOPs.\n\nThe PlotThe Code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nggplot(data = exam, \n       (aes(x = factor(RACE), \n            y = MATHS))) +\n  geom_point(position = position_jitter(\n    height = 0.3, \n    width = 0.05), \n    size = 0.4, \n    color = \"#0072B2\", \n    alpha = 1/2) +\n  geom_hpline(data = sampler(25, \n                             group = RACE), \n              height = 0.6, \n              color = \"#D55E00\") +\n  theme_bw() + \n  transition_states(.draw, 1, 3)"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html",
