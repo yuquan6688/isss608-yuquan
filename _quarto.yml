@@ -3,7 +3,7 @@ project:
 
 website:
   title: "<img src='/images/logo.png' style='height:40px;'>"
-  favicon: images/logo.png
+  favicon: images/logo1.png
   navbar:
     left:
       - text: "Hands-on Exercise"
