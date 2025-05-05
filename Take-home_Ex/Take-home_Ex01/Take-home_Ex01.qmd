@@ -3,8 +3,8 @@ title: "Take-home Exercise 1"
 subtitle: "Visual Analytics of Population Structure Across Different Planning Areas in Singapore"
 author: "Li Yuquan"
 description: ""
-date: "April 30, 2024"
-date-modified: "last-modified"
+date: "April 30, 2025"
+date-modified: "May 4, 2025"
 format: html
 image: images/fm.png
 editor: visual
@@ -16,8 +16,6 @@ execute:
   warning: false
   freeze: true
 ---
-
-![](images/fm.png)
 
 # 1 Overview
 
@@ -50,7 +48,7 @@ The dataset used for this analysis is “Singapore Resident Population by Planni
 ## 2.2 Loading R packages
 
 | Library | Purpose |
-|------------------------------------|------------------------------------|
+|---------------------|---------------------------------------------------|
 |  `tidyverse`  | Include dplyr for data manipulation (mutate, group_by, summarize), ggplot2 for visualization (histograms, boxplots), and forcats for factor handling and variable ordering |
 |  `ggrepel`  | an R package provides geoms for ggplot2 to repel overlapping text labels |
 |  `ggthemes`  | an R package provides some extra themes, geoms, and scales for ‘ggplot2’ |
@@ -84,7 +82,7 @@ data <- read_csv("data/respopagesex2024.csv")
 Explore the basic information of the dataset by using  `summary()` ,  `glimpse()`  and  `file.info()` . The dataset contains 60,424 observations and 6 variables, describing population counts disaggregated by planning areas, subzones, age groups, sex, and time (year).The size of the dataset is 2.5MB.
 
 | Variable | Description |
-|------------------------------------|------------------------------------|
+|---------------------|---------------------------------------------------|
 | `PA (Planning Area)` | Character variable indicating planning areas |
 | `SZ (Subzone)` | Character variable indicating subzones |
 | `Age` | Character variable representing age groups |

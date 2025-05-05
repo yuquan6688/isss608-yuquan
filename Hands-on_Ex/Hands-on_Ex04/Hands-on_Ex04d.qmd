@@ -1,8 +1,8 @@
 ---
-title: "Hands-on_Ex04d--- Visualising Models"
+title: "Hands-on_Ex04d--- Funnel Plots for Fair Comparisons"
 author: "Li Yuquan"
 description: ""
-date: "May 5, 2024"
+date: "May 5, 2025"
 date-modified: "last-modified"
 format: html
 editor: visual
@@ -14,39 +14,49 @@ execute:
   freeze: true
 ---
 
-# 1 Introduction
+# 1 Overview
 
-In this section, we will learn how to visualise model diagnostic and model parameters by using parameters package.
+Funnel plot is a specially designed data visualisation for conducting unbiased comparison between outlets, stores or business entities. By the end of this hands-on exercise, you will gain hands-on experience on:
 
-# 2 Visual Anaslytics for Building Better Explanatory Models
+-   plotting funnel plots by using **funnelPlotR** package,
 
-## 2.1 The case
+-   plotting static funnel plot by using ggplot2 package, and
 
-Toyota Corolla case study will be used. The purpose of study is to build a model to discover factors affecting prices of used-cars by taking into consideration a set of explanatory variables.
+-   plotting interactive funnel plot by using both **plotly R** and **ggplot2** packages.
 
-![](images/image1.jpg)
-
-# 3 Getting Started
+# 2 Getting Started
 
 :::: panel-tabset
-## Install Packages
+## Loading the packages
+
+In this exercise, four R packages will be used. They are:
+
+-   **readr** for importing csv into R.
+
+-   **FunnelPlotR** for creating funnel plot.
+
+-   **ggplot2** for creating funnel plot manually.
+
+-   **knitr** for building static html table.
+
+-   **plotly** for creating interactive funnel plot.
 
 ```{r}
-pacman::p_load(readxl, SmartEDA, tidyverse,
-               ggstatsplot, easystats, tidymodels,parameters, see)
+pacman::p_load(tidyverse, FunnelPlotR, plotly, knitr)
 ```
 
 ## Import Data
 
-In the code chunk below, read_xls() of readxl package is used to import the data worksheet of ToyotaCorolla.xls workbook into R.
+In this section, COVID-19_DKI_Jakarta will be used. The data was downloaded from [Open Data Covid-19 Provinsi DKI Jakarta portal](https://riwayat-file-covid-19-dki-jakarta-jakartagis.hub.arcgis.com/). For this hands-on exercise, we are going to compare the cumulative COVID-19 cases and death by sub-district (i.e. kelurahan) as at 31st July 2021, DKI Jakarta.
+
+The code chunk below imports the data into R and save it into a tibble data frame object called *covid19*.
+
+Import The dataset for this hands-on exercise is imported into the R environment using the `read_csv()` function in the readr package and stored as the R object.
 
 ```{r}
-car_resale <- read_xls("data/ToyotaCorolla.xls", 
-                       "data")
-car_resale
+covid19 <- read_csv("data/COVID-19_DKI_Jakarta.csv") %>%
+  mutate_if(is.character, as.factor)
 ```
-
-Notice that the output object car_resale is a tibble data frame.
 
 ## Data Overview
 
@@ -54,94 +64,242 @@ Notice that the output object car_resale is a tibble data frame.
 ### summary()
 
 ```{r}
-summary(car_resale)
+summary(covid19)
 ```
 
 ### glimpse()
 
 ```{r}
-glimpse(car_resale)
+glimpse(covid19)
 ```
 
 ### head()
 
 ```{r}
-head(car_resale,100)
+head(covid19,100)
 ```
 :::
 ::::
 
-## 3.1 Multiple Regression Model using lm()
+# 3 FunnelPlotR methods
 
-The code chunk below is used to calibrate a multiple linear regression model by using lm() of Base Stats of R.
+[**FunnelPlotR**](https://nhs-r-community.github.io/FunnelPlotR/) package uses ggplot to generate funnel plots. It requires a `numerator` (events of interest), `denominator` (population to be considered) and `group`. The key arguments selected for customisation are:
 
-```{r}
-model <- lm(Price ~ Age_08_04 + Mfg_Year + KM + 
-              Weight + Guarantee_Period, data = car_resale)
-model
-```
+-   `limit`: plot limits (95 or 99).
 
-## 3.2 Model Diagnostic: checking for multicolinearity:
+-   `label_outliers`: to label outliers (true or false).
 
-In the code chunk, [*check_collinearity()*](https://easystats.github.io/performance/reference/check_collinearity.html) of [**performance**](https://easystats.github.io/performance/index.html) package.
+-   `Poisson_limits`: to add Poisson limits to the plot.
 
-```{r}
-check_collinearity(model)
-```
+-   `OD_adjust`: to add overdispersed limits to the plot.
 
-```{r}
-check_c <- check_collinearity(model)
-plot(check_c)
-```
+-   `xrange` and `yrange`: to specify the range to display for axes, acts like a zoom function.
 
-## 3.3 Model Diagnostic: checking normality assumption
+-   Other aesthetic components such as graph title, axis labels etc.
+
+## 3.1 FunnelPlotR methods: The basic plot
+
+The code chunk below plots a funnel plot.
 
 ```{r}
-model1 <- lm(Price ~ Age_08_04 + KM + 
-              Weight + Guarantee_Period, data = car_resale)
+funnel_plot(
+  .data = covid19,
+  numerator = Positive,
+  denominator = Death,
+  group = `Sub-district`
+)
 ```
+
+```         
+A funnel plot object with 267 points of which 0 are outliers. 
+Plot is adjusted for overdispersion. 
+```
+
+Things to learn from the code chunk above.
+
+-   `group` in this function is different from the scatterplot. Here, it defines the level of the points to be plotted i.e. Sub-district, District or City. If Cityc is chosen, there are only six data points.
+
+-   By default, `data_type`argument is “SR”.
+
+-   `limit`: Plot limits, accepted values are: 95 or 99, corresponding to 95% or 99.8% quantiles of the distribution.
+
+# 3.2 FunnelPlotR methods: Makeover 1
+
+The code chunk below plots a funnel plot.
 
 ```{r}
-check_n <- check_normality(model1)
+funnel_plot(
+  .data = covid19,
+  numerator = Death,
+  denominator = Positive,
+  group = `Sub-district`,
+  data_type = "PR",     #<<
+  xrange = c(0, 6500),  #<<
+  yrange = c(0, 0.05)   #<<
+)
 ```
 
-```{R}
-plot(check_n)
+```         
+A funnel plot object with 267 points of which 7 are outliers. 
+Plot is adjusted for overdispersion. 
 ```
 
-## 3.4 Model Diagnostic: Check model for homogeneity of variances
+Things to learn from the code chunk above. + `data_type` argument is used to change from default “SR” to “PR” (i.e. proportions). + `xrange` and `yrange` are used to set the range of x-axis and y-axis.
 
-In the code chunk, [*check_heteroscedasticity()*](https://easystats.github.io/performance/reference/check_heteroscedasticity.html) of [**performance**](https://easystats.github.io/performance/index.html) package.
+## 3.3 FunnelPlotR methods: Makeover 2
+
+The code chunk below plots a funnel plot.
 
 ```{r}
-check_h <- check_heteroscedasticity(model1)
+funnel_plot(
+  .data = covid19,
+  numerator = Death,
+  denominator = Positive,
+  group = `Sub-district`,
+  data_type = "PR",   
+  x_range = c(0, 6500),  
+  y_range = c(0, 0.05),
+  label = NA,
+  title = "Cumulative COVID-19 Fatality Rate by Cumulative \n Total Number of COVID-19 Positive Cases", #<<           
+  x_label = "Cumulative COVID-19 Positive Cases", #<<
+  y_label = "Cumulative Fatality Rate"  #<<
+) 
+
 ```
+
+```         
+A funnel plot object with 267 points of which 7 are outliers. 
+Plot is adjusted for overdispersion. 
+```
+
+Things to learn from the code chunk above.
+
+-   `label = NA` argument is to removed the default label outliers feature.
+
+-   `title` argument is used to add plot title.
+
+-   `x_label` and `y_label` arguments are used to add/edit x-axis and y-axis titles.
+
+# 4 Funnel Plot for Fair Visual Comparison: ggplot2 methods
+
+In this section, we will gain hands-on experience on building funnel plots step-by-step by using ggplot2. It aims to enhance you working experience of ggplot2 to customise speciallised data visualisation like funnel plot.
+
+## 4.1 Computing the basic derived fields
+
+To plot the funnel plot from scratch, we need to derive cumulative death rate and standard error of cumulative death rate.
 
 ```{r}
-plot(check_h)
+df <- covid19 %>%
+  mutate(rate = Death / Positive) %>%
+  mutate(rate.se = sqrt((rate*(1-rate)) / (Positive))) %>%
+  filter(rate > 0)
 ```
 
-## 3.5 Model Diagnostic: Complete check
-
-We can also perform the complete by using [*check_model()*](https://easystats.github.io/performance/reference/check_model.html).
+Next, the fit.mean is computed by using the code chunk below.
 
 ```{r}
-check_model(model1)
+fit.mean <- weighted.mean(df$rate, 1/df$rate.se^2)
 ```
 
-## 3.6 Visualising Regression Parameters: see methods
+## 4.2 Calculate lower and upper limits for 95% and 99.9% CI
 
-In the code below, plot() of see package and parameters() of parameters package is used to visualise the parameters of a regression model.
+The code chunk below is used to compute the lower and upper limits for 95% confidence interval.
 
 ```{r}
-# plot(parameters(model1))
+number.seq <- seq(1, max(df$Positive), 1)
+number.ll95 <- fit.mean - 1.96 * sqrt((fit.mean*(1-fit.mean)) / (number.seq)) 
+number.ul95 <- fit.mean + 1.96 * sqrt((fit.mean*(1-fit.mean)) / (number.seq)) 
+number.ll999 <- fit.mean - 3.29 * sqrt((fit.mean*(1-fit.mean)) / (number.seq)) 
+number.ul999 <- fit.mean + 3.29 * sqrt((fit.mean*(1-fit.mean)) / (number.seq)) 
+dfCI <- data.frame(number.ll95, number.ul95, number.ll999, 
+                   number.ul999, number.seq, fit.mean)
 ```
 
-## 3.7 Visualising Regression Parameters: ggcoefstats() methods
+## 4.3 Plotting a static funnel plot
 
-In the code below, [*ggcoefstats()*](https://indrajeetpatil.github.io/ggstatsplot/reference/ggcoefstats.html) of ggstatsplot package to visualise the parameters of a regression model.
+In the code chunk below, ggplot2 functions are used to plot a static funnel plot.
 
 ```{r}
-ggcoefstats(model1, 
-            output = "plot")
+p <- ggplot(df, aes(x = Positive, y = rate)) +
+  geom_point(aes(label=`Sub-district`), 
+             alpha=0.4) +
+  geom_line(data = dfCI, 
+            aes(x = number.seq, 
+                y = number.ll95), 
+            size = 0.4, 
+            colour = "grey40", 
+            linetype = "dashed") +
+  geom_line(data = dfCI, 
+            aes(x = number.seq, 
+                y = number.ul95), 
+            size = 0.4, 
+            colour = "grey40", 
+            linetype = "dashed") +
+  geom_line(data = dfCI, 
+            aes(x = number.seq, 
+                y = number.ll999), 
+            size = 0.4, 
+            colour = "grey40") +
+  geom_line(data = dfCI, 
+            aes(x = number.seq, 
+                y = number.ul999), 
+            size = 0.4, 
+            colour = "grey40") +
+  geom_hline(data = dfCI, 
+             aes(yintercept = fit.mean), 
+             size = 0.4, 
+             colour = "grey40") +
+  coord_cartesian(ylim=c(0,0.05)) +
+  annotate("text", x = 1, y = -0.13, label = "95%", size = 3, colour = "grey40") + 
+  annotate("text", x = 4.5, y = -0.18, label = "99%", size = 3, colour = "grey40") + 
+  ggtitle("Cumulative Fatality Rate by Cumulative Number of COVID-19 Cases") +
+  xlab("Cumulative Number of COVID-19 Cases") + 
+  ylab("Cumulative Fatality Rate") +
+  theme_light() +
+  theme(plot.title = element_text(size=12),
+        legend.position = c(0.91,0.85), 
+        legend.title = element_text(size=7),
+        legend.text = element_text(size=7),
+        legend.background = element_rect(colour = "grey60", linetype = "dotted"),
+        legend.key.height = unit(0.3, "cm"))
+p
 ```
+
+## 4.4 Interactive Funnel Plot: plotly + ggplot2
+
+The funnel plot created using ggplot2 functions can be made interactive with `ggplotly()`of **plotly** r package.
+
+```{r}
+fp_ggplotly <- ggplotly(p,
+  tooltip = c("label", 
+              "x", 
+              "y"))
+fp_ggplotly
+```
+
+# 5 Exploration
+## 5.1 label_outliers = TRUE
+```{r}
+funnel_plot(
+  .data = covid19,
+  numerator = Death,
+  denominator = Positive,
+  group = `Sub-district`,
+  data_type = "PR",
+  label_outliers = TRUE,
+  title = "Outlier Sub-districts in COVID-19 Fatality Rate"
+)
+```
+
+
+
+
+# 6 Reference
+
+-   [funnelPlotR](https://nhs-r-community.github.io/FunnelPlotR/index.html) package.
+
+-   [Funnel Plots for Indirectly-standardised ratios](https://nhs-r-community.github.io/FunnelPlotR/articles/funnel_plots.html).
+
+-   [Changing funnel plot options](https://nhs-r-community.github.io/FunnelPlotR/articles/changing_funnel_plot_options.html)
+
+-   [ggplot2](https://ggplot2.tidyverse.org/) package.

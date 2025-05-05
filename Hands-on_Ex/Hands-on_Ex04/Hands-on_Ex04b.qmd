@@ -2,7 +2,7 @@
 title: "Hands-on_Ex04b---Visual Statistical Analysis"
 author: "Li Yuquan"
 description: ""
-date: "May 5, 2024"
+date: "May 5, 2025"
 date-modified: "last-modified"
 format: html
 editor: visual
@@ -192,7 +192,9 @@ ggbarstats(exam1,
 # 5 Exploration
 
 ## 5.1 ggwithinstats()
-In the code chunk below, [ggwithinstats()] is used to create a paired comparison visual between students’ English and Maths scores. This method transforms the data into long format and performs a non-parametric statistical test to determine whether there is a significant difference between the two subjects.
+
+In the code chunk below, \[ggwithinstats()\] is used to create a paired comparison visual between students’ English and Maths scores. This method transforms the data into long format and performs a non-parametric statistical test to determine whether there is a significant difference between the two subjects.
+
 ```{r}
 exam2 <- exam %>%
   pivot_longer(cols = c(ENGLISH, MATHS),
@@ -209,7 +211,9 @@ ggwithinstats(
 ```
 
 ## 5.2 ggpiestats()
-In the code chunk below, [ggpiestats()] is applied to examine the association between gender and Maths passing status (Pass/Fail). The function generates a pie chart annotated with statistical test results (e.g., chi-squared test), allowing for an intuitive understanding of categorical variable relationships.
+
+In the code chunk below, \[ggpiestats()\] is applied to examine the association between gender and Maths passing status (Pass/Fail). The function generates a pie chart annotated with statistical test results (e.g., chi-squared test), allowing for an intuitive understanding of categorical variable relationships.
+
 ```{r}
 exam3 <- exam %>%
   mutate(MATHS_PASS = if_else(MATHS >= 50, "Pass", "Fail"))
@@ -218,7 +222,8 @@ ggpiestats(data = exam3, x = GENDER, y = MATHS_PASS)
 ```
 
 ## 5.3 ggcorrmat()
-In the code chunk below, [ggcorrmat()] is used to display a correlation matrix among English, Maths, and Science scores. This function computes pairwise correlation coefficients (Pearson’s method in this case) and visualizes them in a heatmap with embedded significance markers for each pair.
+
+In the code chunk below, \[ggcorrmat()\] is used to display a correlation matrix among English, Maths, and Science scores. This function computes pairwise correlation coefficients (Pearson’s method in this case) and visualizes them in a heatmap with embedded significance markers for each pair.
 
 ```{r}
 ggcorrmat(data = exam,
