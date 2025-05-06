@@ -2,6 +2,8 @@
 title: "Visual Analytics & Applications"
 format:
   html:
+    includes:
+        in-header: ga.html
     toc: false
     page-layout: full
     theme: minty
