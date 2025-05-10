@@ -478,7 +478,7 @@ exam %>%
 
 ## 5.1 Installing ungeviz package
 
-```{r}
+```{r, eval=FALSE}
 devtools::install_github("wilkelab/ungeviz")
 ```
 

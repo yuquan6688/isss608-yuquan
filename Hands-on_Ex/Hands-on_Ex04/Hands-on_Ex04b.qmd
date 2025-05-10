@@ -122,6 +122,25 @@ In the code chunk below, [*ggbetweenstats()*](https://indrajeetpatil.github.io/
 ggbetweenstats(data = exam,
                x = GENDER,
                y = MATHS,
+               type = "r", # robust statistical test（稳健统计检验）
+               messages = FALSE)
+```
+
+
+
+```{r}
+ggbetweenstats(data = exam,
+               x = GENDER,
+               y = MATHS,
+               type = "p", # parametric test（参数检验）
+               messages = FALSE)
+```
+
+
+```{r}
+ggbetweenstats(data = exam,
+               x = GENDER,
+               y = MATHS,
                type = "np", #non-parametric
                messages = FALSE)
 ```
@@ -167,6 +186,14 @@ ggscatterstats(data = exam,
                x = MATHS,
                y = ENGLISH,
                marginal = FALSE,
+               )
+```
+
+```{r}
+ggscatterstats(data = exam,
+               x = MATHS,
+               y = ENGLISH,
+               marginal = TRUE,
                )
 ```
 

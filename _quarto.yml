@@ -34,8 +34,10 @@ website:
             
       - text: "Take-home Exercise"
         menu:
-          - text: "Take-home Exercise 1"
+          - text: "Take-home Exercise 1 Phase-1"
             href: "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html"
+          - text: "Take-home Exercise 1 Phase-2"
+            href: "Take-home_Ex/Take-home_Ex01/Take-home_Ex01b.html"  
           - text: "Take-home Exercise 2"
             href: "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html"
           - text: "Take-home Exercise 3"
