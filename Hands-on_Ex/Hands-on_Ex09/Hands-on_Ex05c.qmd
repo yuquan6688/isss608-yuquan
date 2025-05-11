@@ -1,5 +1,0 @@
----
-title: "Hands-on_Ex05c"
-format: html
----
-
