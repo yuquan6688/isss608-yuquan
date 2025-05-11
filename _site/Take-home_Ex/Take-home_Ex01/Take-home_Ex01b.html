@@ -309,8 +309,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 31%">
-<col style="width: 68%">
+<col style="width: 34%">
+<col style="width: 65%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -355,12 +355,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><code>dplyr</code></td>
 <td>Provides a fast, consistent, and intuitive set of functions for data manipulation, including filtering, selecting, grouping, summarising, and joining data frames.</td>
 </tr>
+<tr class="even">
+<td><code>RColorBrewer</code></td>
+<td>Provides color palettes from ColorBrewer for categorical and sequential data visualisation.</td>
+</tr>
+<tr class="odd">
+<td><code>grid</code></td>
+<td>Offers low-level functions for building and arranging graphical objects in R.</td>
+</tr>
+<tr class="even">
+<td><code>gghalves</code></td>
+<td>Adds half‑geoms such as half‑violin and half‑boxplots to ggplot2 for compact comparisons.</td>
+</tr>
 </tbody>
 </table>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(scales, ggrepel, patchwork, </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               ggthemes, hrbrthemes,tidyverse, </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               tidytext,treemapify, dplyr, RColorBrewer, grid,gghalves) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               tidytext,treemapify, dplyr, RColorBrewer, grid, gghalves) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
@@ -392,7 +404,7 @@ $ Time &lt;dbl&gt; 2024, 2024, 2024, 2024, 2024, 2024, 2024, 2024, 2024, 2024, 2
 </section>
 <section id="original-visualization" class="level1">
 <h1>3 Original visualization</h1>
-<p>The original visualization is from my classmate Tai Qiuyan. Please click on this <a href="https://isss608-ay2025-qiuyan.netlify.app/takehome_ex/takehome_ex01/takehome_ex01"><strong>link</strong></a> to view her original visualization report or obtain more information.</p>
+<p>The original visualization is from my classmate Tai Qiuyan. Please click on this <a href="https://isss608-ay2025-qiuyan.netlify.app/takehome_ex/takehome_ex01/takehome_ex01"><strong>link</strong></a> to view her original visualization report or obtain more information. In this section, I will make comments and revisions on her visualization 3.</p>
 <section id="data-cleaning-and-preparation" class="level2">
 <h2 class="anchored" data-anchor-id="data-cleaning-and-preparation">3.1 Data cleaning and preparation</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -554,7 +566,10 @@ Tip
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">The Description</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">The Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<p>The population_data was preprocessed specifically for violin plot visualization, aiming to generate age distribution data grouped by gender, in order to show the age structure of different genders across the top 10 most populous planning areas.</p>
+<ol type="1">
+<li><p>The population_data was preprocessed specifically for violin plot visualization, aiming to generate age distribution data grouped by gender, in order to show the age structure of different genders across the top 10 most populous planning areas.</p></li>
+<li><p>This line converts the PA variable in the pa_summary20 data frame into an ordered factor, following the population-based ranking specified in top20_PAs, to ensure that the x-axis in the subsequent plot displays planning areas sorted by population size.</p></li>
+</ol>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <div class="cell">
@@ -568,7 +583,9 @@ Tip
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sex =</span> <span class="fu">factor</span>(Sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Females"</span>, <span class="st">"Males"</span>)),</span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">PA =</span> <span class="fu">factor</span>(PA, <span class="at">levels =</span> top10_PAs)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>pa_summary20<span class="sc">$</span>PA <span class="ot">&lt;-</span> <span class="fu">factor</span>(pa_summary20<span class="sc">$</span>PA, <span class="at">levels =</span> top20_PAs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -713,9 +730,35 @@ Tip
 </div>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled" title="Changes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Changes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>Bubble Chart</code></p>
+<ol type="1">
+<li><p>Adjusted the position of area labels to be closer to the corresponding bubbles and added guiding lines for specific densely packed areas.</p></li>
+<li><p>Moved the legend from the right side to the top of the chart to create a more balanced and visually coordinated layout.</p></li>
+</ol>
+<p><code>Violin Plot</code></p>
+<ol type="1">
+<li><p>Added dashed reference lines to represent average values (mean age and total population), enhancing comparative analysis.</p></li>
+<li><p>Included numerical labels for median values within the boxplots.</p></li>
+<li><p>Enlarged the boxplot elements for better visibility and clarity.</p></li>
+<li><p>Revised the y-axis scale to range from 0 to 100, changing the tick intervals from 25 to 10 years for improved granularity.</p></li>
+</ol>
+</div>
+</div>
 </section>
 <section id="markover-version-2" class="level3">
 <h3 class="anchored" data-anchor-id="markover-version-2">4.3.3 Markover Version 2</h3>
+<p>After making improvements to the original visualization in the Markover Version 1 section, I believe there are still some methods that can achieve better visualization results by changing the original chart type.</p>
+<p>Therefore, while retaining the modified parts of the Markover Version 1 section, I made the following second version improvements.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">The Plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">The Code</a></li></ul>
 <div class="tab-content">
@@ -831,24 +874,51 @@ Tip
 <span id="cb9-97"><a href="#cb9-97" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>, </span>
 <span id="cb9-98"><a href="#cb9-98" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"darkred"</span>, </span>
 <span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a>             <span class="at">linewidth =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Sex-Split Age Distribution by Planning Area"</span>,</span>
-<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Left = Males | Right = Females | Dashed line = Age 65"</span>,</span>
-<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Planning Area"</span>,</span>
-<span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Resident Age (Years)"</span>,</span>
-<span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Sex"</span></span>
-<span id="cb9-106"><a href="#cb9-106" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb9-108"><a href="#cb9-108" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb9-109"><a href="#cb9-109" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
-<span id="cb9-110"><a href="#cb9-110" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
-<span id="cb9-111"><a href="#cb9-111" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">13</span>),</span>
-<span id="cb9-113"><a href="#cb9-113" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span></span>
-<span id="cb9-114"><a href="#cb9-114" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb9-115"><a href="#cb9-115" aria-hidden="true" tabindex="-1"></a>(pb <span class="sc">/</span> pa) <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">heights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>),</span>
+<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">10</span>)</span>
+<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Sex-Split Age Distribution by Planning Area"</span>,</span>
+<span id="cb9-106"><a href="#cb9-106" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Left = Males | Right = Females | Dashed line = Age 65"</span>,</span>
+<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Planning Area"</span>,</span>
+<span id="cb9-108"><a href="#cb9-108" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Resident Age (Years)"</span>,</span>
+<span id="cb9-109"><a href="#cb9-109" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Sex"</span></span>
+<span id="cb9-110"><a href="#cb9-110" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb9-111"><a href="#cb9-111" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb9-113"><a href="#cb9-113" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb9-114"><a href="#cb9-114" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
+<span id="cb9-115"><a href="#cb9-115" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb9-116"><a href="#cb9-116" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">13</span>),</span>
+<span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span></span>
+<span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-119"><a href="#cb9-119" aria-hidden="true" tabindex="-1"></a>(pb <span class="sc">/</span> pa) <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">heights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Changes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Changes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>Bubble Chart</code></p>
+<ol type="1">
+<li><p>The original bubble chart was replaced with a bar chart combined with a line chart, resulting in a clearer visual structure while still presenting the same three variables.</p></li>
+<li><p>Instead of using the y-axis to directly show average age, the revised chart displays it as a red line with a corresponding secondary y-axis on the right, enhancing multidimensional comparison.</p></li>
+<li><p>The elderly proportion, originally represented by bubble size, is now shown through the color intensity of the dots, accompanied by a continuous color legend that improves readability and comparison.</p></li>
+<li><p>The x-axis, previously loosely sorted by total population, is now explicitly arranged from the most to the least populous planning area—from Tampines to Queenstown—making the visualisation more structured and interpretable.</p></li>
+</ol>
+<p><code>Violin Plot</code></p>
+<ol type="1">
+<li>A gender dimension was added to the violin plot, making the visualisation more comprehensive and clearer by revealing differences in age distribution between males and females.</li>
+</ol>
 </div>
 </div>
 

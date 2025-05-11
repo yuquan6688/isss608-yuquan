@@ -27,7 +27,7 @@ In this part, I will conduct a critical analysis of the visualization submitted 
 ## Load packages
 
 | name | purpose |
-|-----------------------|-------------------------------------------------|
+|-------------------------|-----------------------------------------------|
 | `scales` | Nicely formats axis ticks and legends. |
 | `ggrepel` | Adds non‑overlapping text labels to ggplots. |
 | `patchwork` | Combines multiple ggplots into a single figure. |
@@ -37,11 +37,14 @@ In this part, I will conduct a critical analysis of the visualization submitted 
 | `tidytext` | Tokenises and analyses text. |
 | `treemapify` | Creates ggplot‑compatible treemaps. |
 | `dplyr` | Provides a fast, consistent, and intuitive set of functions for data manipulation, including filtering, selecting, grouping, summarising, and joining data frames. |
+| `RColorBrewer` | Provides color palettes from ColorBrewer for categorical and sequential data visualisation. |
+| `grid` | Offers low-level functions for building and arranging graphical objects in R. |
+| `gghalves` | Adds half‑geoms such as half‑violin and half‑boxplots to ggplot2 for compact comparisons. |
 
 ```{r}
 pacman::p_load(scales, ggrepel, patchwork, 
                ggthemes, hrbrthemes,tidyverse, 
-               tidytext,treemapify, dplyr, RColorBrewer, grid,gghalves) 
+               tidytext,treemapify, dplyr, RColorBrewer, grid, gghalves) 
 
 ```
 
@@ -67,7 +70,7 @@ glimpse(population_data)
 
 # 3 Original visualization
 
-The original visualization is from my classmate Tai Qiuyan. Please click on this [**link**](https://isss608-ay2025-qiuyan.netlify.app/takehome_ex/takehome_ex01/takehome_ex01) to view her original visualization report or obtain more information.
+The original visualization is from my classmate Tai Qiuyan. Please click on this [**link**](https://isss608-ay2025-qiuyan.netlify.app/takehome_ex/takehome_ex01/takehome_ex01) to view her original visualization report or obtain more information. In this section, I will make comments and revisions on her visualization 3.
 
 ## 3.1 Data cleaning and preparation
 
@@ -117,8 +120,10 @@ pa_summary20 <- violin_data %>%
 ```
 
 ## 3.2 Visualization
-:::panel-tabset
+
+::: panel-tabset
 ### The Plot
+
 ```{r fig.height=16, fig.width=14}
 #| echo: false
 # palette for all 20 PAs
@@ -178,7 +183,9 @@ p2 <- ggplot(pa_summary20, aes(
 # combine
 (p2 / p1) + plot_layout(heights = c(1, 0.6))
 ```
+
 ### The Code
+
 ```{r, eval=FALSE}
 # palette for all 20 PAs
 area_colors_all <- colorRampPalette(
@@ -238,42 +245,40 @@ p2 <- ggplot(pa_summary20, aes(
 (p2 / p1) + plot_layout(heights = c(1, 0.6))
 ```
 :::
+
 # 4 Evaluation and Improvement
 
 ## 4.1 Good design principles
 
-      
-1. This visualization effectively integrates total population, average age, and elderly proportion into a single bubble chart, enabling users to compare the scale and aging level of multiple planning areas at a glance through a multidimensional view.
+1.  This visualization effectively integrates total population, average age, and elderly proportion into a single bubble chart, enabling users to compare the scale and aging level of multiple planning areas at a glance through a multidimensional view.
 
-2. The use of consistent and vibrant color schemes across both charts ensures that the same planning areas are easily recognizable, enhancing readability and supporting a visually coherent interpretation across different visual elements.
+2.  The use of consistent and vibrant color schemes across both charts ensures that the same planning areas are easily recognizable, enhancing readability and supporting a visually coherent interpretation across different visual elements.
 
-3. The two charts complement each other: the upper bubble chart provides a macro-level overview of population characteristics, while the lower violin plot reveals detailed age distribution patterns, together offering a more comprehensive and in-depth understanding of demographic structures.
-
+3.  The two charts complement each other: the upper bubble chart provides a macro-level overview of population characteristics, while the lower violin plot reveals detailed age distribution patterns, together offering a more comprehensive and in-depth understanding of demographic structures.
 
 ## 4.2 Further improvement
 
-        
-1. The y-axis of the violin plot lacks a clear label indicating that it represents age, and the wide scale range (0–75) without finer graduations makes it difficult for viewers to interpret the exact distribution. Adding a descriptive axis title and refining the scale would improve clarity.
+1.  The y-axis of the violin plot lacks a clear label indicating that it represents age, and the wide scale range (0–75) without finer graduations makes it difficult for viewers to interpret the exact distribution. Adding a descriptive axis title and refining the scale would improve clarity.
 
-2. In the bubble chart, some labels—such as those for Geylang and Serangoon—overlap with the bubbles or appear too densely packed, reducing legibility. This could be improved by repositioning the labels or abbreviating long area names to avoid visual clutter.
+2.  In the bubble chart, some labels—such as those for Geylang and Serangoon—overlap with the bubbles or appear too densely packed, reducing legibility. This could be improved by repositioning the labels or abbreviating long area names to avoid visual clutter.
 
-3. The violin plot does not include median lines or reference markers such as the age of 65, making it harder to quickly identify central tendencies or distinguish age structure differences across areas. Including such markers and enlarging the box plots would enhance interpretability.
+3.  The violin plot does not include median lines or reference markers such as the age of 65, making it harder to quickly identify central tendencies or distinguish age structure differences across areas. Including such markers and enlarging the box plots would enhance interpretability.
 
-4. The legend for the bubble chart is positioned too close to the bottom chart, disrupting the overall layout balance and drawing attention away from the data. Relocating the legend to the upper-right empty space and resizing it appropriately would create a more harmonious and visually balanced design.
-
+4.  The legend for the bubble chart is positioned too close to the bottom chart, disrupting the overall layout balance and drawing attention away from the data. Relocating the legend to the upper-right empty space and resizing it appropriately would create a more harmonious and visually balanced design.
 
 ## 4.3 Makeover version
 
 ### 4.3.1 Data Prepare
 
-:::panel-tabset
-
+::: panel-tabset
 ### The Description
 
-The population_data was preprocessed specifically for violin plot visualization, aiming to generate age distribution data grouped by gender, in order to show the age structure of different genders across the top 10 most populous planning areas.
+1.  The population_data was preprocessed specifically for violin plot visualization, aiming to generate age distribution data grouped by gender, in order to show the age structure of different genders across the top 10 most populous planning areas.
 
+2.  This line converts the PA variable in the pa_summary20 data frame into an ordered factor, following the population-based ranking specified in top20_PAs, to ensure that the x-axis in the subsequent plot displays planning areas sorted by population size.
 
 ### The Code
+
 ```{r}
 violin_gender_split <- population_data %>%
   filter(PA %in% top10_PAs) %>%
@@ -286,14 +291,16 @@ violin_gender_split <- population_data %>%
     Sex = factor(Sex, levels = c("Females", "Males")),
     PA = factor(PA, levels = top10_PAs)
   )
+
+pa_summary20$PA <- factor(pa_summary20$PA, levels = top20_PAs)
 ```
 :::
 
 ### 4.3.2 Markover Version 1
 
-:::panel-tabset
-
+::: panel-tabset
 #### The Plot
+
 ```{r fig.height=16, fig.width=14}
 #| echo: false
 area_colors_all <- colorRampPalette(RColorBrewer::brewer.pal(10, "Set3"))(20)
@@ -416,6 +423,7 @@ pd <- ggplot(violin_filtered, aes(x = PA,
 ```
 
 #### The Code
+
 ```{r, eval=FALSE}
 area_colors_all <- colorRampPalette(RColorBrewer::brewer.pal(10, "Set3"))(20)
 names(area_colors_all) <- top20_PAs
@@ -538,12 +546,33 @@ pd <- ggplot(violin_filtered, aes(x = PA,
 ```
 :::
 
+::: {.callout-note title="Changes"}
+`Bubble Chart`
+
+1.  Adjusted the position of area labels to be closer to the corresponding bubbles and added guiding lines for specific densely packed areas.
+
+2.  Moved the legend from the right side to the top of the chart to create a more balanced and visually coordinated layout.
+
+`Violin Plot`
+
+1.  Added dashed reference lines to represent average values (mean age and total population), enhancing comparative analysis.
+
+2.  Included numerical labels for median values within the boxplots.
+
+3.  Enlarged the boxplot elements for better visibility and clarity.
+
+4.  Revised the y-axis scale to range from 0 to 100, changing the tick intervals from 25 to 10 years for improved granularity.
+:::
 
 ### 4.3.3 Markover Version 2
 
-:::panel-tabset
+After making improvements to the original visualization in the Markover Version 1 section, I believe there are still some methods that can achieve better visualization results by changing the original chart type.
 
+Therefore, while retaining the modified parts of the Markover Version 1 section, I made the following second version improvements.
+
+::: panel-tabset
 #### The Plot
+
 ```{r fig.height=16, fig.width=14}
 #| echo: false
 max_pop <- max(pa_summary20$Total_Pop)
@@ -645,6 +674,10 @@ pa <- ggplot(violin_gender_split, aes(x = PA,
              linetype = "dashed", 
              color = "darkred", 
              linewidth = 0.6) +
+  scale_y_continuous(
+    limits = c(0, 100),
+    breaks = seq(0, 100, by = 10)
+  ) +
   labs(
     title = "Sex-Split Age Distribution by Planning Area",
     subtitle = "Left = Males | Right = Females | Dashed line = Age 65",
@@ -663,7 +696,6 @@ pa <- ggplot(violin_gender_split, aes(x = PA,
 (pb / pa) + plot_layout(heights = c(1, 0.6))
 
 ```
-
 
 #### The Code
 
@@ -767,6 +799,10 @@ pa <- ggplot(violin_gender_split, aes(x = PA,
              linetype = "dashed", 
              color = "darkred", 
              linewidth = 0.6) +
+  scale_y_continuous(
+    limits = c(0, 100),
+    breaks = seq(0, 100, by = 10)
+  ) +
   labs(
     title = "Sex-Split Age Distribution by Planning Area",
     subtitle = "Left = Males | Right = Females | Dashed line = Age 65",
@@ -785,4 +821,20 @@ pa <- ggplot(violin_gender_split, aes(x = PA,
 (pb / pa) + plot_layout(heights = c(1, 0.6))
 
 ```
+:::
+
+::: {.callout-note title="Changes"}
+`Bubble Chart`
+
+1.  The original bubble chart was replaced with a bar chart combined with a line chart, resulting in a clearer visual structure while still presenting the same three variables.
+
+2.  Instead of using the y-axis to directly show average age, the revised chart displays it as a red line with a corresponding secondary y-axis on the right, enhancing multidimensional comparison.
+
+3.  The elderly proportion, originally represented by bubble size, is now shown through the color intensity of the dots, accompanied by a continuous color legend that improves readability and comparison.
+
+4.  The x-axis, previously loosely sorted by total population, is now explicitly arranged from the most to the least populous planning area—from Tampines to Queenstown—making the visualisation more structured and interpretable.
+
+`Violin Plot`
+
+1.  A gender dimension was added to the violin plot, making the visualisation more comprehensive and clearer by revealing differences in age distribution between males and females.
 :::
