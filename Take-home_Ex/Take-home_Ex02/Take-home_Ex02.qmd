@@ -1,5 +1,135 @@
 ---
-title: "Take-home_Ex02"
+title: "Take-home Exercise 2"
+subtitle: " VAST Challenge 2025 Mini-Challenge 3"
+author: "Li Yuquan"
+description: ""
+date: "May 11, 2025"
+date-modified: "last-modified"
 format: html
+image: images/fm.png
+editor: visual
+
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  freeze: true
 ---
+
+# 1 Overview
+
+In this exercise, we will be tacking [Mini-case 3](https://vast-challenge.github.io/2025/MC3.html) of [VAST Challenge 2025](https://vast-challenge.github.io/2025/index.html).
+
+## 1.1 Background
+
+Over the past decade, the community of Oceanus has faced numerous transformations and challenges evolving from its fishing-centric origins. Following major crackdowns on illegal fishing activities, suspects have shifted investments into more regulated sectors such as the ocean tourism industry, resulting in growing tensions. This increased tourism has recently attracted the likes of international pop star Sailor Shift, who announced plans to film a music video on the island.
+
+Clepper Jessen, a former analyst at FishEye and now a seasoned journalist for the Hacklee Herald, has been keenly observing these rising tensions. Recently, he turned his attention towards the temporary closure of Nemo Reef. By listening to radio communications and utilizing his investigative tools, Clepper uncovered a complex web of expedited approvals and secretive logistics. These efforts revealed a story involving high-level Oceanus officials, Sailor Shift’s team, local influential families, and local conservationist group The Green Guardians, pointing towards a story of corruption and manipulation.
+
+My task is to develop new and novel visualizations and visual analytics approaches to help Clepper get to the bottom of this story.
+
+## 1.2 Tasks and Questions
+
+Clepper diligently recorded all intercepted radio communications over the last two weeks. With the help of his intern, they have analyzed their content to identify important events and relationships between key players. The result is a knowledge graph describing the last two weeks on Oceanus. Clepper and his intern have spent a large amount of time generating this knowledge graph, and they would now like some assistance using it to answer the following questions.
+
+1.  Clepper found that messages frequently came in at around the same time each day.
+
+    1.  Develop a graph-based visual analytics approach to identify any daily temporal patterns in communications.
+
+    2.  How do these patterns shift over the two weeks of observations?
+
+    3.  Focus on a specific entity and use this information to determine who has influence over them.
+
+2.  Clepper has noticed that people often communicate with (or about) the same people or vessels, and that grouping them together may help with the investigation.
+
+    1.  Use visual analytics to help Clepper understand and explore the interactions and relationships between vessels and people in the knowledge graph.
+
+    2.  Are there groups that are more closely associated? If so, what are the topic areas that are predominant for each group?
+
+        -   For example, these groupings could be related to: Environmentalism (known associates of Green Guardians), Sailor Shift, and fishing/leisure vessels.
+
+3.  It was noted by Clepper’s intern that some people and vessels are using pseudonyms to communicate.
+
+    1.  Expanding upon your prior visual analytics, determine who is using pseudonyms to communicate, and what these pseudonyms are.
+
+        -   Some that Clepper has already identified include: “Boss”, and “The Lookout”, but there appear to be many more.
+
+        -   To complicate the matter, pseudonyms may be used by multiple people or vessels.
+
+    2.  Describe how your visualizations make it easier for Clepper to identify common entities in the knowledge graph.
+
+    3.  How does your understanding of activities change given your understanding of pseudonyms?
+
+4.  Clepper suspects that Nadia Conti, who was formerly entangled in an illegal fishing scheme, may have continued illicit activity within Oceanus.
+
+    1.  Through visual analytics, provide evidence that Nadia is, or is not, doing something illegal.
+
+    2.  Summarize Nadia’s actions visually. Are Clepper’s suspicions justified?
+    
+    
+## 1.3 The Data
+We will use the dataset provided by VAST Challenge.This report utilizes two core datasets: MC3_graph.json, which encodes the knowledge graph of communications, events, and relationships; and MC3_schema.json, which defines the structure, subtypes, and attributes of each node and edge type within the graph.
+
+## 1.4 Methodology
+
+
+# 2 Setup
+
+## 2.1 Loading Packages
+
+```{r}
+pacman::p_load(
+  jsonlite,
+  tidyverse,
+  ggtext,
+  knitr,
+  lubridate,
+  patchwork,
+  ggraph,
+  tidygraph,
+  igraph,
+  dplyr,
+  ggiraph
+)
+```
+
+
+## 2.2 Importing data
+
+```{r}
+data_g <- fromJSON("data/MC3_graph.json")
+data_s <- fromJSON("data/MC3_schema.json")
+```
+
+## 2.3 Data Overview
+
+```{r}
+summary(data_g)
+```
+
+
+```{r}
+glimpse(data_g)
+```
+
+
+```{r}
+nodes11 <- data_g$nodes
+edges11 <- data_g$edges
+```
+
+```{r}
+summary(nodes11)
+
+```
+
+```{r}
+summary(edges11)
+```
+
+
+
+# 3 Data Wrangling
+
+## 3.1 
 

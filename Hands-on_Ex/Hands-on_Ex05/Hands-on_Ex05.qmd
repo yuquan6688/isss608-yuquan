@@ -35,7 +35,7 @@ In this hands-on exercise, I learned how to model, analyse, and visualise networ
 In this hands-on exercise, four network data modelling and visualisation packages will be installed and launched. They are igraph, tidygraph, ggraph and visNetwork. Beside these four packages, tidyverse and [lubridate](https://lubridate.tidyverse.org/), an R package specially designed to handle and wrangling time data will be installed and launched too.
 
 | name | purpose |
-|-------------------------|-----------------------------------------------|
+|----|----|
 | `igraph` | Provides fundamental data structures and algorithms for network analysis and graph theory. |
 | `tidygraph` | Offers a tidyverse-compatible approach to graph data manipulation and analysis. |
 | `ggraph` | Enables grammar-of-graphics-based network visualisation, built on top of ggplot2. |
@@ -296,6 +296,7 @@ ggraph(GAStech_graph) +
 ```
 
 ### Exploration 1
+
 ```{r}
 ggraph(GAStech_graph) +
   geom_edge_link(edge_colour = "grey70",size=0.5) +
@@ -325,6 +326,7 @@ g + theme_graph()
 ```
 
 ### Exploration 2
+
 ```{r}
 g <- ggraph(GAStech_graph) + 
   geom_edge_link(aes(edge_colour = "grey75")) +
@@ -376,9 +378,10 @@ g + theme_graph()
 ```
 
 ### Exploration 3
-:::panel-tabset
 
+::: panel-tabset
 #### star
+
 ```{r}
 g <- ggraph(GAStech_graph, 
             layout = "star") +
@@ -389,6 +392,7 @@ g + theme_graph()
 ```
 
 #### grid
+
 ```{r}
 g <- ggraph(GAStech_graph, 
             layout = "grid") +
@@ -397,6 +401,7 @@ g <- ggraph(GAStech_graph,
 
 g + theme_graph()
 ```
+
 #### circle
 
 ```{r}
@@ -408,6 +413,7 @@ g <- ggraph(GAStech_graph,
 g + theme_graph()
 ```
 :::
+
 ::: {.callout-tip title="Things to learn from the code chunk above"}
 layout argument is used to define the layout to be used.
 :::
@@ -447,6 +453,7 @@ g + theme_graph()
 ```
 
 ### Exploration 4
+
 ```{r}
 g <- ggraph(GAStech_graph) + 
   geom_edge_link(aes(alpha=0.2, colour=Weekday)) +
@@ -615,13 +622,11 @@ g <- GAStech_graph %>%
 g + theme_graph()
 ```
 
-
-
 ### Exploration 5
 
-:::panel-tabset
-
+::: panel-tabset
 # n_groups = 1
+
 ```{r}
 gb <- GAStech_graph %>%
   mutate(community = as.factor(
@@ -642,8 +647,8 @@ gb <- GAStech_graph %>%
 gb + theme_graph()
 ```
 
-
 # n_groups = 9
+
 ```{r}
 ga <- GAStech_graph %>%
   mutate(community = as.factor(
@@ -663,7 +668,9 @@ ga <- GAStech_graph %>%
 
 ga + theme_graph()
 ```
+
 # n_groups = 50
+
 ```{r, fig.height=6, fig.width=10}
 ga <- GAStech_graph %>%
   mutate(community = as.factor(
@@ -683,10 +690,7 @@ ga <- GAStech_graph %>%
 
 ga + theme_graph()
 ```
-
 :::
-
-
 
 In order to support effective visual investigation, the community network above has been revised by using [`geom_mark_hull()`](https://ggforce.data-imaginist.com/reference/geom_mark_hull.html) of [ggforce](https://ggforce.data-imaginist.com/) package.
 
@@ -830,8 +834,6 @@ visNetwork(GAStech_nodes,
 ```
 
 Visit [Option](http://datastorm-open.github.io/visNetwork/options.html) to find out more about visOption’s argument.
-
-
 
 # 8 Reference
 

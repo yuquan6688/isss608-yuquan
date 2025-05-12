@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Li Yuquan">
+<meta name="dcterms.date" content="2025-05-11">
 
-<title>Take-home_Ex02 – </title>
+<title>Take-home Exercise 2 – </title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -128,7 +164,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">Hands-on Exercise 4d</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05.html">
  <span class="dropdown-text">Hands-on Exercise 5</span></a>
   </li>  
     </ul>
@@ -197,23 +233,64 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">1 Overview</a>
+  <ul class="collapse">
+  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">1.1 Background</a></li>
+  <li><a href="#tasks-and-questions" id="toc-tasks-and-questions" class="nav-link" data-scroll-target="#tasks-and-questions">1.2 Tasks and Questions</a></li>
+  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data">1.3 The Data</a></li>
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">1.4 Methodology</a></li>
+  </ul></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">2 Setup</a>
+  <ul class="collapse">
+  <li><a href="#loading-packages" id="toc-loading-packages" class="nav-link" data-scroll-target="#loading-packages">2.1 Loading Packages</a></li>
+  <li><a href="#importing-data" id="toc-importing-data" class="nav-link" data-scroll-target="#importing-data">2.2 Importing data</a></li>
+  <li><a href="#data-overview" id="toc-data-overview" class="nav-link" data-scroll-target="#data-overview">2.3 Data Overview</a></li>
+  </ul></li>
+  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">3 Data Wrangling</a>
+  <ul class="collapse">
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">3.1</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Take-home_Ex02</h1>
+<h1 class="title">Take-home Exercise 2</h1>
+<p class="subtitle lead">VAST Challenge 2025 Mini-Challenge 3</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Li Yuquan </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 11, 2025</p>
+    </div>
+  </div>
   
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">May 11, 2025</p>
+    </div>
+  </div>
     
   </div>
   
@@ -222,8 +299,247 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="overview" class="level1">
+<h1>1 Overview</h1>
+<p>In this exercise, we will be tacking&nbsp;<a href="https://vast-challenge.github.io/2025/MC3.html">Mini-case 3</a>&nbsp;of&nbsp;<a href="https://vast-challenge.github.io/2025/index.html">VAST Challenge 2025</a>.</p>
+<section id="background" class="level2">
+<h2 class="anchored" data-anchor-id="background">1.1 Background</h2>
+<p>Over the past decade, the community of Oceanus has faced numerous transformations and challenges evolving from its fishing-centric origins. Following major crackdowns on illegal fishing activities, suspects have shifted investments into more regulated sectors such as the ocean tourism industry, resulting in growing tensions. This increased tourism has recently attracted the likes of international pop star Sailor Shift, who announced plans to film a music video on the island.</p>
+<p>Clepper Jessen, a former analyst at FishEye and now a seasoned journalist for the Hacklee Herald, has been keenly observing these rising tensions. Recently, he turned his attention towards the temporary closure of Nemo Reef. By listening to radio communications and utilizing his investigative tools, Clepper uncovered a complex web of expedited approvals and secretive logistics. These efforts revealed a story involving high-level Oceanus officials, Sailor Shift’s team, local influential families, and local conservationist group The Green Guardians, pointing towards a story of corruption and manipulation.</p>
+<p>My task is to develop new and novel visualizations and visual analytics approaches to help Clepper get to the bottom of this story.</p>
+</section>
+<section id="tasks-and-questions" class="level2">
+<h2 class="anchored" data-anchor-id="tasks-and-questions">1.2 Tasks and Questions</h2>
+<p>Clepper diligently recorded all intercepted radio communications over the last two weeks. With the help of his intern, they have analyzed their content to identify important events and relationships between key players. The result is a knowledge graph describing the last two weeks on Oceanus. Clepper and his intern have spent a large amount of time generating this knowledge graph, and they would now like some assistance using it to answer the following questions.</p>
+<ol type="1">
+<li><p>Clepper found that messages frequently came in at around the same time each day.</p>
+<ol type="1">
+<li><p>Develop a graph-based visual analytics approach to identify any daily temporal patterns in communications.</p></li>
+<li><p>How do these patterns shift over the two weeks of observations?</p></li>
+<li><p>Focus on a specific entity and use this information to determine who has influence over them.</p></li>
+</ol></li>
+<li><p>Clepper has noticed that people often communicate with (or about) the same people or vessels, and that grouping them together may help with the investigation.</p>
+<ol type="1">
+<li><p>Use visual analytics to help Clepper understand and explore the interactions and relationships between vessels and people in the knowledge graph.</p></li>
+<li><p>Are there groups that are more closely associated? If so, what are the topic areas that are predominant for each group?</p>
+<ul>
+<li>For example, these groupings could be related to: Environmentalism (known associates of Green Guardians), Sailor Shift, and fishing/leisure vessels.</li>
+</ul></li>
+</ol></li>
+<li><p>It was noted by Clepper’s intern that some people and vessels are using pseudonyms to communicate.</p>
+<ol type="1">
+<li><p>Expanding upon your prior visual analytics, determine who is using pseudonyms to communicate, and what these pseudonyms are.</p>
+<ul>
+<li><p>Some that Clepper has already identified include: “Boss”, and “The Lookout”, but there appear to be many more.</p></li>
+<li><p>To complicate the matter, pseudonyms may be used by multiple people or vessels.</p></li>
+</ul></li>
+<li><p>Describe how your visualizations make it easier for Clepper to identify common entities in the knowledge graph.</p></li>
+<li><p>How does your understanding of activities change given your understanding of pseudonyms?</p></li>
+</ol></li>
+<li><p>Clepper suspects that Nadia Conti, who was formerly entangled in an illegal fishing scheme, may have continued illicit activity within Oceanus.</p>
+<ol type="1">
+<li><p>Through visual analytics, provide evidence that Nadia is, or is not, doing something illegal.</p></li>
+<li><p>Summarize Nadia’s actions visually. Are Clepper’s suspicions justified?</p></li>
+</ol></li>
+</ol>
+</section>
+<section id="the-data" class="level2">
+<h2 class="anchored" data-anchor-id="the-data">1.3 The Data</h2>
+<p>We will use the dataset provided by VAST Challenge.This report utilizes two core datasets: MC3_graph.json, which encodes the knowledge graph of communications, events, and relationships; and MC3_schema.json, which defines the structure, subtypes, and attributes of each node and edge type within the graph.</p>
+</section>
+<section id="methodology" class="level2">
+<h2 class="anchored" data-anchor-id="methodology">1.4 Methodology</h2>
+</section>
+</section>
+<section id="setup" class="level1">
+<h1>2 Setup</h1>
+<section id="loading-packages" class="level2">
+<h2 class="anchored" data-anchor-id="loading-packages">2.1 Loading Packages</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  jsonlite,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  tidyverse,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  ggtext,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  knitr,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  lubridate,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  patchwork,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  ggraph,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  tidygraph,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  igraph,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  dplyr,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  ggiraph</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="importing-data" class="level2">
+<h2 class="anchored" data-anchor-id="importing-data">2.2 Importing data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data_g <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">"data/MC3_graph.json"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data_s <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">"data/MC3_schema.json"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="data-overview" class="level2">
+<h2 class="anchored" data-anchor-id="data-overview">2.3 Data Overview</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data_g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Length Class      Mode   
+directed    1     -none-     logical
+multigraph  1     -none-     logical
+graph       4     -none-     list   
+nodes      31     data.frame list   
+edges       5     data.frame list   </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(data_g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 5
+ $ directed  : logi TRUE
+ $ multigraph: logi FALSE
+ $ graph     :List of 4
+  ..$ mode        : chr "static"
+  ..$ edge_default: Named list()
+  ..$ node_default: Named list()
+  ..$ name        : chr "VAST_MC3_Knowledge_Graph"
+ $ nodes     :'data.frame': 1159 obs. of  31 variables:
+  ..$ type             : chr [1:1159] "Entity" "Entity" "Entity" "Entity" ...
+  ..$ label            : chr [1:1159] "Sam" "Kelly" "Nadia Conti" "Elise" ...
+  ..$ name             : chr [1:1159] "Sam" "Kelly" "Nadia Conti" "Elise" ...
+  ..$ sub_type         : chr [1:1159] "Person" "Person" "Person" "Person" ...
+  ..$ id               : chr [1:1159] "Sam" "Kelly" "Nadia Conti" "Elise" ...
+  ..$ timestamp        : chr [1:1159] NA NA NA NA ...
+  ..$ monitoring_type  : chr [1:1159] NA NA NA NA ...
+  ..$ findings         : chr [1:1159] NA NA NA NA ...
+  ..$ content          : chr [1:1159] NA NA NA NA ...
+  ..$ assessment_type  : chr [1:1159] NA NA NA NA ...
+  ..$ results          : chr [1:1159] NA NA NA NA ...
+  ..$ movement_type    : chr [1:1159] NA NA NA NA ...
+  ..$ destination      : chr [1:1159] NA NA NA NA ...
+  ..$ enforcement_type : chr [1:1159] NA NA NA NA ...
+  ..$ outcome          : chr [1:1159] NA NA NA NA ...
+  ..$ activity_type    : chr [1:1159] NA NA NA NA ...
+  ..$ participants     : int [1:1159] NA NA NA NA NA NA NA NA NA NA ...
+  ..$ thing_collected  :'data.frame':   1159 obs. of  2 variables:
+  .. ..$ type: chr [1:1159] NA NA NA NA ...
+  .. ..$ name: chr [1:1159] NA NA NA NA ...
+  ..$ reference        : chr [1:1159] NA NA NA NA ...
+  ..$ date             : chr [1:1159] NA NA NA NA ...
+  ..$ time             : chr [1:1159] NA NA NA NA ...
+  ..$ friendship_type  : chr [1:1159] NA NA NA NA ...
+  ..$ permission_type  : chr [1:1159] NA NA NA NA ...
+  ..$ start_date       : chr [1:1159] NA NA NA NA ...
+  ..$ end_date         : chr [1:1159] NA NA NA NA ...
+  ..$ report_type      : chr [1:1159] NA NA NA NA ...
+  ..$ submission_date  : chr [1:1159] NA NA NA NA ...
+  ..$ jurisdiction_type: chr [1:1159] NA NA NA NA ...
+  ..$ authority_level  : chr [1:1159] NA NA NA NA ...
+  ..$ coordination_type: chr [1:1159] NA NA NA NA ...
+  ..$ operational_role : chr [1:1159] NA NA NA NA ...
+ $ edges     :'data.frame': 3226 obs. of  5 variables:
+  ..$ id         : chr [1:3226] "2" "3" "5" "3013" ...
+  ..$ is_inferred: logi [1:3226] TRUE FALSE TRUE TRUE TRUE TRUE ...
+  ..$ source     : chr [1:3226] "Sam" "Sam" "Sam" "Sam" ...
+  ..$ target     : chr [1:3226] "Relationship_Suspicious_217" "Event_Communication_370" "Event_Assessment_600" "Relationship_Colleagues_430" ...
+  ..$ type       : chr [1:3226] NA "sent" NA NA ...</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>nodes11 <span class="ot">&lt;-</span> data_g<span class="sc">$</span>nodes</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>edges11 <span class="ot">&lt;-</span> data_g<span class="sc">$</span>edges</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nodes11)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     type              label               name             sub_type        
+ Length:1159        Length:1159        Length:1159        Length:1159       
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+      id             timestamp         monitoring_type      findings        
+ Length:1159        Length:1159        Length:1159        Length:1159       
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+   content          assessment_type      results          movement_type     
+ Length:1159        Length:1159        Length:1159        Length:1159       
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+ destination        enforcement_type     outcome          activity_type     
+ Length:1159        Length:1159        Length:1159        Length:1159       
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+  participants  thing_collected.type  thing_collected.name  reference        
+ Min.   :6      Length:1159         Length:1159            Length:1159       
+ 1st Qu.:6      Class :character    Class :character       Class :character  
+ Median :6      Mode  :character    Mode  :character       Mode  :character  
+ Mean   :6                                                                   
+ 3rd Qu.:6                                                                   
+ Max.   :6                                                                   
+ NA's   :1158                                                                
+     date               time           friendship_type    permission_type   
+ Length:1159        Length:1159        Length:1159        Length:1159       
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+  start_date          end_date         report_type        submission_date   
+ Length:1159        Length:1159        Length:1159        Length:1159       
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+ jurisdiction_type  authority_level    coordination_type  operational_role  
+ Length:1159        Length:1159        Length:1159        Length:1159       
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+                                                                            </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(edges11)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      id            is_inferred        source             target         
+ Length:3226        Mode :logical   Length:3226        Length:3226       
+ Class :character   FALSE:1168      Class :character   Class :character  
+ Mode  :character   TRUE :2058      Mode  :character   Mode  :character  
+     type          
+ Length:3226       
+ Class :character  
+ Mode  :character  </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="data-wrangling" class="level1">
+<h1>3 Data Wrangling</h1>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">3.1</h2>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
