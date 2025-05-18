@@ -65,13 +65,12 @@ Clepper diligently recorded all intercepted radio communications over the last t
     1.  Through visual analytics, provide evidence that Nadia is, or is not, doing something illegal.
 
     2.  Summarize Nadia’s actions visually. Are Clepper’s suspicions justified?
-    
-    
+
 ## 1.3 The Data
+
 We will use the dataset provided by VAST Challenge.This report utilizes two core datasets: MC3_graph.json, which encodes the knowledge graph of communications, events, and relationships; and MC3_schema.json, which defines the structure, subtypes, and attributes of each node and edge type within the graph.
 
 ## 1.4 Methodology
-
 
 # 2 Setup
 
@@ -93,7 +92,6 @@ pacman::p_load(
 )
 ```
 
-
 ## 2.2 Importing data
 
 ```{r}
@@ -107,29 +105,63 @@ data_s <- fromJSON("data/MC3_schema.json")
 summary(data_g)
 ```
 
-
 ```{r}
 glimpse(data_g)
 ```
 
-
 ```{r}
-nodes11 <- data_g$nodes
-edges11 <- data_g$edges
+nodes <- data_g$nodes
+edges <- data_g$edges
 ```
-
-```{r}
-summary(nodes11)
-
-```
-
-```{r}
-summary(edges11)
-```
-
-
 
 # 3 Data Wrangling
 
-## 3.1 
+## 3.1
 
+```{r}
+nodes <- nodes %>%
+  mutate(
+    timestamp = ymd_hms(timestamp, quiet = TRUE),
+    date = ymd(date, quiet = TRUE),
+    start_date = ymd(start_date, quiet = TRUE),
+    end_date = ymd(end_date, quiet = TRUE),
+    submission_date = ymd(submission_date, quiet = TRUE)
+  )
+```
+
+```{r}
+glimpse(nodes)
+```
+
+```{r}
+comm_nodes <- nodes %>%
+  filter(sub_type == "Communication", !is.na(timestamp)) %>%
+  mutate(
+    date = as.Date(timestamp),
+    hour = hour(timestamp),
+    weekday = wday(timestamp, label = TRUE)
+  )
+```
+
+```{r}
+comm_nodes %>%
+  count(date, hour) %>%
+  ggplot(aes(x = hour, y = n, group = date, color = date)) +
+  geom_line(size = 1) +
+  labs(title = "Hourly Communication Patterns per Day",
+       x = "Hour of Day", y = "Number of Messages") +
+  theme_minimal()
+
+```
+
+```{r}
+comm_nodes %>%
+  count(date, hour) %>%
+  ggplot(aes(x = date, y = hour, fill = n)) +
+  geom_tile(color = "white") +
+  scale_fill_viridis_c(option = "C") +
+  labs(title = "Message Volume Heatmap",
+       x = "Date", y = "Hour", fill = "Count") +
+  theme_minimal()
+
+```
