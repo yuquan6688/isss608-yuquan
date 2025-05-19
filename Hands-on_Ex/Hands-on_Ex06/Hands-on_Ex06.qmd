@@ -48,7 +48,8 @@ install and launch the following R packages: scales, viridis, lubridate, ggtheme
 ```{r}
 pacman::p_load(scales, viridis, lubridate, ggthemes,
                gridExtra, readxl, knitr, data.table,
-               CGPfunctions, ggHoriPlot, tidyverse)
+               CGPfunctions, ggHoriPlot, tidyverse, ggbump, sunburstR,
+               dplyr, latticeExtra, lattice)
 ```
 
 ## Importing the data
@@ -314,6 +315,54 @@ ggplot() +
   theme_tufte(base_family = "Helvetica")
 ```
 
+
+## Exploration 1
+Sunburst diagram displaying hierarchical visitor arrivals from Vietnam, broken down by year and month.
+```{r}
+sunburst_data <- Vietnam %>%
+  mutate(path = paste(year, month, sep = "-")) %>%
+  group_by(path) %>%
+  summarise(value = sum(`Vietnam`), .groups = "drop")
+sunburst_data$path <- gsub("-", "-", sunburst_data$path)
+sunburst(sunburst_data)
+```
+
+## Exploration 2
+Horizon graph visualising monthly visitor arrivals from Vietnam, compressing time-series data into a compact visual form.
+```{r}
+Vietnam$time <- as.Date(paste(Vietnam$year, Vietnam$month, "01", sep = "-"), "%Y-%b-%d")
+
+horizonplot(Vietnam$`Vietnam` ~ Vietnam$time,
+            colorkey = TRUE,
+            origin = mean(Vietnam$`Vietnam`),
+            horizonscale = 6,
+            main = "Horizon Graph of Monthly Visitor Arrivals from Vietnam")
+```
+
+## Exploration 3
+Multi-series line plot
+```{R}
+weekdays <- c("Mon", "Tues", "Wed", "Thu", "Fri", "Sat", "Sun")
+weeks <- paste0("Series", 1:8)
+
+set.seed(123)
+df <- expand.grid(Day = weekdays, Week = weeks) %>%
+  mutate(Sales = sample(40:120, size = n(), replace = TRUE))
+
+df$Day <- factor(df$Day, levels = weekdays, ordered = TRUE)
+
+ggplot(df, aes(x = Day, y = Sales, group = Week, color = Week)) +
+  geom_line() +
+  geom_point() +
+  labs(
+    title = "Weekly Sales Pattern by Day of Week",
+    y = "Items Sold", x = NULL
+  ) +
+  theme_minimal() +
+  theme(legend.position = "right")
+```
+
+
 # 7 Plotting Slopegraph
 
 In this section I will learn how to plot a [slopegraph](https://www.storytellingwithdata.com/blog/2020/7/27/what-is-a-slopegraph) by using R.
@@ -321,21 +370,69 @@ In this section I will learn how to plot a [slopegraph](https://www.storytellin
 Before getting start, make sure that **CGPfunctions** has been installed and loaded onto R environment. Then, refer to [Using newggslopegraph](https://cran.r-project.org/web/packages/CGPfunctions/vignettes/Using-newggslopegraph.html) to learn more about the function. Lastly, read more about `newggslopegraph()` and its arguments by referring to this [link](https://www.rdocumentation.org/packages/CGPfunctions/versions/0.6.3/topics/newggslopegraph).
 
 ## Step 1: Data Import
-Import the rice data set into R environment by using the code chunk below.
-```{r}
-#rice <- read_csv("data/rice.csv")
-```
 
+Import the rice data set into R environment by using the code chunk below.
+
+```{r}
+rice <- read_csv("data/rice.csv")
+```
 
 ## Step 2: Plotting the slopegraph
+
 Next, code chunk below will be used to plot a basic slopegraph as shown below.
-```{r}
-# rice %>% 
-#   mutate(Year = factor(Year)) %>%
-#   filter(Year %in% c(1961, 1980)) %>%
-#   newggslopegraph(Year, Yield, Country,
-#                 Title = "Rice Yield of Top 11 Asian Counties",
-#                 SubTitle = "1961-1980",
-#                 Caption = "Prepared by: Dr. Kam Tin Seong")
+
+```{r,fig.height=9, fig.width=10}
+rice %>%
+  mutate(Year = factor(Year)) %>%
+  filter(Year %in% c(1961, 1980)) %>%
+  newggslopegraph(Year, Yield, Country,
+                Title = "Rice Yield of Top 11 Asian Counties",
+                SubTitle = "1961-1980",
+                Caption = "Prepared by: Dr. Kam Tin Seong")
 ```
+
+## Exploration 4
+highlighting two specific country.
+```{r,fig.height=9, fig.width=10}
+rice %>% 
+  mutate(Year = factor(Year)) %>%
+  filter(Year %in% c(2005, 2006, 2007, 2008, 2009, 2010)) %>%
+  newggslopegraph(Year, Yield, Country,
+                Title = "Rice Yield of Top 11 Asian Countries",
+                SubTitle = "2005 to 2010",
+                Caption = NULL,
+                LineColor = c("grey50", 
+                              "grey50", 
+                              "grey50", 
+                              "grey50",
+                              "red",
+                              "grey50",
+                              "#c7c",
+                              "grey50",
+                              "grey50",
+                              "grey50",
+                              "grey50"),      
+                DataLabelFillColor = "#f5f5f5") 
+  
+```
+
+## Exploration 5
+Bump chart displaying relative ranking changes in rice yield among countries from 2000 to 2010.
+```{r}
+rice %>% 
+  mutate(Year = factor(Year)) %>%
+  filter(Year %in% c(2000, 2005, 2010)) %>%
+  ggplot(aes(x = Year,
+         y = Yield,
+         color = Country))+
+  geom_point(color = "#FFFFFF", size = 1) +
+  ggbump::geom_bump(mapping=aes(x = Year,
+                                y = Yield, 
+                                group = Country
+                                ))+
+  labs(title = "Rice Yield of Top 11 Asian Countries") +  
+  theme_minimal()
+```
+
+
 

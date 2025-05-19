@@ -1306,14 +1306,14 @@
     "href": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#step-1-data-import-1",
     "title": "Hand-on Exercise 6 — Visualising and Analysing Time-oriented Data",
     "section": "Step 1: Data Import",
-    "text": "Step 1: Data Import\nImport the rice data set into R environment by using the code chunk below.\n\n#rice &lt;- read_csv(\"data/rice.csv\")"
+    "text": "Step 1: Data Import\nImport the rice data set into R environment by using the code chunk below.\n\nrice &lt;- read_csv(\"data/rice.csv\")"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#step-2-plotting-the-slopegraph",
     "href": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#step-2-plotting-the-slopegraph",
     "title": "Hand-on Exercise 6 — Visualising and Analysing Time-oriented Data",
     "section": "Step 2: Plotting the slopegraph",
-    "text": "Step 2: Plotting the slopegraph\nNext, code chunk below will be used to plot a basic slopegraph as shown below.\n\n# rice %&gt;% \n#   mutate(Year = factor(Year)) %&gt;%\n#   filter(Year %in% c(1961, 1980)) %&gt;%\n#   newggslopegraph(Year, Yield, Country,\n#                 Title = \"Rice Yield of Top 11 Asian Counties\",\n#                 SubTitle = \"1961-1980\",\n#                 Caption = \"Prepared by: Dr. Kam Tin Seong\")"
+    "text": "Step 2: Plotting the slopegraph\nNext, code chunk below will be used to plot a basic slopegraph as shown below.\n\nrice %&gt;%\n  mutate(Year = factor(Year)) %&gt;%\n  filter(Year %in% c(1961, 1980)) %&gt;%\n  newggslopegraph(Year, Yield, Country,\n                Title = \"Rice Yield of Top 11 Asian Counties\",\n                SubTitle = \"1961-1980\",\n                Caption = \"Prepared by: Dr. Kam Tin Seong\")"
   },
   {
     "objectID": "In-class_Ex/In-class_Ex04/In-class_Ex04.html#initial-eda",
@@ -1377,5 +1377,40 @@
     "title": "In-class Exercise 5–MC1 Kickstarter",
     "section": "step 4: Plotting the sub-graph",
     "text": "step 4: Plotting the sub-graph\n\nggraph(graph_memberof, layout = \"fr\") +\n  geom_edge_link(alpha = 0.5, colour = \"gray\") +\n  geom_node_point(aes(color = `Node Type`), size = 1) +\n  geom_node_text(aes(label = name), repel = TRUE, size = 2.5) +\n  theme_void()\n\n\n\n\n\n\n\n\nNotice that the sub-graph above is very clear and the relationship between musical group and person can be visualise easily."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#exploration-1",
+    "href": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#exploration-1",
+    "title": "Hand-on Exercise 6 — Visualising and Analysing Time-oriented Data",
+    "section": "Exploration 1",
+    "text": "Exploration 1\nSunburst diagram displaying hierarchical visitor arrivals from Vietnam, broken down by year and month.\n\nsunburst_data &lt;- Vietnam %&gt;%\n  mutate(path = paste(year, month, sep = \"-\")) %&gt;%\n  group_by(path) %&gt;%\n  summarise(value = sum(`Vietnam`), .groups = \"drop\")\nsunburst_data$path &lt;- gsub(\"-\", \"-\", sunburst_data$path)\nsunburst(sunburst_data)\n\n\n\n\n\n\n\n\n\n\nLegend"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#exploration-2",
+    "href": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#exploration-2",
+    "title": "Hand-on Exercise 6 — Visualising and Analysing Time-oriented Data",
+    "section": "Exploration 2",
+    "text": "Exploration 2\nHorizon graph visualising monthly visitor arrivals from Vietnam, compressing time-series data into a compact visual form.\n\nVietnam$time &lt;- as.Date(paste(Vietnam$year, Vietnam$month, \"01\", sep = \"-\"), \"%Y-%b-%d\")\n\nhorizonplot(Vietnam$`Vietnam` ~ Vietnam$time,\n            colorkey = TRUE,\n            origin = mean(Vietnam$`Vietnam`),\n            horizonscale = 6,\n            main = \"Horizon Graph of Monthly Visitor Arrivals from Vietnam\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#exploration-3",
+    "href": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#exploration-3",
+    "title": "Hand-on Exercise 6 — Visualising and Analysing Time-oriented Data",
+    "section": "Exploration 3",
+    "text": "Exploration 3\nMulti-series line plot\n\nweekdays &lt;- c(\"Mon\", \"Tues\", \"Wed\", \"Thu\", \"Fri\", \"Sat\", \"Sun\")\nweeks &lt;- paste0(\"Series\", 1:8)\n\nset.seed(123)\ndf &lt;- expand.grid(Day = weekdays, Week = weeks) %&gt;%\n  mutate(Sales = sample(40:120, size = n(), replace = TRUE))\n\ndf$Day &lt;- factor(df$Day, levels = weekdays, ordered = TRUE)\n\nggplot(df, aes(x = Day, y = Sales, group = Week, color = Week)) +\n  geom_line() +\n  geom_point() +\n  labs(\n    title = \"Weekly Sales Pattern by Day of Week\",\n    y = \"Items Sold\", x = NULL\n  ) +\n  theme_minimal() +\n  theme(legend.position = \"right\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#exploration-4",
+    "href": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#exploration-4",
+    "title": "Hand-on Exercise 6 — Visualising and Analysing Time-oriented Data",
+    "section": "Exploration 4",
+    "text": "Exploration 4\nhighlighting two specific country.\n\nrice %&gt;% \n  mutate(Year = factor(Year)) %&gt;%\n  filter(Year %in% c(2005, 2006, 2007, 2008, 2009, 2010)) %&gt;%\n  newggslopegraph(Year, Yield, Country,\n                Title = \"Rice Yield of Top 11 Asian Countries\",\n                SubTitle = \"2005 to 2010\",\n                Caption = NULL,\n                LineColor = c(\"grey50\", \n                              \"grey50\", \n                              \"grey50\", \n                              \"grey50\",\n                              \"red\",\n                              \"grey50\",\n                              \"#c7c\",\n                              \"grey50\",\n                              \"grey50\",\n                              \"grey50\",\n                              \"grey50\"),      \n                DataLabelFillColor = \"#f5f5f5\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#exploration-5",
+    "href": "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html#exploration-5",
+    "title": "Hand-on Exercise 6 — Visualising and Analysing Time-oriented Data",
+    "section": "Exploration 5",
+    "text": "Exploration 5\nBump chart displaying relative ranking changes in rice yield among countries from 2000 to 2010.\n\nrice %&gt;% \n  mutate(Year = factor(Year)) %&gt;%\n  filter(Year %in% c(2000, 2005, 2010)) %&gt;%\n  ggplot(aes(x = Year,\n         y = Yield,\n         color = Country))+\n  geom_point(color = \"#FFFFFF\", size = 1) +\n  ggbump::geom_bump(mapping=aes(x = Year,\n                                y = Yield, \n                                group = Country\n                                ))+\n  labs(title = \"Rice Yield of Top 11 Asian Countries\") +  \n  theme_minimal()"
   }
 ]

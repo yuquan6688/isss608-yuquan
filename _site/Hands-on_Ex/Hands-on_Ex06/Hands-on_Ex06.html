@@ -104,6 +104,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<link href="../../site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+<script src="../../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="../../site_libs/sequences-0.1/sequences.css" rel="stylesheet">
+<script src="../../site_libs/sunburst-binding-2.1.8/sunburst.js"></script>
 
 
 <link rel="stylesheet" href="../../styles.css">
@@ -188,7 +192,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex04/In-class_Ex04.html">
- <span class="dropdown-text">In-Class Exercise 4</span></a>
+ <span class="dropdown-text">In-Class Exercise 5</span></a>
   </li>  
     </ul>
   </li>
@@ -268,11 +272,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#step-3-extracting-the-target-country" id="toc-step-3-extracting-the-target-country" class="nav-link" data-scroll-target="#step-3-extracting-the-target-country">Step 3: Extracting the target country</a></li>
   <li><a href="#step-4-computing-year-average-arrivals-by-month" id="toc-step-4-computing-year-average-arrivals-by-month" class="nav-link" data-scroll-target="#step-4-computing-year-average-arrivals-by-month">Step 4: Computing year average arrivals by month</a></li>
   <li><a href="#step-5-plotting-the-cycle-plot" id="toc-step-5-plotting-the-cycle-plot" class="nav-link" data-scroll-target="#step-5-plotting-the-cycle-plot">Step 5: Plotting the cycle plot</a></li>
+  <li><a href="#exploration-1" id="toc-exploration-1" class="nav-link" data-scroll-target="#exploration-1">Exploration 1</a></li>
+  <li><a href="#exploration-2" id="toc-exploration-2" class="nav-link" data-scroll-target="#exploration-2">Exploration 2</a></li>
+  <li><a href="#exploration-3" id="toc-exploration-3" class="nav-link" data-scroll-target="#exploration-3">Exploration 3</a></li>
   </ul></li>
   <li><a href="#plotting-slopegraph" id="toc-plotting-slopegraph" class="nav-link" data-scroll-target="#plotting-slopegraph">7 Plotting Slopegraph</a>
   <ul class="collapse">
   <li><a href="#step-1-data-import-1" id="toc-step-1-data-import-1" class="nav-link" data-scroll-target="#step-1-data-import-1">Step 1: Data Import</a></li>
   <li><a href="#step-2-plotting-the-slopegraph" id="toc-step-2-plotting-the-slopegraph" class="nav-link" data-scroll-target="#step-2-plotting-the-slopegraph">Step 2: Plotting the slopegraph</a></li>
+  <li><a href="#exploration-4" id="toc-exploration-4" class="nav-link" data-scroll-target="#exploration-4">Exploration 4</a></li>
+  <li><a href="#exploration-5" id="toc-exploration-5" class="nav-link" data-scroll-target="#exploration-5">Exploration 5</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -306,7 +315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">May 18, 2025</p>
+      <p class="date-modified">May 19, 2025</p>
     </div>
   </div>
     
@@ -345,7 +354,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(scales, viridis, lubridate, ggthemes,</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               gridExtra, readxl, knitr, data.table,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               CGPfunctions, ggHoriPlot, tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               CGPfunctions, ggHoriPlot, tidyverse, ggbump, sunburstR,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               dplyr, latticeExtra, lattice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
@@ -731,6 +741,86 @@ Tip
 </div>
 </div>
 </section>
+<section id="exploration-1" class="level2">
+<h2 class="anchored" data-anchor-id="exploration-1">Exploration 1</h2>
+<p>Sunburst diagram displaying hierarchical visitor arrivals from Vietnam, broken down by year and month.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sunburst_data <span class="ot">&lt;-</span> Vietnam <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">path =</span> <span class="fu">paste</span>(year, month, <span class="at">sep =</span> <span class="st">"-"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(path) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">value =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Vietnam</span><span class="st">`</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>sunburst_data<span class="sc">$</span>path <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"-"</span>, <span class="st">"-"</span>, sunburst_data<span class="sc">$</span>path)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sunburst</span>(sunburst_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="sunburst html-widget html-fill-item" id="htmlwidget-0609a1d05bace446b25a" style="width:100%;height:464px; position:relative;">
+<div>
+<div class="sunburst-main">
+<div class="sunburst-sequence"></div>
+<div class="sunburst-chart">
+<div class="sunburst-explanation" style="visibility:hidden;"></div>
+</div>
+</div>
+<div class="sunburst-sidebar">
+<input type="checkbox" class="sunburst-togglelegend" style="visibility:hidden;">Legend
+<div class="sunburst-legend" style="visibility:hidden;"></div>
+</div>
+</div>
+</div>
+<script type="application/json" data-for="htmlwidget-0609a1d05bace446b25a">{"x":{"data":{"children":[{"name":"2010","children":[{"name":"Apr","size":22154,"colname":"X2"},{"name":"Aug","size":25351,"colname":"X2"},{"name":"Dec","size":23002,"colname":"X2"},{"name":"Feb","size":16335,"colname":"X2"},{"name":"Jan","size":15781,"colname":"X2"},{"name":"Jul","size":34020,"colname":"X2"},{"name":"Jun","size":28146,"colname":"X2"},{"name":"Mar","size":18061,"colname":"X2"},{"name":"May","size":21461,"colname":"X2"},{"name":"Nov","size":17991,"colname":"X2"},{"name":"Oct","size":20591,"colname":"X2"},{"name":"Sep","size":20105,"colname":"X2"}],"colname":"X1"},{"name":"2011","children":[{"name":"Apr","size":21050,"colname":"X2"},{"name":"Aug","size":23844,"colname":"X2"},{"name":"Dec","size":23650,"colname":"X2"},{"name":"Feb","size":22046,"colname":"X2"},{"name":"Jan","size":16891,"colname":"X2"},{"name":"Jul","size":36526,"colname":"X2"},{"name":"Jun","size":30167,"colname":"X2"},{"name":"Mar","size":19430,"colname":"X2"},{"name":"May","size":20422,"colname":"X2"},{"name":"Nov","size":19790,"colname":"X2"},{"name":"Oct","size":20140,"colname":"X2"},{"name":"Sep","size":22842,"colname":"X2"}],"colname":"X1"},{"name":"2012","children":[{"name":"Apr","size":25429,"colname":"X2"},{"name":"Aug","size":27372,"colname":"X2"},{"name":"Dec","size":24950,"colname":"X2"},{"name":"Feb","size":22627,"colname":"X2"},{"name":"Jan","size":22637,"colname":"X2"},{"name":"Jul","size":37527,"colname":"X2"},{"name":"Jun","size":32281,"colname":"X2"},{"name":"Mar","size":24102,"colname":"X2"},{"name":"May","size":26039,"colname":"X2"},{"name":"Nov","size":21804,"colname":"X2"},{"name":"Oct","size":22202,"colname":"X2"},{"name":"Sep","size":21864,"colname":"X2"}],"colname":"X1"},{"name":"2013","children":[{"name":"Apr","size":27309,"colname":"X2"},{"name":"Aug","size":28930,"colname":"X2"},{"name":"Dec","size":25421,"colname":"X2"},{"name":"Feb","size":24155,"colname":"X2"},{"name":"Jan","size":19793,"colname":"X2"},{"name":"Jul","size":37861,"colname":"X2"},{"name":"Jun","size":33707,"colname":"X2"},{"name":"Mar","size":23807,"colname":"X2"},{"name":"May","size":25326,"colname":"X2"},{"name":"Nov","size":24109,"colname":"X2"},{"name":"Oct","size":24833,"colname":"X2"},{"name":"Sep","size":24113,"colname":"X2"}],"colname":"X1"},{"name":"2014","children":[{"name":"Apr","size":26244,"colname":"X2"},{"name":"Aug","size":35029,"colname":"X2"},{"name":"Dec","size":27369,"colname":"X2"},{"name":"Feb","size":27391,"colname":"X2"},{"name":"Jan","size":22967,"colname":"X2"},{"name":"Jul","size":44613,"colname":"X2"},{"name":"Jun","size":40436,"colname":"X2"},{"name":"Mar","size":26405,"colname":"X2"},{"name":"May","size":31407,"colname":"X2"},{"name":"Nov","size":25635,"colname":"X2"},{"name":"Oct","size":26165,"colname":"X2"},{"name":"Sep","size":24965,"colname":"X2"}],"colname":"X1"},{"name":"2015","children":[{"name":"Apr","size":31299,"colname":"X2"},{"name":"Aug","size":32747,"colname":"X2"},{"name":"Dec","size":27128,"colname":"X2"},{"name":"Feb","size":23760,"colname":"X2"},{"name":"Jan","size":24906,"colname":"X2"},{"name":"Jul","size":45043,"colname":"X2"},{"name":"Jun","size":38188,"colname":"X2"},{"name":"Mar","size":27347,"colname":"X2"},{"name":"May","size":30131,"colname":"X2"},{"name":"Nov","size":25102,"colname":"X2"},{"name":"Oct","size":26213,"colname":"X2"},{"name":"Sep","size":24834,"colname":"X2"}],"colname":"X1"},{"name":"2016","children":[{"name":"Apr","size":34449,"colname":"X2"},{"name":"Aug","size":38351,"colname":"X2"},{"name":"Dec","size":31285,"colname":"X2"},{"name":"Feb","size":29498,"colname":"X2"},{"name":"Jan","size":25981,"colname":"X2"},{"name":"Jul","size":48958,"colname":"X2"},{"name":"Jun","size":43488,"colname":"X2"},{"name":"Mar","size":28805,"colname":"X2"},{"name":"May","size":34454,"colname":"X2"},{"name":"Nov","size":28643,"colname":"X2"},{"name":"Oct","size":27035,"colname":"X2"},{"name":"Sep","size":28041,"colname":"X2"}],"colname":"X1"},{"name":"2017","children":[{"name":"Apr","size":33682,"colname":"X2"},{"name":"Aug","size":43919,"colname":"X2"},{"name":"Dec","size":33860,"colname":"X2"},{"name":"Feb","size":28207,"colname":"X2"},{"name":"Jan","size":31125,"colname":"X2"},{"name":"Jul","size":58349,"colname":"X2"},{"name":"Jun","size":50591,"colname":"X2"},{"name":"Mar","size":31443,"colname":"X2"},{"name":"May","size":36844,"colname":"X2"},{"name":"Nov","size":32527,"colname":"X2"},{"name":"Oct","size":33438,"colname":"X2"},{"name":"Sep","size":35317,"colname":"X2"}],"colname":"X1"},{"name":"2018","children":[{"name":"Apr","size":41723,"colname":"X2"},{"name":"Aug","size":49645,"colname":"X2"},{"name":"Dec","size":33778,"colname":"X2"},{"name":"Feb","size":35137,"colname":"X2"},{"name":"Jan","size":31432,"colname":"X2"},{"name":"Jul","size":63476,"colname":"X2"},{"name":"Jun","size":55824,"colname":"X2"},{"name":"Mar","size":35832,"colname":"X2"},{"name":"May","size":45269,"colname":"X2"},{"name":"Nov","size":33356,"colname":"X2"},{"name":"Oct","size":36355,"colname":"X2"},{"name":"Sep","size":37341,"colname":"X2"}],"colname":"X1"},{"name":"2019","children":[{"name":"Apr","size":40569,"colname":"X2"},{"name":"Aug","size":51211,"colname":"X2"},{"name":"Dec","size":34366,"colname":"X2"},{"name":"Feb","size":37778,"colname":"X2"},{"name":"Jan","size":29621,"colname":"X2"},{"name":"Jul","size":65554,"colname":"X2"},{"name":"Jun","size":60425,"colname":"X2"},{"name":"Mar","size":36769,"colname":"X2"},{"name":"May","size":43176,"colname":"X2"},{"name":"Nov","size":40535,"colname":"X2"},{"name":"Oct","size":37358,"colname":"X2"},{"name":"Sep","size":39766,"colname":"X2"}],"colname":"X1"}],"name":"root"},"options":{"legendOrder":null,"colors":null,"valueField":"size","percent":true,"count":false,"explanation":null,"breadcrumb":[],"legend":[],"sortFunction":null,"sumNodes":true}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="exploration-2" class="level2">
+<h2 class="anchored" data-anchor-id="exploration-2">Exploration 2</h2>
+<p>Horizon graph visualising monthly visitor arrivals from Vietnam, compressing time-series data into a compact visual form.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>Vietnam<span class="sc">$</span>time <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">paste</span>(Vietnam<span class="sc">$</span>year, Vietnam<span class="sc">$</span>month, <span class="st">"01"</span>, <span class="at">sep =</span> <span class="st">"-"</span>), <span class="st">"%Y-%b-%d"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">horizonplot</span>(Vietnam<span class="sc">$</span><span class="st">`</span><span class="at">Vietnam</span><span class="st">`</span> <span class="sc">~</span> Vietnam<span class="sc">$</span>time,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">colorkey =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">origin =</span> <span class="fu">mean</span>(Vietnam<span class="sc">$</span><span class="st">`</span><span class="at">Vietnam</span><span class="st">`</span>),</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">horizonscale =</span> <span class="dv">6</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">main =</span> <span class="st">"Horizon Graph of Monthly Visitor Arrivals from Vietnam"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex06_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="exploration-3" class="level2">
+<h2 class="anchored" data-anchor-id="exploration-3">Exploration 3</h2>
+<p>Multi-series line plot</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>weekdays <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Mon"</span>, <span class="st">"Tues"</span>, <span class="st">"Wed"</span>, <span class="st">"Thu"</span>, <span class="st">"Fri"</span>, <span class="st">"Sat"</span>, <span class="st">"Sun"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>weeks <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"Series"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">Day =</span> weekdays, <span class="at">Week =</span> weeks) <span class="sc">%&gt;%</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Sales =</span> <span class="fu">sample</span>(<span class="dv">40</span><span class="sc">:</span><span class="dv">120</span>, <span class="at">size =</span> <span class="fu">n</span>(), <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Day <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>Day, <span class="at">levels =</span> weekdays, <span class="at">ordered =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> Sales, <span class="at">group =</span> Week, <span class="at">color =</span> Week)) <span class="sc">+</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Weekly Sales Pattern by Day of Week"</span>,</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Items Sold"</span>, <span class="at">x =</span> <span class="cn">NULL</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex06_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="plotting-slopegraph" class="level1">
 <h1>7 Plotting Slopegraph</h1>
@@ -740,20 +830,85 @@ Tip
 <h2 class="anchored" data-anchor-id="step-1-data-import-1">Step 1: Data Import</h2>
 <p>Import the rice data set into R environment by using the code chunk below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#rice &lt;- read_csv("data/rice.csv")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>rice <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rice.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="step-2-plotting-the-slopegraph" class="level2">
 <h2 class="anchored" data-anchor-id="step-2-plotting-the-slopegraph">Step 2: Plotting the slopegraph</h2>
 <p>Next, code chunk below will be used to plot a basic slopegraph as shown below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rice %&gt;% </span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(Year = factor(Year)) %&gt;%</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(Year %in% c(1961, 1980)) %&gt;%</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   newggslopegraph(Year, Yield, Country,</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#                 Title = "Rice Yield of Top 11 Asian Counties",</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#                 SubTitle = "1961-1980",</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">#                 Caption = "Prepared by: Dr. Kam Tin Seong")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>rice <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">factor</span>(Year)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1961</span>, <span class="dv">1980</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">newggslopegraph</span>(Year, Yield, Country,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">Title =</span> <span class="st">"Rice Yield of Top 11 Asian Counties"</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">SubTitle =</span> <span class="st">"1961-1980"</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">Caption =</span> <span class="st">"Prepared by: Dr. Kam Tin Seong"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex06_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="exploration-4" class="level2">
+<h2 class="anchored" data-anchor-id="exploration-4">Exploration 4</h2>
+<p>highlighting two specific country.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>rice <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">factor</span>(Year)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2005</span>, <span class="dv">2006</span>, <span class="dv">2007</span>, <span class="dv">2008</span>, <span class="dv">2009</span>, <span class="dv">2010</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">newggslopegraph</span>(Year, Yield, Country,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">Title =</span> <span class="st">"Rice Yield of Top 11 Asian Countries"</span>,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">SubTitle =</span> <span class="st">"2005 to 2010"</span>,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">Caption =</span> <span class="cn">NULL</span>,</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">LineColor =</span> <span class="fu">c</span>(<span class="st">"grey50"</span>, </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"grey50"</span>, </span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"grey50"</span>, </span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"grey50"</span>,</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"red"</span>,</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"grey50"</span>,</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"#c7c"</span>,</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"grey50"</span>,</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"grey50"</span>,</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"grey50"</span>,</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"grey50"</span>),      </span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>                <span class="at">DataLabelFillColor =</span> <span class="st">"#f5f5f5"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex06_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="exploration-5" class="level2">
+<h2 class="anchored" data-anchor-id="exploration-5">Exploration 5</h2>
+<p>Bump chart displaying relative ranking changes in rice yield among countries from 2000 to 2010.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>rice <span class="sc">%&gt;%</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">factor</span>(Year)) <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">2005</span>, <span class="dv">2010</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Year,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> Yield,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">color =</span> Country))<span class="sc">+</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#FFFFFF"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  ggbump<span class="sc">::</span><span class="fu">geom_bump</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x =</span> Year,</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>                                <span class="at">y =</span> Yield, </span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>                                <span class="at">group =</span> Country</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>                                ))<span class="sc">+</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Rice Yield of Top 11 Asian Countries"</span>) <span class="sc">+</span>  </span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex06_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
 </div>
 
 
