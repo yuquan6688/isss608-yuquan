@@ -116,35 +116,27 @@ edges <- data_g$edges
 
 # 3 Data Wrangling
 
-## 3.1
-
 ```{r}
 nodes <- nodes %>%
   mutate(
     timestamp = ymd_hms(timestamp, quiet = TRUE),
-    date = ymd(date, quiet = TRUE),
+    date = as.Date(timestamp),
     start_date = ymd(start_date, quiet = TRUE),
     end_date = ymd(end_date, quiet = TRUE),
-    submission_date = ymd(submission_date, quiet = TRUE)
-  )
-```
-
-```{r}
-glimpse(nodes)
-```
-
-```{r}
-comm_nodes <- nodes %>%
-  filter(sub_type == "Communication", !is.na(timestamp)) %>%
-  mutate(
-    date = as.Date(timestamp),
+    submission_date = ymd(submission_date, quiet = TRUE),
     hour = hour(timestamp),
     weekday = wday(timestamp, label = TRUE)
   )
+
+
+comm_nodes <- nodes %>%
+  filter(sub_type == "Communication", !is.na(timestamp))
 ```
 
+# plot
 ```{r}
-comm_nodes %>%
+# pp1：折线图 - 每天每小时通信趋势
+pp1 <- comm_nodes %>%
   count(date, hour) %>%
   ggplot(aes(x = hour, y = n, group = date, color = date)) +
   geom_line(size = 1) +
@@ -152,10 +144,8 @@ comm_nodes %>%
        x = "Hour of Day", y = "Number of Messages") +
   theme_minimal()
 
-```
-
-```{r}
-comm_nodes %>%
+# pp2：热图 - 每天每小时通信数量
+pp2 <- comm_nodes %>%
   count(date, hour) %>%
   ggplot(aes(x = date, y = hour, fill = n)) +
   geom_tile(color = "white") +
@@ -164,4 +154,61 @@ comm_nodes %>%
        x = "Date", y = "Hour", fill = "Count") +
   theme_minimal()
 
+# pp3：柱状图 - 每小时通信数量（不同日期）
+hourly_counts <- comm_nodes %>%
+  group_by(date, hour) %>%
+  summarise(count = n(), .groups = "drop")
+
+pp3 <- ggplot(hourly_counts, aes(x = factor(hour), y = count, fill = factor(date))) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(
+    title = "Hourly Communication Volume by Date",
+    x = "Hour of Day (0–23)",
+    y = "Number of Communications",
+    fill = "Date"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+
+# pp4：影响力网络图
+sent_edges <- edges %>%
+  filter(type == "sent") %>%
+  select(source_entity = source, event = target)
+
+received_edges <- edges %>%
+  filter(type == "received") %>%
+  select(event = source, target_entity = target)
+
+comm_edges <- sent_edges %>%
+  inner_join(received_edges, by = "event") %>%
+  select(source = source_entity, target = target_entity)
+
+entity_nodes <- nodes %>%
+  filter(type == "Entity") %>%
+  select(id, label)
+
+comm_graph <- tbl_graph(nodes = entity_nodes, edges = comm_edges, directed = TRUE) %>%
+  mutate(
+    degree = centrality_degree(mode = "in"),
+    pagerank = centrality_pagerank()
+  )
+
+focus_entity <- "Boss"
+focus_index <- which(V(comm_graph)$label == focus_entity)
+
+ego_graph <- make_ego_graph(comm_graph, order = 1, nodes = focus_index, mode = "all")[[1]]
+
+pp4 <- ggraph(ego_graph, layout = "kk") +
+  geom_edge_link(arrow = arrow(length = unit(3, 'mm')), end_cap = circle(3, 'mm')) +
+  geom_node_point(aes(size = pagerank), color = "steelblue") +
+  geom_node_text(aes(label = label), repel = TRUE) +
+  labs(title = paste("Influence Network for:", focus_entity)) +
+  theme_graph()
+```
+
+```{r,fig.height=14, fig.width=10}
+(pp1+pp2)/pp3/pp4
 ```
