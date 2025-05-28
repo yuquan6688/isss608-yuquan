@@ -84,10 +84,15 @@ pacman::p_load(
   knitr,
   lubridate,
   patchwork,
+  ggridges,
   ggraph,
   tidygraph,
   igraph,
   dplyr,
+  ggiraph,
+  SmartEDA,
+  plotly,
+  visNetwork,
   ggiraph
 )
 ```
@@ -95,26 +100,152 @@ pacman::p_load(
 ## 2.2 Importing data
 
 ```{r}
-data_g <- fromJSON("data/MC3_graph.json")
-data_s <- fromJSON("data/MC3_schema.json")
+MC3 <- fromJSON("data/MC3_graph.json")
+MC3_schema <- fromJSON("data/MC3_schema.json")
+
 ```
 
 ## 2.3 Data Overview
 
 ```{r}
-summary(data_g)
+summary(MC3)
 ```
 
 ```{r}
-glimpse(data_g)
+glimpse(MC3)
 ```
 
 ```{r}
-nodes <- data_g$nodes
-edges <- data_g$edges
+mc3_nodes <- as_tibble(MC3$nodes)
+mc3_edges <- as_tibble(MC3$edges)
+```
+
+## 2.4 Initial EDA
+
+In the code chunk below, `ExpCatViz()` of SmartEDA package is used to reveal the frequency distribution of all categorical fields in *mc3_nodes* tibble dataframe.
+
+```{r}
+ExpCatViz(data=mc3_nodes,
+          col="lightblue")
+```
+
+The code chunk below uses ExpCATViz() of SmartEDA package to reveal the frequency distribution of all categorical fields in mc3_edges tibble dataframe.
+
+```{r}
+ExpCatViz(data=mc3_edges,
+          col="lightblue")
 ```
 
 # 3 Data Wrangling
+
+## 3.1 Cleaning the nodes table
+
+This block cleans the mc3_nodes table by first converting the id field to character type to ensure consistency. It then filters out any rows where the id is missing and removes duplicate entries, keeping only the first occurrence for each unique id. Finally, it drops the unnecessary thing_collected column, leaving a cleaned node dataset named mc3_nodes_cleaned that is ready for further processing.
+
+```{r}
+mc3_nodes_cleaned <- mc3_nodes %>%
+  mutate(id = as.character(id)) %>%
+  filter(!is.na(id)) %>%
+  distinct(id, .keep_all = TRUE) %>%
+  select(-thing_collected)
+```
+
+## 3.2 Cleaning the edges table
+
+This block processes the mc3_edges table by renaming the source and target fields to from_id and to_id respectively, making the naming more intuitive. It ensures both of these fields are of character type and filters the data to keep only the edges where both the from_id and to_id exist in the cleaned node list (mc3_nodes_cleaned). Any records with missing from_id or to_id are also excluded, resulting in a cleaned edge dataset called mc3_edges_cleaned.
+
+```{r}
+mc3_edges_cleaned <- mc3_edges %>%
+  rename(from_id = source, to_id = target) %>%
+  mutate(across(c(from_id, to_id), as.character)) %>%
+  filter(from_id %in% mc3_nodes_cleaned$id, to_id %in% mc3_nodes_cleaned$id) %>%
+  filter(!is.na(from_id), !is.na(to_id))
+```
+
+## 3.3 Creating node-to-index mapping
+
+In this part, the code creates a lookup table that maps each node’s id to its row index within the cleaned node list. This is done by adding a .row_id column using the row_number() function. The resulting node_index_lookup table provides a reference for converting character node IDs into numerical indices, which will be needed when preparing the edge list for graph construction.
+
+```{r}
+node_index_lookup <- mc3_nodes_cleaned %>%
+  mutate(.row_id = row_number()) %>%
+  select(id, .row_id)
+```
+
+## 3.4 Replacing edge node IDs with indices
+
+Here, the cleaned edge list (mc3_edges_cleaned) is joined with the node_index_lookup table to replace from_id and to_id with their corresponding numerical indices. The code performs two left joins—one for the source node and one for the target node—followed by renaming the resulting .row_id fields to from and to. Only the edges where both ends successfully map to valid indices are kept, and the final indexed edge list is saved as mc3_edges_indexed.
+
+```{r}
+mc3_edges_indexed <- mc3_edges_cleaned %>%
+  left_join(node_index_lookup, by = c("from_id" = "id")) %>%
+  rename(from = .row_id) %>%
+  left_join(node_index_lookup, by = c("to_id" = "id")) %>%
+  rename(to = .row_id) %>%
+  select(from, to, is_inferred, type) %>%
+  filter(!is.na(from) & !is.na(to))
+```
+
+## 3.5 Subsetting nodes used by edges
+
+This block identifies which nodes are actually referenced in the edge list by collecting all unique from and to indices from mc3_edges_indexed. It then subsets the cleaned node list to include only these referenced nodes, ensuring that no orphaned or unused nodes are included. A new, consecutive index (new_index) is assigned to these final nodes, resulting in the refined node table mc3_nodes_final.
+
+```{r}
+used_node_indices <- sort(unique(c(mc3_edges_indexed$from, mc3_edges_indexed$to)))
+
+mc3_nodes_final <- mc3_nodes_cleaned %>%
+  slice(used_node_indices) %>%
+  mutate(new_index = row_number())
+```
+
+## 3.6 Rebuilding old-to-new index mapping
+
+To keep the edge list aligned with the updated node indices, this code creates a new lookup table (old_to_new_index) that maps the original indices used in mc3_edges_indexed to the newly assigned consecutive indices in mc3_nodes_final. This mapping ensures consistency between the node and edge tables when reconstructing the final graph.
+
+```{r}
+old_to_new_index <- tibble(
+  old_index = used_node_indices,
+  new_index = seq_along(used_node_indices)
+)
+```
+
+## 3.7 Updating edge indices
+
+In this step, the mc3_edges_indexed table is joined with the old_to_new_index table to update the from and to indices, replacing them with the new consecutive indices assigned to the final node list. The updated edge list is renamed as mc3_edges_final, which contains only the necessary fields (from, to, is_inferred, and type) and is ready for graph construction.
+
+```{r}
+mc3_edges_final <- mc3_edges_indexed %>%
+  left_join(old_to_new_index, by = c("from" = "old_index")) %>%
+  rename(from_new = new_index) %>%
+  left_join(old_to_new_index, by = c("to" = "old_index")) %>%
+  rename(to_new = new_index) %>%
+  select(from = from_new, to = to_new, is_inferred, type)
+```
+
+## 3.8 Building the tidygraph object
+
+This block constructs the final tidygraph object, mc3_graph, using the cleaned and reindexed node table (mc3_nodes_final) and edge table (mc3_edges_final). The tbl_graph() function from the tidygraph package creates a directed graph structure, making it ready for network analysis, centrality calculations, visualizations, or other graph-based operations.
+
+```{r}
+mc3_graph <- tbl_graph(
+  nodes = mc3_nodes_final,
+  edges = mc3_edges_final,
+  directed = TRUE
+)
+```
+
+## 3.9 Extracting node and edge tables for time analysis
+
+After building the graph, this block extracts the node and edge tables from mc3_graph as tibble objects. These tables are saved as nodes and edges, respectively, and are intended for downstream data analyses that focus on time-related features, such as activity trends or temporal patterns.
+
+```{r}
+nodes <- as_tibble(mc3_graph, active = "nodes")
+edges <- as_tibble(mc3_graph, active = "edges")
+```
+
+## 3.10 Processing time fields and filtering communication nodes
+
+Finally, this block enriches the nodes table by parsing and converting the various time-related fields (timestamp, start_date, end_date, and submission_date) into appropriate date and datetime formats using the lubridate package. It also extracts the hour and weekday components from the main timestamp, adding them as new variables. The dataset is then filtered to retain only nodes classified as Communication type and with non-missing timestamps, resulting in the comm_nodes table specifically tailored for communication-based temporal analyses.
 
 ```{r}
 nodes <- nodes %>%
@@ -128,87 +259,418 @@ nodes <- nodes %>%
     weekday = wday(timestamp, label = TRUE)
   )
 
-
 comm_nodes <- nodes %>%
   filter(sub_type == "Communication", !is.na(timestamp))
 ```
 
-# plot
+# MC3 Q1
+
+## sub-question a
+
 ```{r}
-# pp1：折线图 - 每天每小时通信趋势
-pp1 <- comm_nodes %>%
-  count(date, hour) %>%
-  ggplot(aes(x = hour, y = n, group = date, color = date)) +
-  geom_line(size = 1) +
-  labs(title = "Hourly Communication Patterns per Day",
-       x = "Hour of Day", y = "Number of Messages") +
-  theme_minimal()
-
-# pp2：热图 - 每天每小时通信数量
-pp2 <- comm_nodes %>%
-  count(date, hour) %>%
-  ggplot(aes(x = date, y = hour, fill = n)) +
-  geom_tile(color = "white") +
-  scale_fill_viridis_c(option = "C") +
-  labs(title = "Message Volume Heatmap",
-       x = "Date", y = "Hour", fill = "Count") +
-  theme_minimal()
-
-# pp3：柱状图 - 每小时通信数量（不同日期）
+# ap1 
 hourly_counts <- comm_nodes %>%
   group_by(date, hour) %>%
-  summarise(count = n(), .groups = "drop")
+  summarise(message_count = n(), .groups = "drop")
 
-pp3 <- ggplot(hourly_counts, aes(x = factor(hour), y = count, fill = factor(date))) +
-  geom_bar(stat = "identity", position = "dodge") +
+# heatmap
+ap1 <- ggplot(hourly_counts, aes(x = hour, y = factor(date), fill = message_count)) +
+  geom_tile(color = "white") +
+  geom_text(aes(label = message_count), color = "white", size = 3) +
+  scale_fill_viridis_c(option = "plasma") +
   labs(
-    title = "Hourly Communication Volume by Date",
-    x = "Hour of Day (0–23)",
-    y = "Number of Communications",
-    fill = "Date"
+    title = "Hourly Message Count by Day",
+    x = "Hour of Day",
+    y = "Date",
+    fill = "Message Count"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+#ap2
+violin_data <- comm_nodes %>%
+  select(date, hour)
+
+# ridgeline + jitter 
+ap2 <- ggplot(violin_data, aes(x = hour, y = factor(date), fill = factor(date))) +
+  geom_density_ridges(
+    alpha = 0.6,
+    scale = 1,
+    jittered_points = TRUE,
+    point_shape = "|",
+    point_size = 1,
+    position = "raincloud"
+  ) +
+  labs(
+    title = "Hourly Message Distribution by Day (Ridgeline Plot with Jitter)",
+    x = "Hour of Day",
+    y = "Date"
   ) +
   theme_minimal() +
-  theme(
-    plot.title = element_text(size = 14, face = "bold"),
-    axis.text.x = element_text(angle = 45, hjust = 1)
+  theme(legend.position = "none")
+```
+
+```{r}
+ap3 <- ggplot(comm_nodes, aes(x = hour)) +
+  geom_density(fill = "skyblue", alpha = 0.6) +
+  labs(
+    title = "Hourly Message Density Across All Days",
+    x = "Hour of Day",
+    y = "Density"
+  ) +
+  theme_minimal() +
+  scale_x_continuous(breaks = 0:23)
+```
+
+```{r,fig.height=10, fig.width=10}
+(ap1 / ap3) | ap2
+```
+
+## sub-question b
+
+```{R}
+# data prepare for sub-question b
+split_date <- min(comm_nodes$date) + 6
+comm_nodes <- comm_nodes %>%
+  mutate(week_group = if_else(date <= split_date, "Week 1", "Week 2"))
+
+daily_hourly_counts <- comm_nodes %>%
+  group_by(date, hour) %>%
+  summarise(message_count = n(), .groups = "drop")
+
+weekly_hourly_counts <- comm_nodes %>%
+  group_by(week_group, hour) %>%
+  summarise(message_count = n(), .groups = "drop")
+
+weekly_counts <- comm_nodes %>%
+  group_by(week_group) %>%
+  summarise(message_count = n(), .groups = "drop") %>%
+  mutate(
+    fraction = message_count / sum(message_count),
+    label = paste0(week_group, "\n", message_count)
   )
 
-# pp4：影响力网络图
-sent_edges <- edges %>%
-  filter(type == "sent") %>%
-  select(source_entity = source, event = target)
+hourly_counts <- comm_nodes %>%
+  group_by(week_group, date, hour) %>%
+  summarise(message_count = n(), .groups = "drop")
+```
 
-received_edges <- edges %>%
-  filter(type == "received") %>%
-  select(event = source, target_entity = target)
+```{R}
+#  (Pie Chart)
+bp1 <- ggplot(weekly_counts, aes(x = "", y = fraction, fill = week_group)) +
+  geom_col(width = 1, color = "white") +
+  coord_polar(theta = "y") +
+  geom_text(aes(label = label), position = position_stack(vjust = 0.5)) +
+  labs(
+    title = "Total Messages by Week",
+    x = NULL,
+    y = NULL
+  ) +
+  theme_void() +
+  theme(legend.position = "none")
+```
 
-comm_edges <- sent_edges %>%
-  inner_join(received_edges, by = "event") %>%
-  select(source = source_entity, target = target_entity)
+```{r}
+bp2 <- ggplot(weekly_hourly_counts, aes(x = hour, y = message_count, color = week_group)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 2) +
+  labs(
+    title = "Hourly Message Trend by Week",
+    x = "Hour of Day",
+    y = "Total Messages",
+    color = "Week"
+  ) +
+  theme_minimal() +
+  scale_x_continuous(breaks = 0:23)
+```
 
-entity_nodes <- nodes %>%
-  filter(type == "Entity") %>%
-  select(id, label)
+```{r}
+# (Violin + Jitter)
+bp3 <- ggplot(comm_nodes, aes(x = week_group, y = hour, fill = week_group)) +
+  geom_violin(alpha = 0.6, scale = "width") +
+  geom_jitter(width = 0.1, alpha = 0.4, size = 1) +
+  labs(
+    title = "Hourly Message Distribution by Week",
+    x = "Week",
+    y = "Hour of Day"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
 
-comm_graph <- tbl_graph(nodes = entity_nodes, edges = comm_edges, directed = TRUE) %>%
+```{r}
+# Stacked Area Char
+bp4 <- ggplot(daily_hourly_counts, aes(x = date, y = message_count, fill = factor(hour))) +
+  geom_area() +
+  labs(
+    title = "Daily Message Volume by Hour",
+    x = "Date",
+    y = "Total Messages",
+    fill = "Hour of Day"
+  ) +
+  theme_minimal()
+```
+
+```{r,fig.height=10, fig.width=10}
+bp1/bp3 | bp2/bp4
+```
+
+## sub-question c
+
+
+```{r}
+ig_mc3 <- as.igraph(mc3_graph)
+target_entity <- "Elise"
+target_id <- nodes %>% filter(label == target_entity) %>% pull(id)
+target_index <- which(mc3_nodes_final$id == target_id)
+
+ego_2_net <- make_ego_graph(ig_mc3, 
+                            order = 2, 
+                            nodes = target_index, 
+                            mode = "all")[[1]]
+ego_2_simple <- simplify(ego_2_net, 
+                         remove.multiple = TRUE, 
+                         remove.loops = TRUE)
+
+ego_tbl <- as_tbl_graph(ego_2_simple) %>%
   mutate(
-    degree = centrality_degree(mode = "in"),
+    degree = centrality_degree(),
+    betweenness = centrality_betweenness(),
     pagerank = centrality_pagerank()
   )
 
-focus_entity <- "Boss"
-focus_index <- which(V(comm_graph)$label == focus_entity)
+if (!"type" %in% colnames(as.data.frame(ego_tbl, 
+                                        what = "vertices"))) {
+  ego_tbl <- ego_tbl %>% mutate(type = "Node")
+}
+if (!"subtype" %in% colnames(as.data.frame(ego_tbl,
+                                           what = "edges"))) {
+  ego_tbl <- ego_tbl %>% activate(edges) %>% mutate(subtype = "default")
+}
 
-ego_graph <- make_ego_graph(comm_graph, order = 1, nodes = focus_index, mode = "all")[[1]]
-
-pp4 <- ggraph(ego_graph, layout = "kk") +
-  geom_edge_link(arrow = arrow(length = unit(3, 'mm')), end_cap = circle(3, 'mm')) +
-  geom_node_point(aes(size = pagerank), color = "steelblue") +
-  geom_node_text(aes(label = label), repel = TRUE) +
-  labs(title = paste("Influence Network for:", focus_entity)) +
-  theme_graph()
+direct_neighbors <- neighbors(ig_mc3, 
+                              target_index, mode = "all") %>% as_ids()
 ```
 
-```{r,fig.height=14, fig.width=10}
-(pp1+pp2)/pp3/pp4
+
+### Plot 1
+```{r,fig.height=10, fig.width=10}
+ggraph(ego_tbl, layout = "fr") +
+  geom_edge_link(
+    aes(color = subtype),
+    alpha = 0.5,
+    arrow = grid::arrow(type = "closed", 
+                        length = unit(2, "mm")),
+    end_cap = circle(3, "mm")
+  ) +
+  geom_node_point(
+    aes(size = pagerank, 
+        color = type, 
+        shape = type),
+    show.legend = TRUE
+  ) +
+  geom_node_text(aes(label = label), 
+                 repel = TRUE, 
+                 size = 3) +
+  scale_size_continuous(range = c(3, 10)) +
+  theme_graph(base_family = "Arial") +
+  labs(
+    title = paste("2-hop Influence Network of", 
+                  target_entity)
+  )
 ```
+
+### Plot 2
+```{r,fig.height=10, fig.width=10}
+ggraph(ego_tbl, layout = "fr") +
+  geom_edge_link(
+    aes(color = subtype),
+    alpha = 0.5,
+    arrow = grid::arrow(type = "closed", 
+                        length = unit(2, "mm")),
+    end_cap = circle(3, "mm")
+  ) +
+  geom_node_point(
+    aes(size = betweenness, 
+        color = betweenness),
+    show.legend = TRUE
+  ) +
+  geom_node_text(aes(label = label), 
+                 repel = TRUE, 
+                 size = 3) +
+  scale_color_viridis_c() +
+  scale_size_continuous(range = c(3, 10)) +
+  labs(
+    title = paste("Betweenness of", target_entity)
+  ) +
+  theme_graph(base_family = "Arial")
+```
+
+### Plot 3
+```{r,fig.height=10, fig.width=10}
+
+ego_2_list <- make_ego_graph(ig_mc3, order = 2, 
+                             nodes = target_index, 
+                             mode = "all")
+ego_2_net <- ego_2_list[[1]]
+
+ego_2_tbl <- as_tbl_graph(ego_2_net) %>%
+  mutate(
+    degree = centrality_degree(),
+    betweenness = centrality_betweenness()
+  )
+
+direct_neighbors <- neighbors(ig_mc3, target_index, mode = "all") %>% as_ids()
+
+ego_2_tbl <- ego_2_tbl %>%
+  mutate(
+    is_direct = id %in% mc3_nodes_final$id[direct_neighbors],
+    is_indirect_bridge = !is_direct & (betweenness > median(betweenness))
+  )
+
+ggraph(ego_2_tbl, layout = "fr") +
+  geom_edge_link(alpha = 0.5) +
+  geom_node_point(
+    aes(size = betweenness, color = ifelse(is_indirect_bridge, "highlight", "non-highlight")),
+    show.legend = TRUE
+  ) +
+  scale_color_manual(values = c("highlight" = "red", "non-highlight" = "grey")) +
+  geom_node_text(aes(label = label), repel = TRUE, size = 3) +
+  labs(
+    title = paste("Indirect Bridges in Influence Network of", target_entity)
+  ) +
+  theme_void()
+```
+
+### Plot 4
+```{r}
+target_entity <- "Elise"
+
+target_id <- mc3_nodes_final %>%
+  filter(label == target_entity) %>%
+  pull(id)
+
+igraph_nodes <- mc3_nodes_final %>%
+  transmute(id = as.character(new_index),
+            name = as.character(new_index),
+            label = label,
+            sub_type = sub_type)
+
+igraph_edges <- mc3_edges_final %>%
+  transmute(from = as.character(from),
+            to = as.character(to),
+            type = type)
+
+g <- graph_from_data_frame(d = igraph_edges, 
+                           vertices = igraph_nodes, 
+                           directed = TRUE)
+target_index <- which(V(g)$label == target_entity)
+
+ego_2 <- make_ego_graph(g, order = 2, 
+                        nodes = target_index, 
+                        mode = "all")[[1]]
+
+V(ego_2)$degree <- degree(ego_2)
+V(ego_2)$betweenness <- betweenness(ego_2)
+V(ego_2)$pagerank <- page_rank(ego_2)$vector
+
+nodes_df <- data.frame(
+  id = V(ego_2)$name,
+  label = V(ego_2)$label,
+  group = V(ego_2)$sub_type,
+  title = paste0("<b>", V(ego_2)$label, "</b><br>",
+                 "Type: ", V(ego_2)$sub_type, "<br>",
+                 "Degree: ", round(V(ego_2)$degree, 2), "<br>",
+                 "Betweenness: ", round(V(ego_2)$betweenness, 2), "<br>",
+                 "PageRank: ", round(V(ego_2)$pagerank, 4)),
+  shape = ifelse(V(ego_2)$sub_type == "Person", "dot",
+                 ifelse(V(ego_2)$sub_type == "Organization", 
+                        "square",
+                        ifelse(V(ego_2)$sub_type == "Vessel", 
+                               "triangle", 
+                               "ellipse"))),
+  value = V(ego_2)$pagerank * 50  
+)
+
+edges_df <- as_data_frame(ego_2, 
+                          what = "edges") %>%
+  mutate(color = ifelse(type == "sent", "blue",
+                        ifelse(type == "received", "green", "gray"))) %>%
+  rename(from = from, to = to)
+
+visNetwork(nodes_df, edges_df, 
+           width = "100%", 
+           height = "700px") %>%
+  visNodes(scaling = list(min = 10, 
+                          max = 50)) %>%
+  visEdges(arrows = "to", 
+           color = list(color = edges_df$color)) %>%
+  visOptions(highlightNearest = TRUE, 
+             nodesIdSelection = TRUE) %>%
+  visLegend() %>%
+  visLayout(randomSeed = 123)
+```
+
+### Quantitative analysis
+
+:::panel-tabset
+
+#### Top Influencers by PageRank
+```{r}
+top_influencers_pagerank <- ego_tbl %>%
+  activate(nodes) %>%
+  as_tibble() %>%
+  arrange(desc(pagerank)) %>%
+  filter(id != target_id) %>%
+  slice_head(n = 5) %>%
+  select(label, 
+         degree, 
+         betweenness, pagerank)
+
+print(top_influencers_pagerank)
+```
+
+#### Top Influencers by Betweenness
+```{r}
+top_influencers_betweenness <- ego_tbl %>%
+  activate(nodes) %>%
+  as_tibble() %>%
+  arrange(desc(betweenness)) %>%
+  filter(id != target_id) %>%
+  slice_head(n = 5) %>%
+  select(label, degree, 
+         betweenness, pagerank)
+
+print(top_influencers_betweenness)
+```
+
+
+#### Combined Influence Score Ranking
+```{r}
+ego_combined_tbl <- ego_tbl %>%
+  activate(nodes) %>%
+  as_tibble() %>%
+  mutate(
+    normalized_degree = degree / 
+      max(degree, na.rm = TRUE),
+    normalized_betweenness = betweenness / 
+      max(betweenness, na.rm = TRUE),
+    normalized_pagerank = pagerank / 
+      max(pagerank, na.rm = TRUE),
+    influence_score = 
+      (normalized_degree + 
+         normalized_betweenness + 
+         normalized_pagerank) / 3) %>%
+  filter(id != target_id)
+
+top_influencers_combined <- ego_combined_tbl %>%
+  arrange(desc(influence_score)) %>%
+  slice_head(n = 10) %>%
+  select(label, 
+         degree, 
+         betweenness, 
+         pagerank, influence_score)
+print(top_influencers_combined)
+```
+:::
