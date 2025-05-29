@@ -18,70 +18,67 @@ execute:
 
 # 1 Overview
 
-In this exercise, we will be tacking [Mini-case 3](https://vast-challenge.github.io/2025/MC3.html) of [VAST Challenge 2025](https://vast-challenge.github.io/2025/index.html).
+In this report, I will be tacking [Mini-case 3](https://vast-challenge.github.io/2025/MC3.html) of [VAST Challenge 2025](https://vast-challenge.github.io/2025/index.html).
 
 ## 1.1 Background
 
-Over the past decade, the community of Oceanus has faced numerous transformations and challenges evolving from its fishing-centric origins. Following major crackdowns on illegal fishing activities, suspects have shifted investments into more regulated sectors such as the ocean tourism industry, resulting in growing tensions. This increased tourism has recently attracted the likes of international pop star Sailor Shift, who announced plans to film a music video on the island.
+Over the past decade, the Oceanus community has transitioned from its fishing-based roots to more regulated sectors like ocean tourism, following major crackdowns on illegal fishing. This shift has heightened local tensions. Recently, international pop star Sailor Shift announced plans to film a music video on the island, adding to the complexity.
 
-Clepper Jessen, a former analyst at FishEye and now a seasoned journalist for the Hacklee Herald, has been keenly observing these rising tensions. Recently, he turned his attention towards the temporary closure of Nemo Reef. By listening to radio communications and utilizing his investigative tools, Clepper uncovered a complex web of expedited approvals and secretive logistics. These efforts revealed a story involving high-level Oceanus officials, Sailor Shift’s team, local influential families, and local conservationist group The Green Guardians, pointing towards a story of corruption and manipulation.
-
-My task is to develop new and novel visualizations and visual analytics approaches to help Clepper get to the bottom of this story.
+Journalist Clepper Jessen (formerly an analyst at FishEye, now with the Hacklee Herald) has been investigating the temporary closure of Nemo Reef. By analyzing intercepted radio communications and other data, he uncovered a tangled web involving high-ranking officials, Sailor Shift’s team, powerful local families, and the environmental group The Green Guardians, pointing toward corruption and manipulation.
 
 ## 1.2 Tasks and Questions
 
 Clepper diligently recorded all intercepted radio communications over the last two weeks. With the help of his intern, they have analyzed their content to identify important events and relationships between key players. The result is a knowledge graph describing the last two weeks on Oceanus. Clepper and his intern have spent a large amount of time generating this knowledge graph, and they would now like some assistance using it to answer the following questions.
 
-1.  Clepper found that messages frequently came in at around the same time each day.
+Clepper found that messages frequently came in at around the same time each day.
 
-    1.  Develop a graph-based visual analytics approach to identify any daily temporal patterns in communications.
+1.  Develop a graph-based visual analytics approach to identify any daily temporal patterns in communications.
 
-    2.  How do these patterns shift over the two weeks of observations?
+2.  How do these patterns shift over the two weeks of observations?
 
-    3.  Focus on a specific entity and use this information to determine who has influence over them.
-
-2.  Clepper has noticed that people often communicate with (or about) the same people or vessels, and that grouping them together may help with the investigation.
-
-    1.  Use visual analytics to help Clepper understand and explore the interactions and relationships between vessels and people in the knowledge graph.
-
-    2.  Are there groups that are more closely associated? If so, what are the topic areas that are predominant for each group?
-
-        -   For example, these groupings could be related to: Environmentalism (known associates of Green Guardians), Sailor Shift, and fishing/leisure vessels.
-
-3.  It was noted by Clepper’s intern that some people and vessels are using pseudonyms to communicate.
-
-    1.  Expanding upon your prior visual analytics, determine who is using pseudonyms to communicate, and what these pseudonyms are.
-
-        -   Some that Clepper has already identified include: “Boss”, and “The Lookout”, but there appear to be many more.
-
-        -   To complicate the matter, pseudonyms may be used by multiple people or vessels.
-
-    2.  Describe how your visualizations make it easier for Clepper to identify common entities in the knowledge graph.
-
-    3.  How does your understanding of activities change given your understanding of pseudonyms?
-
-4.  Clepper suspects that Nadia Conti, who was formerly entangled in an illegal fishing scheme, may have continued illicit activity within Oceanus.
-
-    1.  Through visual analytics, provide evidence that Nadia is, or is not, doing something illegal.
-
-    2.  Summarize Nadia’s actions visually. Are Clepper’s suspicions justified?
+3.  Focus on a specific entity and use this information to determine who has influence over them.
 
 ## 1.3 The Data
 
 We will use the dataset provided by VAST Challenge.This report utilizes two core datasets: MC3_graph.json, which encodes the knowledge graph of communications, events, and relationships; and MC3_schema.json, which defines the structure, subtypes, and attributes of each node and edge type within the graph.
 
-## 1.4 Methodology
+#### Node Attributes
+
+![](images/Screenshot%202025-05-29%20at%2010.31.09.png)
+
+#### Edge Attributes
+
+![](images/Screenshot%202025-05-29%20at%2012.27.36.png)
 
 # 2 Setup
 
 ## 2.1 Loading Packages
 
+:::panel-tabset
+
+### The Table
+
+| Library        | Purpose                                                                                                                                       |
+|---------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| `jsonlite`    | An R package for parsing and generating JSON data, enabling smooth data exchange between R and web services or JSON files.                   |
+| `tidyverse`   | Include dplyr for data manipulation (mutate, group_by, summarize), ggplot2 for visualization (histograms, boxplots), and forcats for factor handling and variable ordering. |
+| `lubridate`   | An R package to work with dates and times, simplifying parsing, manipulation, and arithmetic of date-time objects.                           |
+| `patchwork`   | An R package for preparing composite figure created using ggplot2.                                                                           |
+| `ggridges`    | An R package for creating density plots for visualisation of continuous distribution.                                                         |
+| `ggraph`      | An R package extending ggplot2 to visualize graph/network data, supporting layouts like force-directed, circular, and dendrograms.           |
+| `tidygraph`   | An R package that integrates tidyverse principles into graph/network analysis, allowing tidy manipulation of graph objects.                  |
+| `igraph`      | A core R package for network analysis and visualization, providing tools to create, manipulate, and analyze graph structures.                |
+| `dplyr`       | Part of the tidyverse; provides fast, consistent functions for data manipulation (filter, select, mutate, summarize, join).                  |
+| `ggiraph`     | An R package to create interactive ggplot-based visualizations with tooltips, hover effects, and JavaScript interactions.                    |
+| `SmartEDA`    | An R package providing automated exploratory data analysis (EDA) tools to quickly summarize and visualize datasets.                          |
+| `visNetwork`  | An R package for interactive network visualization using the vis.js JavaScript library, enabling interactive exploration of graph data.      |
+
+### The Code
+
 ```{r}
 pacman::p_load(
   jsonlite,
   tidyverse,
-  ggtext,
-  knitr,
   lubridate,
   patchwork,
   ggridges,
@@ -91,11 +88,12 @@ pacman::p_load(
   dplyr,
   ggiraph,
   SmartEDA,
-  plotly,
   visNetwork,
   ggiraph
 )
 ```
+:::
+
 
 ## 2.2 Importing data
 
@@ -107,27 +105,76 @@ MC3_schema <- fromJSON("data/MC3_schema.json")
 
 ## 2.3 Data Overview
 
-```{r}
-summary(MC3)
-```
+::: panel-tabset
+### graph
 
 ```{r}
 glimpse(MC3)
 ```
+
+### schema
+
+```{r}
+glimpse(MC3_schema)
+```
+:::
+
+## 2.4 Extracting Nodes and Edges
 
 ```{r}
 mc3_nodes <- as_tibble(MC3$nodes)
 mc3_edges <- as_tibble(MC3$edges)
 ```
 
-## 2.4 Initial EDA
+### 2.4.1 Overview for nodes & edges
+
+::: panel-tabset
+#### nodes
+
+```{r}
+head(mc3_nodes)
+```
+
+```{r}
+table(mc3_nodes$type)
+```
+
+#### edges
+
+```{r}
+head(mc3_edges)
+```
+
+```{r}
+table(mc3_edges$type)
+```
+:::
+
+## 2.5 Initial EDA
+
+:::: panel-tabset
+### nodes
 
 In the code chunk below, `ExpCatViz()` of SmartEDA package is used to reveal the frequency distribution of all categorical fields in *mc3_nodes* tibble dataframe.
 
-```{r}
+::: panel-tabset
+#### The Code
+
+```{r,eval=FALSE}
 ExpCatViz(data=mc3_nodes,
           col="lightblue")
 ```
+
+#### The Plot
+
+```{r}
+#| echo: false
+ExpCatViz(data=mc3_nodes,
+          col="lightblue")
+```
+:::
+
+### edges
 
 The code chunk below uses ExpCATViz() of SmartEDA package to reveal the frequency distribution of all categorical fields in mc3_edges tibble dataframe.
 
@@ -135,12 +182,13 @@ The code chunk below uses ExpCATViz() of SmartEDA package to reveal the frequenc
 ExpCatViz(data=mc3_edges,
           col="lightblue")
 ```
+::::
 
 # 3 Data Wrangling
 
-## 3.1 Cleaning the nodes table
+## 3.1 Node Cleaning
 
-This block cleans the mc3_nodes table by first converting the id field to character type to ensure consistency. It then filters out any rows where the id is missing and removes duplicate entries, keeping only the first occurrence for each unique id. Finally, it drops the unnecessary thing_collected column, leaving a cleaned node dataset named mc3_nodes_cleaned that is ready for further processing.
+Convert node table id to character type, remove missing and duplicate rows, and drop the unnecessary thing_collected column.
 
 ```{r}
 mc3_nodes_cleaned <- mc3_nodes %>%
@@ -150,9 +198,13 @@ mc3_nodes_cleaned <- mc3_nodes %>%
   select(-thing_collected)
 ```
 
-## 3.2 Cleaning the edges table
+```{r}
+head(mc3_nodes_cleaned)
+```
 
-This block processes the mc3_edges table by renaming the source and target fields to from_id and to_id respectively, making the naming more intuitive. It ensures both of these fields are of character type and filters the data to keep only the edges where both the from_id and to_id exist in the cleaned node list (mc3_nodes_cleaned). Any records with missing from_id or to_id are also excluded, resulting in a cleaned edge dataset called mc3_edges_cleaned.
+## 3.2 Edge Cleaning
+
+Rename source and target fields, ensure both are character type, and filter out edges without valid from_id or to_id.
 
 ```{r}
 mc3_edges_cleaned <- mc3_edges %>%
@@ -162,9 +214,13 @@ mc3_edges_cleaned <- mc3_edges %>%
   filter(!is.na(from_id), !is.na(to_id))
 ```
 
-## 3.3 Creating node-to-index mapping
+```{r}
+head(mc3_edges_cleaned)
+```
 
-In this part, the code creates a lookup table that maps each node’s id to its row index within the cleaned node list. This is done by adding a .row_id column using the row_number() function. The resulting node_index_lookup table provides a reference for converting character node IDs into numerical indices, which will be needed when preparing the edge list for graph construction.
+## 3.3 Create Node Index Mapping
+
+Generate a .row_id sequence for the cleaned nodes to use as a numeric index for replacing character IDs.
 
 ```{r}
 node_index_lookup <- mc3_nodes_cleaned %>%
@@ -172,9 +228,13 @@ node_index_lookup <- mc3_nodes_cleaned %>%
   select(id, .row_id)
 ```
 
-## 3.4 Replacing edge node IDs with indices
+```{r}
+head(node_index_lookup)
+```
 
-Here, the cleaned edge list (mc3_edges_cleaned) is joined with the node_index_lookup table to replace from_id and to_id with their corresponding numerical indices. The code performs two left joins—one for the source node and one for the target node—followed by renaming the resulting .row_id fields to from and to. Only the edges where both ends successfully map to valid indices are kept, and the final indexed edge list is saved as mc3_edges_indexed.
+## 3.4 Replace Edge IDs with Indices
+
+Join edges with the node index lookup table to replace from_id and to_id with their corresponding numeric indices.
 
 ```{r}
 mc3_edges_indexed <- mc3_edges_cleaned %>%
@@ -186,9 +246,13 @@ mc3_edges_indexed <- mc3_edges_cleaned %>%
   filter(!is.na(from) & !is.na(to))
 ```
 
-## 3.5 Subsetting nodes used by edges
+```{r}
+head(mc3_edges_indexed)
+```
 
-This block identifies which nodes are actually referenced in the edge list by collecting all unique from and to indices from mc3_edges_indexed. It then subsets the cleaned node list to include only these referenced nodes, ensuring that no orphaned or unused nodes are included. A new, consecutive index (new_index) is assigned to these final nodes, resulting in the refined node table mc3_nodes_final.
+## 3.5 Subset Used Nodes
+
+Keep only the nodes that are actually referenced in the edge list and assign them new consecutive indices.
 
 ```{r}
 used_node_indices <- sort(unique(c(mc3_edges_indexed$from, mc3_edges_indexed$to)))
@@ -198,9 +262,13 @@ mc3_nodes_final <- mc3_nodes_cleaned %>%
   mutate(new_index = row_number())
 ```
 
-## 3.6 Rebuilding old-to-new index mapping
+```{r}
+head(mc3_nodes_final)
+```
 
-To keep the edge list aligned with the updated node indices, this code creates a new lookup table (old_to_new_index) that maps the original indices used in mc3_edges_indexed to the newly assigned consecutive indices in mc3_nodes_final. This mapping ensures consistency between the node and edge tables when reconstructing the final graph.
+## 3.6 Create Old-to-New Index Mapping
+
+Create a lookup table that maps old node indices to the new consecutive indices for consistent edge alignment.
 
 ```{r}
 old_to_new_index <- tibble(
@@ -209,9 +277,13 @@ old_to_new_index <- tibble(
 )
 ```
 
-## 3.7 Updating edge indices
+```{r}
+head(old_to_new_index)
+```
 
-In this step, the mc3_edges_indexed table is joined with the old_to_new_index table to update the from and to indices, replacing them with the new consecutive indices assigned to the final node list. The updated edge list is renamed as mc3_edges_final, which contains only the necessary fields (from, to, is_inferred, and type) and is ready for graph construction.
+## 3.7 Update Edge Indices
+
+Update the edge list by replacing old indices with the new consecutive indices, ensuring alignment with the final node table.
 
 ```{r}
 mc3_edges_final <- mc3_edges_indexed %>%
@@ -222,9 +294,13 @@ mc3_edges_final <- mc3_edges_indexed %>%
   select(from = from_new, to = to_new, is_inferred, type)
 ```
 
-## 3.8 Building the tidygraph object
+```{r}
+head(mc3_edges_final)
+```
 
-This block constructs the final tidygraph object, mc3_graph, using the cleaned and reindexed node table (mc3_nodes_final) and edge table (mc3_edges_final). The tbl_graph() function from the tidygraph package creates a directed graph structure, making it ready for network analysis, centrality calculations, visualizations, or other graph-based operations.
+## 3.8 Build Graph Object
+
+Construct a directed graph using the tidygraph package, combining the cleaned node and edge tables for network analysis.
 
 ```{r}
 mc3_graph <- tbl_graph(
@@ -234,18 +310,26 @@ mc3_graph <- tbl_graph(
 )
 ```
 
-## 3.9 Extracting node and edge tables for time analysis
+```{r}
+head(mc3_graph)
+```
 
-After building the graph, this block extracts the node and edge tables from mc3_graph as tibble objects. These tables are saved as nodes and edges, respectively, and are intended for downstream data analyses that focus on time-related features, such as activity trends or temporal patterns.
+## 3.9 Extract Node and Edge Tables
+
+Convert the graph object back into tidy nodes and edges tables for further data processing
 
 ```{r}
 nodes <- as_tibble(mc3_graph, active = "nodes")
 edges <- as_tibble(mc3_graph, active = "edges")
 ```
 
-## 3.10 Processing time fields and filtering communication nodes
+```{r}
+head(nodes)
+```
 
-Finally, this block enriches the nodes table by parsing and converting the various time-related fields (timestamp, start_date, end_date, and submission_date) into appropriate date and datetime formats using the lubridate package. It also extracts the hour and weekday components from the main timestamp, adding them as new variables. The dataset is then filtered to retain only nodes classified as Communication type and with non-missing timestamps, resulting in the comm_nodes table specifically tailored for communication-based temporal analyses.
+## 3.10 Process Time Fields and Filter Communication Nodes
+
+Parse and convert date/time fields, extract hour and weekday, and filter the data to include only nodes of type Communication.
 
 ```{r}
 nodes <- nodes %>%
@@ -263,57 +347,265 @@ comm_nodes <- nodes %>%
   filter(sub_type == "Communication", !is.na(timestamp))
 ```
 
-# MC3 Q1
+```{r}
+head(comm_nodes)
+```
 
-## sub-question a
+# 4 Data Prepaer for visualization
+
+## 4.1 Data Prepare for Sub-Question A
+
+`hourly_counts`: Groups the comm_nodes data by date and hour and calculates the total number of messages per hour, which is used to generate the heatmap plot (ap1).
+
+`violin_data`: Selects only the date, hour, and weekday columns to prepare data for the violin plot (ap2), which visualizes the density distribution of messages across hours.
+
+`daily_counts`: Groups by date and calculates the total number of messages per day, providing the basis for the daily line chart (ap4), and computes the overall average message count (avg_messages) to use as a reference line.
 
 ```{r}
-# ap1 
+#ap1
 hourly_counts <- comm_nodes %>%
   group_by(date, hour) %>%
   summarise(message_count = n(), .groups = "drop")
 
-# heatmap
-ap1 <- ggplot(hourly_counts, aes(x = hour, y = factor(date), fill = message_count)) +
-  geom_tile(color = "white") +
-  geom_text(aes(label = message_count), color = "white", size = 3) +
-  scale_fill_viridis_c(option = "plasma") +
-  labs(
-    title = "Hourly Message Count by Day",
-    x = "Hour of Day",
-    y = "Date",
-    fill = "Message Count"
-  ) +
-  theme_minimal()
-```
-
-```{r}
 #ap2
 violin_data <- comm_nodes %>%
-  select(date, hour)
+  select(date, hour, weekday)
 
-# ridgeline + jitter 
-ap2 <- ggplot(violin_data, aes(x = hour, y = factor(date), fill = factor(date))) +
+# ap4
+daily_counts <- comm_nodes %>%
+  group_by(date) %>%
+  summarise(total_messages = n(), .groups = "drop")
+
+avg_messages <- mean(daily_counts$total_messages)
+```
+
+## 4.2 Data Prepare for Sub-Question B
+
+`hourly_counts` (extend): Builds on the Sub-A dataset by adding a week label (splitting into Week 1 and Week 2) and computing weekday_num (using wday() with Monday as the start of the week). It then arranges the data by weekday_num and creates a factor date_factor for consistent date ordering in the heatmap plot (bp1).
+
+`weekly_hourly_counts`: Groups comm_nodes by week_group and hour and calculates the total message count per hour, used for the weekly comparison line plot (bp2) to visualize trends across hours between the two weeks.
+
+`violin_data_2` and `violin_data_2_filtered`: Expands the violin plot data by adding week and weekday labels and filters unique dates within each week, preparing data for the split-week violin distribution plot (bp3).
+
+```{r}
+#bp1
+hourly_counts <- hourly_counts %>%
+  mutate(
+    week = ifelse(date <= as.Date("2040-10-07"), 
+                  "Week 1 (Oct 1–7)", 
+                  "Week 2 (Oct 8–14)"),
+    weekday_num = wday(date, week_start = 1))
+
+
+hourly_counts <- hourly_counts %>%
+  group_by(week) %>%
+  arrange(weekday_num, .by_group = TRUE) %>%
+  mutate(date_factor = factor(date, levels = unique(date))) %>%
+  ungroup()
+
+
+#bp2
+split_date <- min(comm_nodes$date) + 6
+comm_nodes <- comm_nodes %>%
+  mutate(week_group = if_else(date <= split_date, "Week 1", "Week 2"))
+
+weekly_hourly_counts <- comm_nodes %>%
+  group_by(week_group, hour) %>%
+  summarise(message_count = n(), .groups = "drop")
+
+#bp3
+violin_data_2 <- comm_nodes %>%
+  mutate(
+    weekday = wday(date, label = TRUE, week_start = 1),
+    week = ifelse(date <= min(date) + 6, "Week 1", "Week 2")
+  ) %>%
+  select(week, date, weekday, hour)
+
+violin_data_2_filtered <- violin_data_2 %>%
+  group_by(week) %>%
+  filter(date %in% unique(date))
+```
+
+## 4.3 Data Prepare for Sub-Question C
+
+`Overview Graph`—construct the full entity-to-entity graph by:
+
+-   Extracting sent and received edge types.
+
+-   Matching sent + received pairs to form communication edges. Adding additional one-way edges (sent only, received only) for a complete set.
+
+-   Filtering to retain only edges where both nodes are entities.
+
+-   Building the full directed graph (g), on which we compute centrality metrics like PageRank, betweenness, and degree.
+
+-   Extracting a 2-hop ego network (ego_graph) centered on Elise to visualize her local influence neighborhood. Ego Graph Preparation
+
+`ego network:`
+
+-   Using only the paired comm_edges (sent + received) between entities.
+
+-   Constructing a separate graph (g) for cleaner analysis.
+
+-   Extracting the 1-hop ego network (ego_1) around Elise.
+
+```{r}
+#overview-graph
+sent_edges <- edges %>%
+  filter(type == "sent") %>%
+  select(source_entity = from, event = to)
+
+received_edges <- edges %>%
+  filter(type == "received") %>%
+  select(event = from, target_entity = to)
+
+paired_edges <- sent_edges %>%
+  inner_join(received_edges, by = "event") %>%
+  select(from = source_entity, to = target_entity)
+
+single_sent_edges <- sent_edges %>%
+  select(from = source_entity, to = event)
+
+single_received_edges <- received_edges %>%
+  select(from = event, to = target_entity)
+
+all_edges <- bind_rows(paired_edges, 
+                       single_sent_edges, 
+                       single_received_edges) %>%
+  distinct()
+
+entity_ids <- nodes %>%
+  filter(type == "Entity") %>%
+  pull(new_index) %>%
+  as.character()
+
+entity_edges <- all_edges %>%
+  filter(as.character(from) %in% entity_ids, 
+         as.character(to) %in% entity_ids)
+
+entity_nodes <- nodes %>%
+  filter(type == "Entity") %>%
+  select(new_index, id, label, sub_type) %>%
+  mutate(new_index = as.character(new_index))
+
+g <- graph_from_data_frame(d = entity_edges, 
+                           vertices = entity_nodes, 
+                           directed = TRUE)
+
+V(g)$pagerank <- page_rank(g)$vector
+V(g)$betweenness <- betweenness(g)
+V(g)$degree <- degree(g)
+
+target_entity <- "Elise"
+target_index <- which(V(g)$label == target_entity)
+ego_graph <- make_ego_graph(g, order = 2, 
+                            nodes = target_index, mode = "all")[[1]]
+
+
+# ego-graph
+
+comm_edges <- sent_edges %>%
+  inner_join(received_edges, by = "event") %>%
+  select(from = source_entity, to = target_entity)
+
+entity_nodes <- nodes %>%
+  filter(type == "Entity") %>%
+  select(new_index, id, label, sub_type)
+
+g <- graph_from_data_frame(d = comm_edges, 
+                           vertices = entity_nodes, 
+                           directed = TRUE)
+
+target_entity <- "Elise"
+target_index <- which(V(g)$label == target_entity)
+ego_1 <- make_ego_graph(g, order = 1, nodes = target_index, mode = "all")[[1]]
+
+V(ego_1)$name <- V(ego_1)$name %||% V(ego_1)$label
+```
+
+# 5 Visualization For Mini-Challenge 3 Question 1
+
+## 5.1 Sub-Question A
+
+::: callout-note
+# Question for Sub-Question A
+
+Develop a graph-based visual analytics approach to identify any daily temporal patterns in communications.
+:::
+
+::: panel-tabset
+### The Plot
+
+```{r,fig.height=12, fig.width=10}
+#| echo: false
+# ap1
+ap1 <- ggplot(hourly_counts, 
+              aes(x = hour,
+                  y = factor(date), 
+                  fill = message_count)) +
+  geom_tile(color = "white") +
+  geom_text(aes(label = message_count), 
+            color = "white", size = 3) +
+  scale_fill_gradient(name = "# of messages", 
+                      low = "skyblue", high = "darkblue") +
+  labs(title = "Hourly Message Count by Day", 
+       x = "Hour of Day", 
+       y = "Date") +
+  theme_minimal() +
+  scale_x_continuous(breaks = 0:23) + 
+  scale_y_discrete(
+    labels = function(d) {
+      weekday <- comm_nodes %>%
+        filter(date == d) %>%
+        pull(weekday) %>%
+        unique()
+      paste0(d, " (", weekday, ")")
+    }
+  ) +
+  theme(
+    legend.position = "top",
+    legend.direction = "horizontal",
+    legend.justification = c(1, 1),
+    legend.box.just = "right",
+    legend.title = element_text(size = 8),
+    legend.text = element_text(size = 6),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+#ap2
+ap2 <- ggplot(violin_data, aes(x = hour, 
+                               y = factor(date), 
+                               fill = factor(date))) +
   geom_density_ridges(
     alpha = 0.6,
     scale = 1,
     jittered_points = TRUE,
-    point_shape = "|",
-    point_size = 1,
+    point_shape = "·",
+    point_size = 2.5,
     position = "raincloud"
   ) +
+  scale_x_continuous(limits = c(6, 14), 
+                     breaks = 6:14) + 
+  scale_y_discrete(
+    labels = function(d) {
+      weekday <- violin_data %>%
+        filter(date == d) %>%
+        pull(weekday) %>%
+        unique()
+      paste0(d, " (", weekday, ")")
+    }
+  ) +
   labs(
-    title = "Hourly Message Distribution by Day (Ridgeline Plot with Jitter)",
+    title = "Hourly Message Distribution by Day",
     x = "Hour of Day",
     y = "Date"
   ) +
   theme_minimal() +
   theme(legend.position = "none")
-```
 
-```{r}
+#ap3
 ap3 <- ggplot(comm_nodes, aes(x = hour)) +
-  geom_density(fill = "skyblue", alpha = 0.6) +
+  geom_density(fill = "skyblue", 
+               alpha = 0.6) +
   labs(
     title = "Hourly Message Density Across All Days",
     x = "Hour of Day",
@@ -321,356 +613,858 @@ ap3 <- ggplot(comm_nodes, aes(x = hour)) +
   ) +
   theme_minimal() +
   scale_x_continuous(breaks = 0:23)
-```
 
-```{r,fig.height=10, fig.width=10}
-(ap1 / ap3) | ap2
-```
-
-## sub-question b
-
-```{R}
-# data prepare for sub-question b
-split_date <- min(comm_nodes$date) + 6
-comm_nodes <- comm_nodes %>%
-  mutate(week_group = if_else(date <= split_date, "Week 1", "Week 2"))
-
-daily_hourly_counts <- comm_nodes %>%
-  group_by(date, hour) %>%
-  summarise(message_count = n(), .groups = "drop")
-
-weekly_hourly_counts <- comm_nodes %>%
-  group_by(week_group, hour) %>%
-  summarise(message_count = n(), .groups = "drop")
-
-weekly_counts <- comm_nodes %>%
-  group_by(week_group) %>%
-  summarise(message_count = n(), .groups = "drop") %>%
-  mutate(
-    fraction = message_count / sum(message_count),
-    label = paste0(week_group, "\n", message_count)
+#ap4
+ap4 <- ggplot(daily_counts, aes(x = date, 
+                                y = total_messages)) +
+  geom_line(color = "mediumseagreen", 
+            size = 1) + 
+  geom_point(color = "mediumseagreen", 
+             size = 2) +
+  geom_hline(yintercept = avg_messages, 
+             linetype = "dashed", 
+             color = "gray40") +
+  annotate("text", x = min(daily_counts$date), 
+           y = avg_messages, 
+           label = paste0("Avg: ", 
+                          round(avg_messages, 1)),
+           hjust = 0, vjust = -0.5, 
+           color = "gray40", size = 3) +
+  scale_x_date(
+    date_breaks = "1 day",
+    date_labels = "%b %d"
+  ) +
+  scale_y_continuous(
+    breaks = scales::pretty_breaks(n = 10)
+  ) +
+  labs(
+    title = "Total Messages Per Day",
+    x = "Date",
+    y = "Total Messages"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    axis.text.x = element_text(angle = 45, hjust = 1)
   )
 
-hourly_counts <- comm_nodes %>%
-  group_by(week_group, date, hour) %>%
-  summarise(message_count = n(), .groups = "drop")
+#plot
+ap4 / ((ap1 / ap3) | ap2) + plot_layout(heights = c(0.5, 2))
 ```
 
-```{R}
-#  (Pie Chart)
-bp1 <- ggplot(weekly_counts, aes(x = "", y = fraction, fill = week_group)) +
-  geom_col(width = 1, color = "white") +
-  coord_polar(theta = "y") +
-  geom_text(aes(label = label), position = position_stack(vjust = 0.5)) +
-  labs(
-    title = "Total Messages by Week",
-    x = NULL,
-    y = NULL
+### The Code
+
+```{r, eval=FALSE}
+# ap1
+ap1 <- ggplot(hourly_counts, 
+              aes(x = hour,
+                  y = factor(date), 
+                  fill = message_count)) +
+  geom_tile(color = "white") +
+  geom_text(aes(label = message_count), 
+            color = "white", size = 3) +
+  scale_fill_gradient(name = "# of messages", 
+                      low = "skyblue", high = "darkblue") +
+  labs(title = "Hourly Message Count by Day", 
+       x = "Hour of Day", 
+       y = "Date") +
+  theme_minimal() +
+  scale_x_continuous(breaks = 0:23) + 
+  scale_y_discrete(
+    labels = function(d) {
+      weekday <- comm_nodes %>%
+        filter(date == d) %>%
+        pull(weekday) %>%
+        unique()
+      paste0(d, " (", weekday, ")")
+    }
   ) +
-  theme_void() +
-  theme(legend.position = "none")
-```
+  theme(
+    legend.position = "top",
+    legend.direction = "horizontal",
+    legend.justification = c(1, 1),
+    legend.box.just = "right",
+    legend.title = element_text(size = 8),
+    legend.text = element_text(size = 6),
+    plot.title = element_text(hjust = 0.5)
+  )
 
-```{r}
-bp2 <- ggplot(weekly_hourly_counts, aes(x = hour, y = message_count, color = week_group)) +
+#ap2
+ap2 <- ggplot(violin_data, aes(x = hour, 
+                               y = factor(date), 
+                               fill = factor(date))) +
+  geom_density_ridges(
+    alpha = 0.6,
+    scale = 1,
+    jittered_points = TRUE,
+    point_shape = "·",
+    point_size = 2.5,
+    position = "raincloud"
+  ) +
+  scale_x_continuous(limits = c(6, 14), 
+                     breaks = 6:14) + 
+  scale_y_discrete(
+    labels = function(d) {
+      weekday <- violin_data %>%
+        filter(date == d) %>%
+        pull(weekday) %>%
+        unique()
+      paste0(d, " (", weekday, ")")
+    }
+  ) +
+  labs(
+    title = "Hourly Message Distribution by Day",
+    x = "Hour of Day",
+    y = "Date"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+#ap3
+ap3 <- ggplot(comm_nodes, aes(x = hour)) +
+  geom_density(fill = "skyblue", 
+               alpha = 0.6) +
+  labs(
+    title = "Hourly Message Density Across All Days",
+    x = "Hour of Day",
+    y = "Density"
+  ) +
+  theme_minimal() +
+  scale_x_continuous(breaks = 0:23)
+
+#ap4
+ap4 <- ggplot(daily_counts, aes(x = date, 
+                                y = total_messages)) +
+  geom_line(color = "mediumseagreen", 
+            size = 1) + 
+  geom_point(color = "mediumseagreen", 
+             size = 2) +
+  geom_hline(yintercept = avg_messages, 
+             linetype = "dashed", 
+             color = "gray40") +
+  annotate("text", x = min(daily_counts$date), 
+           y = avg_messages, 
+           label = paste0("Avg: ", 
+                          round(avg_messages, 1)),
+           hjust = 0, vjust = -0.5, 
+           color = "gray40", size = 3) +
+  scale_x_date(
+    date_breaks = "1 day",
+    date_labels = "%b %d"
+  ) +
+  scale_y_continuous(
+    breaks = scales::pretty_breaks(n = 10)
+  ) +
+  labs(
+    title = "Total Messages Per Day",
+    x = "Date",
+    y = "Total Messages"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+
+#plot
+ap4 / ((ap1 / ap3) | ap2) + plot_layout(heights = c(0.5, 2))
+```
+:::
+
+::: {.callout-tip title="Insight"}
+-   The daily communication volume fluctuates slightly between 34 and 49 messages, with an average of approximately 41.7 messages per day. Notably, October 11 records the highest peak (48 messages), following immediately after the lowest point on October 10 (35 messages), which may suggest a rapid rebound or intensified communication activity after a lull. Despite daily fluctuations, the overall message volume demonstrates strong stability.
+
+-   The time series charts using hourly intervals reveal a clear temporal rhythm: most communication activities are concentrated between 9:00 AM and 12:00 PM, with the peak occurring around 10:00 AM. After noon, the message frequency drops sharply, and on over half of the days, no communication takes place after 12:00 PM. This likely indicates that the involved parties follow a highly structured communication schedule, completing key messages, decisions, or approvals in the morning, leaving the rest of the day relatively quiet.
+
+-   The heatmap, offering a more granular hour-by-hour perspective, further pinpoints the peak morning communication window between 9:00 and 11:00 AM. For example, on October 5 (Friday), the 9:00 AM peak reaches 24 messages, while on October 13 (Sunday), the same time slot sees 19 messages. Most days repeatedly show deep blue tiles (indicating high intensity) between 8:00 and 11:00 AM, highlighting the systemic nature of the morning peaks.
+
+-   Overall, the communication pattern does not display a noticeable distinction between weekdays and weekends; for instance, on October 13 and October 14, which fall on a weekend, the volume of communications remains comparable to that on weekdays.
+:::
+
+## 5.2 Sub-Question B
+
+::: callout-note
+# Question for Sub-Question B
+
+How do these patterns shift over the two weeks of observations?
+:::
+
+::: panel-tabset
+### The Plot
+
+```{r,fig.height=10, fig.width=10}
+#| echo: false
+#bp1
+bp1 <- ggplot(hourly_counts, 
+                       aes(x = hour, 
+                           y = date_factor, 
+                           fill = message_count)) +
+  geom_tile(color = "white") +
+  geom_text(aes(label = message_count), 
+            color = "white", size = 3) +
+  scale_fill_gradient(name = "# of messages", 
+                      low = "skyblue", 
+                      high = "darkblue") +
+  labs(title = "Hourly Message Count by Day", 
+       x = "Hour of Day", y = "Date") +
+  facet_wrap(~ week, ncol = 1, scales = "free_y") +
+  scale_x_continuous(breaks = 0:23) + 
+  scale_y_discrete(
+    limits = function(x) rev(x), 
+    labels = function(d) {
+      weekday <- wday(as.Date(d), label = TRUE, 
+                      week_start = 1)
+      paste0(d, " (", weekday, ")")
+    }
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "top",
+    legend.direction = "horizontal",
+    legend.title = element_text(size = 8),
+    legend.text = element_text(size = 6),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+#bp2
+bp2 <- ggplot(weekly_hourly_counts, aes(x = hour, 
+                                        y = message_count, 
+                                        color = week_group)) +
   geom_line(size = 1.2) +
   geom_point(size = 2) +
   labs(
-    title = "Hourly Message Trend by Week",
+    title ="    Hourly Message Trend by Week",
     x = "Hour of Day",
     y = "Total Messages",
     color = "Week"
   ) +
   theme_minimal() +
   scale_x_continuous(breaks = 0:23)
-```
 
-```{r}
-# (Violin + Jitter)
-bp3 <- ggplot(comm_nodes, aes(x = week_group, y = hour, fill = week_group)) +
-  geom_violin(alpha = 0.6, scale = "width") +
-  geom_jitter(width = 0.1, alpha = 0.4, size = 1) +
+#bp3
+bp3 <- ggplot(violin_data_2_filtered, aes(x = hour, 
+                                          y = fct_rev(paste0(date, 
+                                                             " (", weekday, ")")),
+                                          fill = weekday)) +
+  geom_density_ridges(
+    alpha = 0.6,
+    scale = 1,
+    jittered_points = TRUE,
+    point_shape = "·",
+    point_size = 2.5,
+    position = "raincloud"
+  ) +
+  scale_x_continuous(limits = c(6, 14), 
+                     breaks = seq(6, 14, 2)) + 
+  facet_wrap(~ week, ncol = 1, 
+             scales = "free_y") + 
   labs(
-    title = "Hourly Message Distribution by Week",
-    x = "Week",
-    y = "Hour of Day"
+    title = "Hourly Message Distribution by Weekday",
+    x = "Hour of Day",
+    y = "Date"
   ) +
   theme_minimal() +
   theme(legend.position = "none")
+
+#plot
+(bp2 / (bp1 | bp3) + plot_layout(heights = c(0.6, 2)))
 ```
 
-```{r}
-# Stacked Area Char
-bp4 <- ggplot(daily_hourly_counts, aes(x = date, y = message_count, fill = factor(hour))) +
-  geom_area() +
+### The Code
+
+```{r, eval=FALSE}
+#bp1
+bp1 <- ggplot(hourly_counts, 
+                       aes(x = hour, 
+                           y = date_factor, 
+                           fill = message_count)) +
+  geom_tile(color = "white") +
+  geom_text(aes(label = message_count), 
+            color = "white", size = 3) +
+  scale_fill_gradient(name = "# of messages", 
+                      low = "skyblue", 
+                      high = "darkblue") +
+  labs(title = "Hourly Message Count by Day", 
+       x = "Hour of Day", y = "Date") +
+  facet_wrap(~ week, ncol = 1, scales = "free_y") +
+  scale_x_continuous(breaks = 0:23) + 
+  scale_y_discrete(
+    limits = function(x) rev(x), 
+    labels = function(d) {
+      weekday <- wday(as.Date(d), label = TRUE, 
+                      week_start = 1)
+      paste0(d, " (", weekday, ")")
+    }
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "top",
+    legend.direction = "horizontal",
+    legend.title = element_text(size = 8),
+    legend.text = element_text(size = 6),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+#bp2
+bp2 <- ggplot(weekly_hourly_counts, aes(x = hour, 
+                                        y = message_count, 
+                                        color = week_group)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 2) +
   labs(
-    title = "Daily Message Volume by Hour",
-    x = "Date",
+    title ="    Hourly Message Trend by Week",
+    x = "Hour of Day",
     y = "Total Messages",
-    fill = "Hour of Day"
+    color = "Week"
   ) +
-  theme_minimal()
+  theme_minimal() +
+  scale_x_continuous(breaks = 0:23)
+
+#bp3
+bp3 <- ggplot(violin_data_2_filtered, aes(x = hour, 
+                                          y = fct_rev(paste0(date, 
+                                                             " (", weekday, ")")),
+                                          fill = weekday)) +
+  geom_density_ridges(
+    alpha = 0.6,
+    scale = 1,
+    jittered_points = TRUE,
+    point_shape = "·",
+    point_size = 2.5,
+    position = "raincloud"
+  ) +
+  scale_x_continuous(limits = c(6, 14), 
+                     breaks = seq(6, 14, 2)) + 
+  facet_wrap(~ week, ncol = 1, 
+             scales = "free_y") + 
+  labs(
+    title = "Hourly Message Distribution by Weekday",
+    x = "Hour of Day",
+    y = "Date"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+#plot
+(bp2 / (bp1 | bp3) + plot_layout(heights = c(0.6, 2)))
 ```
+:::
 
-```{r,fig.height=10, fig.width=10}
-bp1/bp3 | bp2/bp4
-```
+::: {.callout-tip title="Insight"}
+-   The line chart compares the hourly communication trends across the two weeks, showing that both weeks share a common peak at 10:00 AM. However, Week 1 (red line) shows a more prominent peak, reaching around 80 messages, while Week 2 (blue line) is slightly lower, at approximately 60 messages. After the 10 AM peak, the message volume drops sharply in both weeks, but Week 2 maintains slightly higher activity between 11 AM and 12 PM, indicating a marginally extended period of active communication compared to Week 1.
 
-## sub-question c
+-   The heatmap breaks down the hourly message counts by day. In Week 1, October 5 (Friday) stands out with an impressive 24 messages at 9 AM, while other days primarily concentrate between 8 AM and 11 AM. In Week 2, October 11 (Thursday) reaches the weekly peak with 21 messages at 10 AM, reflecting a slight shift toward later morning peaks.
 
+-   The ridgeline plot further highlights the shape of daily distributions. In Week 1, most days show sharp peaks centered around 9–10 AM. In contrast, Week 2 shows flatter and broader distributions on certain days (such as October 12–13, Friday–Saturday), indicating that communication activity extends further into the late morning. This suggests that Week 1’s communication was more concentrated in the early morning, while Week 2 exhibited a slightly prolonged morning communication window.
+
+-   Another notable change in the communication pattern is seen in the weekends: in Week 1, weekend communication peaks shifted later in the day and showed relatively smooth fluctuations, whereas in Week 2, the weekend communication peaks were more pronounced, concentrated at 8 AM and 12 PM respectively, showing a distinct difference from Week 1.
+:::
+
+## 5.3 Sub-Question C
+
+::: callout-note
+# Question for Sub-Question C
+
+Focus on a specific entity and use this information to determine who has influence over them.
+:::
+
+### 5.3.1 Overview
+
+To investigate who has influence over the entity Elise, I combined global network visualizations with centrality-focused subgraphs centered on Elise.
+
+The first global overview network graph (top image) provides the full knowledge graph of the Oceanus community, with nodes colored and shaped by entity type (Person, Organization, Vessel, Group, Location). From this high-level view, we observe that Elise is connected within a dense communication web, involving major actors such as Nadia Conti, V. Miesel Shipping, Neptune, and Mako. The node size visually indicates importance, with larger nodes corresponding to higher centrality measures.
+
+::: panel-tabset
+#### The Plot
 
 ```{r}
-ig_mc3 <- as.igraph(mc3_graph)
-target_entity <- "Elise"
-target_id <- nodes %>% filter(label == target_entity) %>% pull(id)
-target_index <- which(mc3_nodes_final$id == target_id)
-
-ego_2_net <- make_ego_graph(ig_mc3, 
-                            order = 2, 
-                            nodes = target_index, 
-                            mode = "all")[[1]]
-ego_2_simple <- simplify(ego_2_net, 
-                         remove.multiple = TRUE, 
-                         remove.loops = TRUE)
-
-ego_tbl <- as_tbl_graph(ego_2_simple) %>%
-  mutate(
-    degree = centrality_degree(),
-    betweenness = centrality_betweenness(),
-    pagerank = centrality_pagerank()
-  )
-
-if (!"type" %in% colnames(as.data.frame(ego_tbl, 
-                                        what = "vertices"))) {
-  ego_tbl <- ego_tbl %>% mutate(type = "Node")
-}
-if (!"subtype" %in% colnames(as.data.frame(ego_tbl,
-                                           what = "edges"))) {
-  ego_tbl <- ego_tbl %>% activate(edges) %>% mutate(subtype = "default")
-}
-
-direct_neighbors <- neighbors(ig_mc3, 
-                              target_index, mode = "all") %>% as_ids()
-```
-
-
-### Plot 1
-```{r,fig.height=10, fig.width=10}
-ggraph(ego_tbl, layout = "fr") +
-  geom_edge_link(
-    aes(color = subtype),
-    alpha = 0.5,
-    arrow = grid::arrow(type = "closed", 
-                        length = unit(2, "mm")),
-    end_cap = circle(3, "mm")
-  ) +
-  geom_node_point(
-    aes(size = pagerank, 
-        color = type, 
-        shape = type),
-    show.legend = TRUE
-  ) +
-  geom_node_text(aes(label = label), 
-                 repel = TRUE, 
-                 size = 3) +
-  scale_size_continuous(range = c(3, 10)) +
-  theme_graph(base_family = "Arial") +
-  labs(
-    title = paste("2-hop Influence Network of", 
-                  target_entity)
-  )
-```
-
-### Plot 2
-```{r,fig.height=10, fig.width=10}
-ggraph(ego_tbl, layout = "fr") +
-  geom_edge_link(
-    aes(color = subtype),
-    alpha = 0.5,
-    arrow = grid::arrow(type = "closed", 
-                        length = unit(2, "mm")),
-    end_cap = circle(3, "mm")
-  ) +
-  geom_node_point(
-    aes(size = betweenness, 
-        color = betweenness),
-    show.legend = TRUE
-  ) +
-  geom_node_text(aes(label = label), 
-                 repel = TRUE, 
-                 size = 3) +
-  scale_color_viridis_c() +
-  scale_size_continuous(range = c(3, 10)) +
-  labs(
-    title = paste("Betweenness of", target_entity)
-  ) +
-  theme_graph(base_family = "Arial")
-```
-
-### Plot 3
-```{r,fig.height=10, fig.width=10}
-
-ego_2_list <- make_ego_graph(ig_mc3, order = 2, 
-                             nodes = target_index, 
-                             mode = "all")
-ego_2_net <- ego_2_list[[1]]
-
-ego_2_tbl <- as_tbl_graph(ego_2_net) %>%
-  mutate(
-    degree = centrality_degree(),
-    betweenness = centrality_betweenness()
-  )
-
-direct_neighbors <- neighbors(ig_mc3, target_index, mode = "all") %>% as_ids()
-
-ego_2_tbl <- ego_2_tbl %>%
-  mutate(
-    is_direct = id %in% mc3_nodes_final$id[direct_neighbors],
-    is_indirect_bridge = !is_direct & (betweenness > median(betweenness))
-  )
-
-ggraph(ego_2_tbl, layout = "fr") +
-  geom_edge_link(alpha = 0.5) +
-  geom_node_point(
-    aes(size = betweenness, color = ifelse(is_indirect_bridge, "highlight", "non-highlight")),
-    show.legend = TRUE
-  ) +
-  scale_color_manual(values = c("highlight" = "red", "non-highlight" = "grey")) +
-  geom_node_text(aes(label = label), repel = TRUE, size = 3) +
-  labs(
-    title = paste("Indirect Bridges in Influence Network of", target_entity)
-  ) +
-  theme_void()
-```
-
-### Plot 4
-```{r}
-target_entity <- "Elise"
-
-target_id <- mc3_nodes_final %>%
-  filter(label == target_entity) %>%
-  pull(id)
-
-igraph_nodes <- mc3_nodes_final %>%
-  transmute(id = as.character(new_index),
-            name = as.character(new_index),
-            label = label,
-            sub_type = sub_type)
-
-igraph_edges <- mc3_edges_final %>%
-  transmute(from = as.character(from),
-            to = as.character(to),
-            type = type)
-
-g <- graph_from_data_frame(d = igraph_edges, 
-                           vertices = igraph_nodes, 
-                           directed = TRUE)
-target_index <- which(V(g)$label == target_entity)
-
-ego_2 <- make_ego_graph(g, order = 2, 
-                        nodes = target_index, 
-                        mode = "all")[[1]]
-
-V(ego_2)$degree <- degree(ego_2)
-V(ego_2)$betweenness <- betweenness(ego_2)
-V(ego_2)$pagerank <- page_rank(ego_2)$vector
+#| echo: false
+V(ego_graph)$name <- V(ego_graph)$name %||% V(ego_graph)$label
 
 nodes_df <- data.frame(
-  id = V(ego_2)$name,
-  label = V(ego_2)$label,
-  group = V(ego_2)$sub_type,
-  title = paste0("<b>", V(ego_2)$label, "</b><br>",
-                 "Type: ", V(ego_2)$sub_type, "<br>",
-                 "Degree: ", round(V(ego_2)$degree, 2), "<br>",
-                 "Betweenness: ", round(V(ego_2)$betweenness, 2), "<br>",
-                 "PageRank: ", round(V(ego_2)$pagerank, 4)),
-  shape = ifelse(V(ego_2)$sub_type == "Person", "dot",
-                 ifelse(V(ego_2)$sub_type == "Organization", 
-                        "square",
-                        ifelse(V(ego_2)$sub_type == "Vessel", 
-                               "triangle", 
-                               "ellipse"))),
-  value = V(ego_2)$pagerank * 50  
+  id = V(ego_graph)$name,
+  label = V(ego_graph)$label,
+  group = V(ego_graph)$sub_type,
+  title = paste0("<b>", V(ego_graph)$label, "</b><br>",
+                 "Degree: ", round(V(ego_graph)$degree, 2), "<br>",
+                 "Betweenness: ", round(V(ego_graph)$betweenness, 2), "<br>",
+                 "PageRank: ", round(V(ego_graph)$pagerank, 4)),
+  shape = 
+    ifelse(V(ego_graph)$sub_type == "Person", "dot",
+                 ifelse(V(ego_graph)$sub_type == "Organization", "square",
+                        ifelse(V(ego_graph)$sub_type == "Vessel", "triangle",
+                               ifelse(V(ego_graph)$sub_type == "Group", "diamond", "star")))),
+  value = V(ego_graph)$pagerank * 30 + 5
 )
 
-edges_df <- as_data_frame(ego_2, 
+edges_df <- as_data_frame(ego_graph, 
                           what = "edges") %>%
-  mutate(color = ifelse(type == "sent", "blue",
-                        ifelse(type == "received", "green", "gray"))) %>%
-  rename(from = from, to = to)
+  rename(from = from, 
+         to = to)
 
-visNetwork(nodes_df, edges_df, 
-           width = "100%", 
+visNetwork(nodes_df, edges_df, width = "100%", 
            height = "700px") %>%
-  visNodes(scaling = list(min = 10, 
-                          max = 50)) %>%
-  visEdges(arrows = "to", 
-           color = list(color = edges_df$color)) %>%
-  visOptions(highlightNearest = TRUE, 
-             nodesIdSelection = TRUE) %>%
+  visNodes(scaling = list(min = 5,
+                          max = 30)) %>%
+  visEdges(
+    arrows = list(to = list(enabled = TRUE, 
+                            scaleFactor = 0.3)),
+    color = list(color = "gray")
+  ) %>%
+  visOptions(
+    highlightNearest = TRUE,
+    nodesIdSelection = TRUE,
+    manipulation = FALSE
+  ) %>%
+  visInteraction(
+    dragNodes = FALSE,
+    dragView = FALSE,
+    zoomView = FALSE
+  ) %>%
   visLegend() %>%
   visLayout(randomSeed = 123)
 ```
 
-### Quantitative analysis
+#### The Code
 
-:::panel-tabset
+```{r, eval=FALSE}
+V(ego_graph)$name <- V(ego_graph)$name %||% V(ego_graph)$label
 
-#### Top Influencers by PageRank
-```{r}
-top_influencers_pagerank <- ego_tbl %>%
-  activate(nodes) %>%
-  as_tibble() %>%
-  arrange(desc(pagerank)) %>%
-  filter(id != target_id) %>%
-  slice_head(n = 5) %>%
-  select(label, 
-         degree, 
-         betweenness, pagerank)
+nodes_df <- data.frame(
+  id = V(ego_graph)$name,
+  label = V(ego_graph)$label,
+  group = V(ego_graph)$sub_type,
+  title = paste0("<b>", V(ego_graph)$label, "</b><br>",
+                 "Degree: ", round(V(ego_graph)$degree, 2), "<br>",
+                 "Betweenness: ", round(V(ego_graph)$betweenness, 2), "<br>",
+                 "PageRank: ", round(V(ego_graph)$pagerank, 4)),
+  shape = 
+    ifelse(V(ego_graph)$sub_type == "Person", "dot",
+                 ifelse(V(ego_graph)$sub_type == "Organization", "square",
+                        ifelse(V(ego_graph)$sub_type == "Vessel", "triangle",
+                               ifelse(V(ego_graph)$sub_type == "Group", "diamond", "star")))),
+  value = V(ego_graph)$pagerank * 30 + 5
+)
 
-print(top_influencers_pagerank)
-```
+edges_df <- as_data_frame(ego_graph, 
+                          what = "edges") %>%
+  rename(from = from, 
+         to = to)
 
-#### Top Influencers by Betweenness
-```{r}
-top_influencers_betweenness <- ego_tbl %>%
-  activate(nodes) %>%
-  as_tibble() %>%
-  arrange(desc(betweenness)) %>%
-  filter(id != target_id) %>%
-  slice_head(n = 5) %>%
-  select(label, degree, 
-         betweenness, pagerank)
-
-print(top_influencers_betweenness)
-```
-
-
-#### Combined Influence Score Ranking
-```{r}
-ego_combined_tbl <- ego_tbl %>%
-  activate(nodes) %>%
-  as_tibble() %>%
-  mutate(
-    normalized_degree = degree / 
-      max(degree, na.rm = TRUE),
-    normalized_betweenness = betweenness / 
-      max(betweenness, na.rm = TRUE),
-    normalized_pagerank = pagerank / 
-      max(pagerank, na.rm = TRUE),
-    influence_score = 
-      (normalized_degree + 
-         normalized_betweenness + 
-         normalized_pagerank) / 3) %>%
-  filter(id != target_id)
-
-top_influencers_combined <- ego_combined_tbl %>%
-  arrange(desc(influence_score)) %>%
-  slice_head(n = 10) %>%
-  select(label, 
-         degree, 
-         betweenness, 
-         pagerank, influence_score)
-print(top_influencers_combined)
+visNetwork(nodes_df, edges_df, width = "100%", 
+           height = "700px") %>%
+  visNodes(scaling = list(min = 5,
+                          max = 30)) %>%
+  visEdges(
+    arrows = list(to = list(enabled = TRUE, 
+                            scaleFactor = 0.3)),
+    color = list(color = "gray")
+  ) %>%
+  visOptions(
+    highlightNearest = TRUE,
+    nodesIdSelection = TRUE,
+    manipulation = FALSE
+  ) %>%
+  visInteraction(
+    dragNodes = FALSE,
+    dragView = FALSE,
+    zoomView = FALSE
+  ) %>%
+  visLegend() %>%
+  visLayout(randomSeed = 123)
 ```
 :::
+
+### 5.3.2 Quantitative analysis
+
+#### Individual indicator
+
+We calculated three distinct centrality metrics — PageRank, Betweenness, and Degree — to independently assess the influence levels of each node.
+
+PageRank captures the importance of nodes based on the influence of their neighbors, Betweenness identifies key intermediaries controlling communication flow, and Degree measures the number of direct connections.
+
+By presenting maximum and minimum rankings for each metric, we highlight which entities emerge as top influencers or least connected players depending on the chosen dimension. This granular view allows us to dissect influence from multiple structural perspectives rather than relying on a single indicator.
+
+::::: panel-tabset
+##### Maximum influence
+
+::: panel-tabset
+###### Pagerank
+
+```{r}
+V(ego_1)$pagerank <- page_rank(ego_1)$vector
+
+pagerank_df <- data.frame(
+  label = V(ego_1)$label,
+  sub_type = V(ego_1)$sub_type,
+  pagerank = round(V(ego_1)$pagerank, 4)
+) %>%
+  arrange(desc(pagerank))
+
+print(pagerank_df)
+```
+
+###### Betweenness
+
+```{r}
+V(ego_1)$betweenness <- betweenness(ego_1)
+
+betweenness_df <- data.frame(
+  label = V(ego_1)$label,
+  sub_type = V(ego_1)$sub_type,
+  betweenness = round(V(ego_1)$betweenness, 2)
+) %>%
+  arrange(desc(betweenness))
+
+print(betweenness_df)
+```
+
+###### Degree
+
+```{r}
+V(ego_1)$degree <- degree(ego_1)
+
+degree_df <- data.frame(
+  label = V(ego_1)$label,
+  sub_type = V(ego_1)$sub_type,
+  degree = V(ego_1)$degree
+) %>%
+  arrange(desc(degree))
+
+print(degree_df)
+```
+:::
+
+##### Minimum influence
+
+::: panel-tabset
+###### Pagerank
+
+```{r}
+V(g)$pagerank <- page_rank(g)$vector
+
+pagerank_df <- data.frame(
+  label = V(g)$label,
+  sub_type = V(g)$sub_type,
+  pagerank = V(g)$pagerank
+)
+
+lowest_pagerank_df <- pagerank_df %>%
+  arrange(pagerank) %>%
+  slice(1:5)
+
+print(lowest_pagerank_df)
+```
+
+###### Betweenness
+
+```{r}
+V(g)$betweenness <- betweenness(g)
+
+betweenness_df <- data.frame(
+  label = V(g)$label,
+  sub_type = V(g)$sub_type,
+  betweenness = V(g)$betweenness
+)
+
+lowest_betweenness_df <- betweenness_df %>%
+  arrange(betweenness) %>%
+  slice(1:5)
+
+print(lowest_betweenness_df)
+```
+
+###### Degree
+
+```{r}
+V(g)$degree <- degree(g, mode = "all")
+
+degree_df <- data.frame(
+  label = V(g)$label,
+  sub_type = V(g)$sub_type,
+  degree = V(g)$degree
+)
+
+lowest_degree_df <- degree_df %>%
+  arrange(degree) %>%
+  slice(1:5)
+
+print(lowest_degree_df)
+```
+:::
+:::::
+
+#### Composite Influence Score
+
+To create a holistic measure of influence, we normalized each centrality metric (PageRank, Betweenness, Degree) to a 0–1 scale and computed a composite score by averaging the three. This composite influence score integrates local connectivity, intermediary control, and overall network importance, providing a balanced ranking of key players.
+
+By combining metrics, we mitigate the bias of any single indicator and gain a clearer picture of which entities exert the most multifaceted influence in the network, guiding more robust identification of central figures like Neptune, V. Miesel Shipping, and Nadia Conti.
+
+::: panel-tabset
+##### The Table
+
+```{r}
+#| echo: false
+V(ego_1)$pagerank <- page_rank(ego_1)$vector
+V(ego_1)$betweenness <- betweenness(ego_1)
+V(ego_1)$degree <- degree(ego_1)
+
+influence_df <- data.frame(
+  label = V(ego_1)$label,
+  sub_type = V(ego_1)$sub_type,
+  pagerank = V(ego_1)$pagerank,
+  betweenness = V(ego_1)$betweenness,
+  degree = V(ego_1)$degree
+)
+
+influence_df <- influence_df %>%
+  mutate(
+    pagerank_norm = (pagerank - min(pagerank)) / (max(pagerank) - min(pagerank)),
+    betweenness_norm = (betweenness - min(betweenness)) / (max(betweenness) - min(betweenness)),
+    degree_norm = (degree - min(degree)) / (max(degree) - min(degree))
+  )
+
+influence_df <- influence_df %>%
+  mutate(
+    composite_influence = (pagerank_norm + betweenness_norm + degree_norm) / 3
+  ) %>%
+  arrange(desc(composite_influence))
+
+print(influence_df %>%
+  select(label, sub_type, pagerank_norm, betweenness_norm, degree_norm, composite_influence))
+```
+
+##### The Code
+
+```{r, eval=FALSE}
+V(ego_1)$pagerank <- page_rank(ego_1)$vector
+V(ego_1)$betweenness <- betweenness(ego_1)
+V(ego_1)$degree <- degree(ego_1)
+
+influence_df <- data.frame(
+  label = V(ego_1)$label,
+  sub_type = V(ego_1)$sub_type,
+  pagerank = V(ego_1)$pagerank,
+  betweenness = V(ego_1)$betweenness,
+  degree = V(ego_1)$degree
+)
+
+influence_df <- influence_df %>%
+  mutate(
+    pagerank_norm = (pagerank - min(pagerank)) / (max(pagerank) - min(pagerank)),
+    betweenness_norm = (betweenness - min(betweenness)) / (max(betweenness) - min(betweenness)),
+    degree_norm = (degree - min(degree)) / (max(degree) - min(degree))
+  )
+
+influence_df <- influence_df %>%
+  mutate(
+    composite_influence = (pagerank_norm + betweenness_norm + degree_norm) / 3
+  ) %>%
+  arrange(desc(composite_influence))
+
+print(influence_df %>%
+  select(label, sub_type, pagerank_norm, betweenness_norm, degree_norm, composite_influence))
+```
+:::
+
+### 5.3.3PageRank for Elise
+
+::: panel-tabset
+#### The Plot
+
+```{r}
+#| echo: false
+# ego-PageRank
+V(ego_1)$pagerank <- page_rank(ego_1)$vector
+
+nodes_df_pagerank <- data.frame(
+  id = V(ego_1)$name,
+  label = V(ego_1)$label,
+  group = V(ego_1)$sub_type,
+  title = paste0("<b>", V(ego_1)$label, "</b><br>PageRank: ", round(V(ego_1)$pagerank, 4)),
+  shape = ifelse(V(ego_1)$sub_type == "Person", "dot",
+                 ifelse(V(ego_1)$sub_type == "Organization", "square",
+                        ifelse(V(ego_1)$sub_type == "Vessel", "triangle",
+                               ifelse(V(ego_1)$sub_type == "Group", "diamond", "star")))),
+  value = V(ego_1)$pagerank * 30 + 5
+)
+
+edges_df <- as_data_frame(ego_1, what = "edges") %>%
+  rename(from = from, to = to)
+
+visNetwork(nodes_df_pagerank, edges_df, width = "100%", height = "400px") %>%
+  visNodes(scaling = list(min = 5, max = 30)) %>%
+  visEdges(arrows = list(to = list(enabled = TRUE, scaleFactor = 0.3)), color = list(color = "gray")) %>%
+  visOptions(highlightNearest = TRUE, nodesIdSelection = TRUE, manipulation = FALSE) %>%
+  visInteraction(dragNodes = FALSE, dragView = FALSE, zoomView = FALSE) %>%
+  visLegend() %>%
+  visLayout(randomSeed = 123)
+```
+
+#### The Code
+
+```{r,eval=FALSE}
+# ego-PageRank
+V(ego_1)$pagerank <- page_rank(ego_1)$vector
+
+nodes_df_pagerank <- data.frame(
+  id = V(ego_1)$name,
+  label = V(ego_1)$label,
+  group = V(ego_1)$sub_type,
+  title = paste0("<b>", V(ego_1)$label, "</b><br>PageRank: ", round(V(ego_1)$pagerank, 4)),
+  shape = ifelse(V(ego_1)$sub_type == "Person", "dot",
+                 ifelse(V(ego_1)$sub_type == "Organization", "square",
+                        ifelse(V(ego_1)$sub_type == "Vessel", "triangle",
+                               ifelse(V(ego_1)$sub_type == "Group", "diamond", "star")))),
+  value = V(ego_1)$pagerank * 30 + 5
+)
+
+edges_df <- as_data_frame(ego_1, what = "edges") %>%
+  rename(from = from, to = to)
+
+visNetwork(nodes_df_pagerank, edges_df, width = "100%", height = "400px") %>%
+  visNodes(scaling = list(min = 5, max = 30)) %>%
+  visEdges(arrows = list(to = list(enabled = TRUE, scaleFactor = 0.3)), color = list(color = "gray")) %>%
+  visOptions(highlightNearest = TRUE, nodesIdSelection = TRUE, manipulation = FALSE) %>%
+  visInteraction(dragNodes = FALSE, dragView = FALSE, zoomView = FALSE) %>%
+  visLegend() %>%
+  visLayout(randomSeed = 123)
+```
+:::
+
+### 5.3.4 Betweenness for Elise
+
+::: panel-tabset
+#### The Plot
+
+```{r}
+#| echo: false
+# ego-Betweenness
+V(ego_1)$betweenness <- betweenness(ego_1)
+
+nodes_df_betweenness <- data.frame(
+  id = V(ego_1)$name,
+  label = V(ego_1)$label,
+  group = V(ego_1)$sub_type,
+  title = paste0("<b>", V(ego_1)$label, "</b><br>Betweenness: ", round(V(ego_1)$betweenness, 2)),
+  shape = ifelse(V(ego_1)$sub_type == "Person", "dot",
+                 ifelse(V(ego_1)$sub_type == "Organization", "square",
+                        ifelse(V(ego_1)$sub_type == "Vessel", "triangle",
+                               ifelse(V(ego_1)$sub_type == "Group", "diamond", "star")))),
+  value = V(ego_1)$betweenness * 2 + 5
+)
+
+visNetwork(nodes_df_betweenness, edges_df, width = "100%", height = "400px") %>%
+  visNodes(scaling = list(min = 5, max = 30)) %>%
+  visEdges(arrows = list(to = list(enabled = TRUE, scaleFactor = 0.3)), color = list(color = "gray")) %>%
+  visOptions(highlightNearest = TRUE, nodesIdSelection = TRUE, manipulation = FALSE) %>%
+  visInteraction(dragNodes = FALSE, dragView = FALSE, zoomView = FALSE) %>%
+  visLegend() %>%
+  visLayout(randomSeed = 123)
+```
+
+#### The code
+
+```{r,eval=FALSE}
+
+# ego-Betweenness
+V(ego_1)$betweenness <- betweenness(ego_1)
+
+nodes_df_betweenness <- data.frame(
+  id = V(ego_1)$name,
+  label = V(ego_1)$label,
+  group = V(ego_1)$sub_type,
+  title = paste0("<b>", V(ego_1)$label, "</b><br>Betweenness: ", round(V(ego_1)$betweenness, 2)),
+  shape = ifelse(V(ego_1)$sub_type == "Person", "dot",
+                 ifelse(V(ego_1)$sub_type == "Organization", "square",
+                        ifelse(V(ego_1)$sub_type == "Vessel", "triangle",
+                               ifelse(V(ego_1)$sub_type == "Group", "diamond", "star")))),
+  value = V(ego_1)$betweenness * 2 + 5
+)
+
+visNetwork(nodes_df_betweenness, edges_df, width = "100%", height = "400px") %>%
+  visNodes(scaling = list(min = 5, max = 30)) %>%
+  visEdges(arrows = list(to = list(enabled = TRUE, scaleFactor = 0.3)), color = list(color = "gray")) %>%
+  visOptions(highlightNearest = TRUE, nodesIdSelection = TRUE, manipulation = FALSE) %>%
+  visInteraction(dragNodes = FALSE, dragView = FALSE, zoomView = FALSE) %>%
+  visLegend() %>%
+  visLayout(randomSeed = 123)
+```
+:::
+
+### 5.3.5 Degree for Elise
+
+::: panel-tabset
+#### The Plot
+
+```{r}
+#| echo: false
+# ego-Degree
+V(ego_1)$degree <- degree(ego_1)
+
+nodes_df_degree <- data.frame(
+  id = V(ego_1)$name,
+  label = V(ego_1)$label,
+  group = V(ego_1)$sub_type,
+  title = paste0("<b>", V(ego_1)$label, "</b><br>Degree: ", round(V(ego_1)$degree, 2)),
+  shape = ifelse(V(ego_1)$sub_type == "Person", "dot",
+                 ifelse(V(ego_1)$sub_type == "Organization", "square",
+                        ifelse(V(ego_1)$sub_type == "Vessel", "triangle",
+                               ifelse(V(ego_1)$sub_type == "Group", "diamond", "star")))),
+  value = V(ego_1)$degree * 5
+)
+
+visNetwork(nodes_df_degree, edges_df, width = "100%", height = "400px") %>%
+  visNodes(scaling = list(min = 5, max = 30)) %>%
+  visEdges(arrows = list(to = list(enabled = TRUE, scaleFactor = 0.3)), color = list(color = "gray")) %>%
+  visOptions(highlightNearest = TRUE, nodesIdSelection = TRUE, manipulation = FALSE) %>%
+  visInteraction(dragNodes = FALSE, dragView = FALSE, zoomView = FALSE) %>%
+  visLegend() %>%
+  visLayout(randomSeed = 123)
+```
+
+#### The Code
+
+```{r, eval=FALSE}
+# ego-Degree
+V(ego_1)$degree <- degree(ego_1)
+
+nodes_df_degree <- data.frame(
+  id = V(ego_1)$name,
+  label = V(ego_1)$label,
+  group = V(ego_1)$sub_type,
+  title = paste0("<b>", V(ego_1)$label, "</b><br>Degree: ", round(V(ego_1)$degree, 2)),
+  shape = ifelse(V(ego_1)$sub_type == "Person", "dot",
+                 ifelse(V(ego_1)$sub_type == "Organization", "square",
+                        ifelse(V(ego_1)$sub_type == "Vessel", "triangle",
+                               ifelse(V(ego_1)$sub_type == "Group", "diamond", "star")))),
+  value = V(ego_1)$degree * 5
+)
+
+visNetwork(nodes_df_degree, edges_df, width = "100%", height = "400px") %>%
+  visNodes(scaling = list(min = 5, max = 30)) %>%
+  visEdges(arrows = list(to = list(enabled = TRUE, scaleFactor = 0.3)), color = list(color = "gray")) %>%
+  visOptions(highlightNearest = TRUE, nodesIdSelection = TRUE, manipulation = FALSE) %>%
+  visInteraction(dragNodes = FALSE, dragView = FALSE, zoomView = FALSE) %>%
+  visLegend() %>%
+  visLayout(randomSeed = 123)
+```
+:::
+
+::: {.callout-tip title="Insight"}
+-   By combining global network visualization and centrality metric analysis, we systematically identified Elise’s position in the network and her primary sources of influence. The overall knowledge graph reveals that Elise is embedded within a complex web of relationships involving key individuals (such as Nadia Conti), major organizations (such as V. Miesel Shipping), and important vessels (such as Neptune). These entities not only occupy central positions in the network but also deeply shape Elise’s connections and the flow of information around her.
+
+-   Through single-metric centrality analysis, we further uncover Elise’s direct and indirect influences. Degree centrality shows that Neptune has the highest number of direct connections (28), followed by V. Miesel Shipping (22), while Elise herself has a Degree of 11, ranking fifth. This indicates that while Elise is not the most directly active node, she maintains close ties with highly active hub nodes.
+
+-   From the perspective of Betweenness centrality, Nadia Conti ranks first with a value of 4.30, followed by Neptune at 2.93, and Elise at 2.73 in third place. This means that Nadia Conti is the most important intermediary and information bridge in Elise’s communication pathways, with strong influence over how Elise accesses and disseminates information.
+
+-   PageRank analysis emphasizes overall node influence. Neptune ranks first at 0.2333, closely followed by V. Miesel Shipping at 0.2244, and Nadia Conti at 0.1845. This suggests that the higher-level nodes Elise is connected to—particularly Neptune and V. Miesel Shipping—hold powerful network positions, exerting significant influence over Elise.
+
+-   To further quantify influence, we combined these three centrality metrics—PageRank, Betweenness, and Degree—into a composite influence score after normalization. The results show that Neptune is the most influential node within Elise’s network (0.89), followed by V. Miesel Shipping (0.69) and Nadia Conti (0.63). Although Elise’s own scores across PageRank, Betweenness, and Degree are moderate to low, her core interaction partners are consistently the top-ranking entities in composite influence.
+:::
+
+# 6 Reference
+
+-   [**VAST 2024 Mini Challenge 3**](https://vast-challenge.github.io/2025/MC3.html)
+-   [**R for Visual Analytics**](https://r4va.netlify.app)
+-   [**The Big Fish: Catching Illegal Fishing Through Visual Analytics**](https://isss608-202324g4.netlify.app)
