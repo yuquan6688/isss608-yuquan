@@ -40,7 +40,7 @@ Clepper found that messages frequently came in at around the same time each day.
 
 ## 1.3 The Data
 
-We will use the dataset provided by VAST Challenge.This report utilizes two core datasets: MC3_graph.json, which encodes the knowledge graph of communications, events, and relationships; and MC3_schema.json, which defines the structure, subtypes, and attributes of each node and edge type within the graph.
+I will use the dataset provided by VAST Challenge.This report utilizes two core datasets: MC3_graph.json, which encodes the knowledge graph of communications, events, and relationships; and MC3_schema.json, which defines the structure, subtypes, and attributes of each node and edge type within the graph.
 
 #### Node Attributes
 
@@ -54,24 +54,23 @@ We will use the dataset provided by VAST Challenge.This report utilizes two core
 
 ## 2.1 Loading Packages
 
-:::panel-tabset
-
+::: panel-tabset
 ### The Table
 
-| Library        | Purpose                                                                                                                                       |
-|---------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| `jsonlite`    | An R package for parsing and generating JSON data, enabling smooth data exchange between R and web services or JSON files.                   |
-| `tidyverse`   | Include dplyr for data manipulation (mutate, group_by, summarize), ggplot2 for visualization (histograms, boxplots), and forcats for factor handling and variable ordering. |
-| `lubridate`   | An R package to work with dates and times, simplifying parsing, manipulation, and arithmetic of date-time objects.                           |
-| `patchwork`   | An R package for preparing composite figure created using ggplot2.                                                                           |
-| `ggridges`    | An R package for creating density plots for visualisation of continuous distribution.                                                         |
-| `ggraph`      | An R package extending ggplot2 to visualize graph/network data, supporting layouts like force-directed, circular, and dendrograms.           |
-| `tidygraph`   | An R package that integrates tidyverse principles into graph/network analysis, allowing tidy manipulation of graph objects.                  |
-| `igraph`      | A core R package for network analysis and visualization, providing tools to create, manipulate, and analyze graph structures.                |
-| `dplyr`       | Part of the tidyverse; provides fast, consistent functions for data manipulation (filter, select, mutate, summarize, join).                  |
-| `ggiraph`     | An R package to create interactive ggplot-based visualizations with tooltips, hover effects, and JavaScript interactions.                    |
-| `SmartEDA`    | An R package providing automated exploratory data analysis (EDA) tools to quickly summarize and visualize datasets.                          |
-| `visNetwork`  | An R package for interactive network visualization using the vis.js JavaScript library, enabling interactive exploration of graph data.      |
+| Library | Purpose |
+|-------------------|-----------------------------------------------------|
+| `jsonlite` | An R package for parsing and generating JSON data, enabling smooth data exchange between R and web services or JSON files. |
+| `tidyverse` | Include dplyr for data manipulation (mutate, group_by, summarize), ggplot2 for visualization (histograms, boxplots), and forcats for factor handling and variable ordering. |
+| `lubridate` | An R package to work with dates and times, simplifying parsing, manipulation, and arithmetic of date-time objects. |
+| `patchwork` | An R package for preparing composite figure created using ggplot2. |
+| `ggridges` | An R package for creating density plots for visualisation of continuous distribution. |
+| `ggraph` | An R package extending ggplot2 to visualize graph/network data, supporting layouts like force-directed, circular, and dendrograms. |
+| `tidygraph` | An R package that integrates tidyverse principles into graph/network analysis, allowing tidy manipulation of graph objects. |
+| `igraph` | A core R package for network analysis and visualization, providing tools to create, manipulate, and analyze graph structures. |
+| `dplyr` | Part of the tidyverse; provides fast, consistent functions for data manipulation (filter, select, mutate, summarize, join). |
+| `ggiraph` | An R package to create interactive ggplot-based visualizations with tooltips, hover effects, and JavaScript interactions. |
+| `SmartEDA` | An R package providing automated exploratory data analysis (EDA) tools to quickly summarize and visualize datasets. |
+| `visNetwork` | An R package for interactive network visualization using the vis.js JavaScript library, enabling interactive exploration of graph data. |
 
 ### The Code
 
@@ -93,7 +92,6 @@ pacman::p_load(
 )
 ```
 :::
-
 
 ## 2.2 Importing data
 
@@ -1194,6 +1192,16 @@ print(lowest_degree_df)
 :::
 :::::
 
+::: {.callout-tip title="Insight"}
+-   Through single-metric centrality analysis, we further uncover Elise’s direct and indirect influences. Degree centrality shows that Neptune has the highest number of direct connections (28), followed by V. Miesel Shipping (22), while Elise herself has a Degree of 11, ranking fifth. This indicates that while Elise is not the most directly active node, she maintains close ties with highly active hub nodes.
+
+-   From the perspective of Betweenness centrality, Nadia Conti ranks first with a value of 4.30, followed by Neptune at 2.93, and Elise at 2.73 in third place. This means that Nadia Conti is the most important intermediary and information bridge in Elise’s communication pathways, with strong influence over how Elise accesses and disseminates information.
+
+-   PageRank analysis emphasizes overall node influence. Neptune ranks first at 0.2333, closely followed by V. Miesel Shipping at 0.2244, and Nadia Conti at 0.1845. This suggests that the higher-level nodes Elise is connected to—particularly Neptune and V. Miesel Shipping—hold powerful network positions, exerting significant influence over Elise.
+
+-   To further quantify influence, we combined these three centrality metrics—PageRank, Betweenness, and Degree—into a composite influence score after normalization. The results show that Neptune is the most influential node within Elise’s network (0.89), followed by V. Miesel Shipping (0.69) and Nadia Conti (0.63). Although Elise’s own scores across PageRank, Betweenness, and Degree are moderate to low, her core interaction partners are consistently the top-ranking entities in composite influence.
+:::
+
 #### Composite Influence Score
 
 To create a holistic measure of influence, we normalized each centrality metric (PageRank, Betweenness, Degree) to a 0–1 scale and computed a composite score by averaging the three. This composite influence score integrates local connectivity, intermediary control, and overall network importance, providing a balanced ranking of key players.
@@ -1452,15 +1460,33 @@ visNetwork(nodes_df_degree, edges_df, width = "100%", height = "400px") %>%
 :::
 
 ::: {.callout-tip title="Insight"}
--   By combining global network visualization and centrality metric analysis, we systematically identified Elise’s position in the network and her primary sources of influence. The overall knowledge graph reveals that Elise is embedded within a complex web of relationships involving key individuals (such as Nadia Conti), major organizations (such as V. Miesel Shipping), and important vessels (such as Neptune). These entities not only occupy central positions in the network but also deeply shape Elise’s connections and the flow of information around her.
+-   In this Sub-question C, we focus on the node Elise to map out both its direct and indirect connections within the broader relationship network. The analysis reveals that Elise connects to a diverse range of entities, spanning organizations, individuals, vessels, locations, and groups. Below is a detailed summary.
 
--   Through single-metric centrality analysis, we further uncover Elise’s direct and indirect influences. Degree centrality shows that Neptune has the highest number of direct connections (28), followed by V. Miesel Shipping (22), while Elise herself has a Degree of 11, ranking fifth. This indicates that while Elise is not the most directly active node, she maintains close ties with highly active hub nodes.
+-   **Direct Connections**
 
--   From the perspective of Betweenness centrality, Nadia Conti ranks first with a value of 4.30, followed by Neptune at 2.93, and Elise at 2.73 in third place. This means that Nadia Conti is the most important intermediary and information bridge in Elise’s communication pathways, with strong influence over how Elise accesses and disseminates information.
+    Elise directly connects to five key entities across three types:
 
--   PageRank analysis emphasizes overall node influence. Neptune ranks first at 0.2333, closely followed by V. Miesel Shipping at 0.2244, and Nadia Conti at 0.1845. This suggests that the higher-level nodes Elise is connected to—particularly Neptune and V. Miesel Shipping—hold powerful network positions, exerting significant influence over Elise.
+    `Organization`: V. Miesel Shipping
 
--   To further quantify influence, we combined these three centrality metrics—PageRank, Betweenness, and Degree—into a composite influence score after normalization. The results show that Neptune is the most influential node within Elise’s network (0.89), followed by V. Miesel Shipping (0.69) and Nadia Conti (0.63). Although Elise’s own scores across PageRank, Betweenness, and Degree are moderate to low, her core interaction partners are consistently the top-ranking entities in composite influence.
+    `People`: Liam Thorne, Nadia Conti
+
+    `Vessel`: Neptune, Mako
+
+-   **Indirect Connections** (via intermediaries)
+
+    Through these five nodes, Elise indirectly reaches over 30 additional entities, expanding her influence to:
+
+    `People`: Davis, Mrs. Money, Boss, Rodriguez, Samantha Blake, The Middleman, Small Fry
+
+    `Organization`: Oceanus City Council, Sailor Shifts Team, Green Guardians
+
+    `Vessel`: Remora, Reef Guardian, Sentinel, EcoVigil, Marlin, Serenity, Knowles, Horizon, Osprey, Defender
+
+    `Location`: Paackland Harbor, Himark Harbor, Haacklee Harbor
+
+    `Group`: City Officials
+
+-   Our analysis shows that Elise, as a bridging node connecting different clusters (individuals, organizations, vessels), is a key connector in the network. She maintains strong ties with major hubs such as Mako and Oceanus City Council, and her close direct connections and broad sphere of influence make her a crucial figure for information flow and influence.
 :::
 
 # 6 Reference
