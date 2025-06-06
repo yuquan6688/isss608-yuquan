@@ -1,0 +1,25 @@
+---
+title: "Take-home Exercise 3: Prototyping Modules for Visual Analytics Shiny Application"
+subtitle: " VAST Challenge 2025 Mini-Challenge 3"
+author: "Li Yuquan"
+description: ""
+date: "June 6, 2025"
+date-modified: "last-modified"
+format: html
+image: images/fm.png
+editor: visual
+
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  freeze: true
+---
+
+# Overview
+
+# Introduction
+
+
+
+
