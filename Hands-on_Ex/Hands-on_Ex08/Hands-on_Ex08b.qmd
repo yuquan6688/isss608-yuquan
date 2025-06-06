@@ -161,6 +161,39 @@ Before I end the session, it is wiser to switch tmap’s Viewer back to plot mod
 tmap_mode("plot")
 ```
 
+# Explore
+
+## 1 OpenStreetMap
+
+```{r,fig.height=8,fig.width=10}
+tmap_mode("view")
+
+tm_basemap("OpenStreetMap") +
+tm_shape(sgpools_sf) +
+  tm_bubbles(size = "Gp1Gp2 Winnings",
+             fill = "OUTLET TYPE",
+             col = "black") +
+  tm_layout(title = "Winnings Distribution over Base Map")
+```
+
+## 2 Different shapes represent different types
+
+```{r}
+tmap_mode("view")
+
+tm_shape(sgpools_sf) +
+  tm_bubbles(size = "Gp1Gp2 Winnings",
+             fill = "OUTLET TYPE",
+             shape = "OUTLET TYPE",
+             col = "black") +
+  tm_layout(title = "Symbol Shape by Outlet Type",
+            legend.outside = TRUE)
+```
+
+```{r}
+tmap_mode("plot")
+```
+
 # 5 Reference
 
 ## **5.1 All about tmap package**

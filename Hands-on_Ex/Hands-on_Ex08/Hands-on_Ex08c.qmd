@@ -56,7 +56,7 @@ NGA_wp <- read_rds("data/rds/NGA_wp.rds")
 
 ## 3.1 Visualising distribution of non-functional water point
 
-```{r, fig.width=10}
+```{r, fig.width=10,fig.height=8}
 p1 <- tm_shape(NGA_wp) +
   tm_polygons(fill = "wp_functional",
              fill.scale = tm_scale_intervals(
@@ -100,7 +100,7 @@ NGA_wp <- NGA_wp %>%
 
 ## 4.2 Plotting map of rate
 
-```{r}
+```{r, fig.width=10,fig.height=8}
 tm_shape(NGA_wp) +
   tm_polygons("pct_functional",
               fill.scale = tm_scale_intervals(
@@ -281,7 +281,6 @@ The code chunk below is an R function to extract a variable as a vector out of a
 
     -   v: vector with values (without a column name)
 
-
 ```{r}
 get.var <- function(vname,df) {
   v <- df[vname] %>% st_set_geometry(NULL)
@@ -329,4 +328,30 @@ boxmap <- function(vnam, df,
 tmap_mode("plot")
 boxmap("wp_nonfunctional", NGA_wp)
 
+```
+
+
+# Explore (Mark the regions with the maximum/minimum values)
+
+
+
+```{r, fig.width=10,fig.height=6}
+top_area <- NGA_wp %>%
+  filter(wp_nonfunctional == max(wp_nonfunctional, na.rm = TRUE))
+
+bottom_area <- NGA_wp %>%
+  filter(wp_nonfunctional == min(wp_nonfunctional, na.rm = TRUE))
+
+tmap_mode("plot")
+tm_shape(NGA_wp) +
+  tm_polygons("wp_nonfunctional",
+              palette = "Blues",
+              title = "Non-functional Water Points") +
+  tm_shape(top_area) +
+  tm_symbols(shape = 21, col = "red", size = 0.5, border.col = "black") +
+  tm_text("lga_name", size = 0.6, col = "red", bg.color = "white") +
+  tm_shape(bottom_area) +
+  tm_symbols(shape = 21, col = "green", size = 0.5, border.col = "black") +
+  tm_text("lga_name", size = 0.6, col = "green", bg.color = "white") +
+  tm_layout(main.title = "Top & Bottom LGA by Non-functional Water Points")
 ```

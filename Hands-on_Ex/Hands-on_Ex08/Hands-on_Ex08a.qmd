@@ -126,7 +126,8 @@ Before we can perform the georelational join, one extra step is required to conv
 
 ```{r}
 popdata2020 <- popdata2020 %>%
-  mutate(across(c(PA, SZ), toupper)) %>%
+  mutate_at(.vars = vars(PA, SZ), 
+          .funs = funs(toupper)) %>%
   filter(`ECONOMY ACTIVE` > 0)
 ```
 
@@ -524,7 +525,7 @@ In **tmap**, small multiple maps can be plotted in three ways:
 
 In this example, small multiple choropleth maps are created by defining ***ncols*** in **tm_fill()**
 
-```{R}
+```{r,fig.width=10}
 tm_shape(mpsz_pop2020)+
   tm_fill(c("YOUNG", "AGED"),
           style = "equal", 
@@ -536,7 +537,7 @@ tm_shape(mpsz_pop2020)+
 
 In this example, small multiple choropleth maps are created by assigning multiple values to at least one of the aesthetic arguments
 
-```{r}
+```{r,fig.width=10}
 tm_shape(mpsz_pop2020)+ 
   tm_polygons(c("DEPENDENCY","AGED"),
           style = c("equal", "quantile"), 
@@ -581,17 +582,21 @@ tmap_arrange(youngmap, agedmap, asp=1, ncol=2)
 ```
 
 ## 4.7 Mappping Spatial Object Meeting a Selection Criterion
+
 Instead of creating small multiple choropleth map, you can also use selection funtion to map spatial objects meeting the selection criterion.
 
+
+
 ```{r}
-tm_shape(mpsz_pop2020[mpsz_pop2020$REGION_N=="CENTRAL REGION", ])+
+# I have tried various solutions, but was unable to properly color the histogram and display the legend.
+tm_shape(mpsz_pop2020[mpsz_pop2020$REGION_N=="EAST REGION",])+
   tm_fill("DEPENDENCY", 
-          style = "quantile", 
+          style = "jenks", 
           palette = "Blues", 
           legend.hist = TRUE, 
           legend.is.portrait = TRUE,
-          legend.hist.z = 0.1) +
-  tm_layout(legend.outside = TRUE,
+          legend.hist.z = 0.5) +
+  tm_layout(legend.outside = FALSE,
             legend.height = 0.45, 
             legend.width = 5.0,
             legend.position = c("right", "bottom"),
@@ -599,20 +604,21 @@ tm_shape(mpsz_pop2020[mpsz_pop2020$REGION_N=="CENTRAL REGION", ])+
   tm_borders(alpha = 0.5)
 ```
 
-```{r}
-tm_shape(mpsz_pop2020[mpsz_pop2020$REGION_N=="CENTRAL REGION", ])+
-  tm_fill("DEPENDENCY", 
-          style = "quantile", 
-          palette = "Greens", 
-          legend.hist = TRUE, 
-          legend.is.portrait = TRUE,
-          legend.hist.z = 0.1) +
-  tm_layout(legend.outside = TRUE,
-            legend.height = 0.45, 
-            legend.width = 5.0,
-            legend.position = c("right", "bottom"),
-            frame = FALSE) +
-  tm_borders(alpha = 0.5)
+
+# Exploration (Compass + Scale Bar)
+
+```{r, fig.width=10}
+tm_shape(mpsz_pop2020)+
+  tm_polygons("DEPENDENCY",
+      fill.scale = tm_scale_intervals(
+        style = "jenks",
+        n = 5,
+        values = "brewer.greens"),
+      fill.legend = tm_legend(title = "Dependency ratio")) +
+  tm_borders(fill_alpha = 0.5) +
+  tm_title("Distribution of Dependency Ratio by planning subzone \n(Jenks classification)") +
+  tm_compass(type = "8star", position = c("right", "top"), size = 2) +
+  tm_scale_bar(position = c("left", "bottom"))
 ```
 
 
