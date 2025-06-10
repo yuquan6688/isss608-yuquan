@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Li Yuquan">
-<meta name="dcterms.date" content="2025-06-06">
+<meta name="dcterms.date" content="2025-06-10">
 
 <title>Take-home Exercise 3: Prototyping Modules for Visual Analytics Shiny Application – </title>
 <style>
@@ -232,8 +232,16 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">1 Overview</a></li>
+  <li><a href="#task" id="toc-task" class="nav-link" data-scroll-target="#task">2 Task</a>
+  <ul class="collapse">
+  <li><a href="#task-for-take-home-exercise-3" id="toc-task-for-take-home-exercise-3" class="nav-link" data-scroll-target="#task-for-take-home-exercise-3">2.1 Task For Take home exercise 3</a></li>
+  <li><a href="#task-for-vast-challenge-2025-mini-challenge-3" id="toc-task-for-vast-challenge-2025-mini-challenge-3" class="nav-link" data-scroll-target="#task-for-vast-challenge-2025-mini-challenge-3">2.2 Task For VAST Challenge 2025 Mini-Challenge 3</a>
+  <ul class="collapse">
+  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">2.2.1 Background</a></li>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">2.2.2 Questions</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -260,14 +268,14 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 6, 2025</p>
+      <p class="date">June 10, 2025</p>
     </div>
   </div>
   
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">June 6, 2025</p>
+      <p class="date-modified">June 10, 2025</p>
     </div>
   </div>
     
@@ -279,12 +287,62 @@ ul.task-list li input[type="checkbox"] {
 
 
 <section id="overview" class="level1">
-<h1>Overview</h1>
+<h1>1 Overview</h1>
+<p>The storyboard is intended to visually depict the user experience. It serves as a tool to establish a strong visual connection between the insights derived from research and the outcomes generated through user interaction with the R Shiny data dashboard application.</p>
+<p>This report aims to consolidate the visualization chart designs from Take-home Exercise 2, integrating the designs created by <a href="https://isss608-2025-yuquan.netlify.app/take-home_ex/take-home_ex02/take-home_ex02">LI YUQUAN</a>, <a href="https://isss608-ay2025-qiuyan.netlify.app/takehome_ex/takehome_ex02/takehome_ex02">TAI QIUYAN</a>, and <a href="https://isss608-ay2425-qtd.netlify.app/take-home_ex/take-home_ex02/take-home_ex02">DO QUYNH TRANG</a> to develop a storyboard prototype in preparation for further work on the VAST Challenge 2025 Mini-Challenge 3.</p>
 </section>
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
+<section id="task" class="level1">
+<h1>2 Task</h1>
+<section id="task-for-take-home-exercise-3" class="level2">
+<h2 class="anchored" data-anchor-id="task-for-take-home-exercise-3">2.1 Task For Take home exercise 3</h2>
+<p>In Take-home Exercise 3, we are required to prepare the prototype module report and design the different components of the user interface.</p>
+</section>
+<section id="task-for-vast-challenge-2025-mini-challenge-3" class="level2">
+<h2 class="anchored" data-anchor-id="task-for-vast-challenge-2025-mini-challenge-3">2.2 Task For VAST Challenge 2025 Mini-Challenge 3</h2>
+<section id="background" class="level3">
+<h3 class="anchored" data-anchor-id="background">2.2.1 Background</h3>
+<p>Over the past decade, the community of Oceanus has faced numerous transformations and challenges evolving from its fishing-centric origins. Following major crackdowns on illegal fishing activities, suspects have shifted investments into more regulated sectors such as the ocean tourism industry, resulting in growing tensions. This increased tourism has recently attracted the likes of international pop star Sailor Shift, who announced plans to film a music video on the island.</p>
+<p>Clepper Jessen, a former analyst at FishEye and now a seasoned journalist for the Hacklee Herald, has been keenly observing these rising tensions. Recently, he turned his attention towards the temporary closure of Nemo Reef. By listening to radio communications and utilizing his investigative tools, Clepper uncovered a complex web of expedited approvals and secretive logistics. These efforts revealed a story involving high-level Oceanus officials, Sailor Shift’s team, local influential families, and local conservationist group The Green Guardians, pointing towards a story of corruption and manipulation.</p>
+<p>Your task is to develop new and novel visualizations and visual analytics approaches to help Clepper get to the bottom of this story.</p>
+</section>
+<section id="questions" class="level3">
+<h3 class="anchored" data-anchor-id="questions">2.2.2 Questions</h3>
+<p>Clepper diligently recorded all intercepted radio communications over the last two weeks. With the help of his intern, they have analyzed their content to identify important events and relationships between key players. The result is a knowledge graph describing the last two weeks on Oceanus. Clepper and his intern have spent a large amount of time generating this knowledge graph, and they would now like some assistance using it to answer the following questions.</p>
+<ol type="1">
+<li><p>Clepper found that messages frequently came in at around the same time each day.</p>
+<ol type="1">
+<li><p>Develop a graph-based visual analytics approach to identify any daily temporal patterns in communications.</p></li>
+<li><p>How do these patterns shift over the two weeks of observations?</p></li>
+<li><p>Focus on a specific entity and use this information to determine who has influence over them.</p></li>
+</ol></li>
+<li><p>Clepper has noticed that people often communicate with (or about) the same people or vessels, and that grouping them together may help with the investigation.</p>
+<ol type="1">
+<li><p>Use visual analytics to help Clepper understand and explore the interactions and relationships between vessels and people in the knowledge graph.</p></li>
+<li><p>Are there groups that are more closely associated? If so, what are the topic areas that are predominant for each group?</p>
+<ul>
+<li>For example, these groupings could be related to: Environmentalism (known associates of Green Guardians), Sailor Shift, and fishing/leisure vessels.</li>
+</ul></li>
+</ol></li>
+<li><p>It was noted by Clepper’s intern that some people and vessels are using pseudonyms to communicate.</p>
+<ol type="1">
+<li><p>Expanding upon your prior visual analytics, determine who is using pseudonyms to communicate, and what these pseudonyms are.</p>
+<ul>
+<li><p>Some that Clepper has already identified include: “Boss”, and “The Lookout”, but there appear to be many more.</p></li>
+<li><p>To complicate the matter, pseudonyms may be used by multiple people or vessels.</p></li>
+</ul></li>
+<li><p>Describe how your visualizations make it easier for Clepper to identify common entities in the knowledge graph.</p></li>
+<li><p>How does your understanding of activities change given your understanding of pseudonyms?</p></li>
+</ol></li>
+<li><p>Clepper suspects that Nadia Conti, who was formerly entangled in an illegal fishing scheme, may have continued illicit activity within Oceanus.</p>
+<ol type="1">
+<li><p>Through visual analytics, provide evidence that Nadia is, or is not, doing something illegal.</p></li>
+<li><p>Summarize Nadia’s actions visually. Are Clepper’s suspicions justified?</p></li>
+</ol></li>
+</ol>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
