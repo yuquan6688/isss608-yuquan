@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Li Yuquan">
-<meta name="dcterms.date" content="2025-06-10">
+<meta name="dcterms.date" content="2025-06-13">
 
 <title>Take-home Exercise 3: Prototyping Modules for Visual Analytics Shiny Application – </title>
 <style>
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -242,6 +276,19 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">2.2.2 Questions</a></li>
   </ul></li>
   </ul></li>
+  <li><a href="#storyboard-prototype" id="toc-storyboard-prototype" class="nav-link" data-scroll-target="#storyboard-prototype">3 storyboard prototype</a>
+  <ul class="collapse">
+  <li><a href="#time-based-analysis" id="toc-time-based-analysis" class="nav-link" data-scroll-target="#time-based-analysis">3.1 Time-based Analysis</a></li>
+  <li><a href="#network-analysis" id="toc-network-analysis" class="nav-link" data-scroll-target="#network-analysis">3.2 Network Analysis</a></li>
+  <li><a href="#behavioral-analysis" id="toc-behavioral-analysis" class="nav-link" data-scroll-target="#behavioral-analysis">3.3 Behavioral Analysis</a></li>
+  </ul></li>
+  <li><a href="#code" id="toc-code" class="nav-link" data-scroll-target="#code">4 Code</a>
+  <ul class="collapse">
+  <li><a href="#r-packages" id="toc-r-packages" class="nav-link" data-scroll-target="#r-packages">4.1 R packages</a></li>
+  <li><a href="#ui-code" id="toc-ui-code" class="nav-link" data-scroll-target="#ui-code">4.2 UI Code</a></li>
+  <li><a href="#server-code" id="toc-server-code" class="nav-link" data-scroll-target="#server-code">4.3 Server Code</a></li>
+  </ul></li>
+  <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference">5 Reference</a></li>
   </ul>
 </nav>
     </div>
@@ -268,14 +315,14 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 10, 2025</p>
+      <p class="date">June 13, 2025</p>
     </div>
   </div>
   
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">June 10, 2025</p>
+      <p class="date-modified">June 14, 2025</p>
     </div>
   </div>
     
@@ -290,12 +337,19 @@ ul.task-list li input[type="checkbox"] {
 <h1>1 Overview</h1>
 <p>The storyboard is intended to visually depict the user experience. It serves as a tool to establish a strong visual connection between the insights derived from research and the outcomes generated through user interaction with the R Shiny data dashboard application.</p>
 <p>This report aims to consolidate the visualization chart designs from Take-home Exercise 2, integrating the designs created by <a href="https://isss608-2025-yuquan.netlify.app/take-home_ex/take-home_ex02/take-home_ex02">LI YUQUAN</a>, <a href="https://isss608-ay2025-qiuyan.netlify.app/takehome_ex/takehome_ex02/takehome_ex02">TAI QIUYAN</a>, and <a href="https://isss608-ay2425-qtd.netlify.app/take-home_ex/take-home_ex02/take-home_ex02">DO QUYNH TRANG</a> to develop a storyboard prototype in preparation for further work on the VAST Challenge 2025 Mini-Challenge 3.</p>
+<p>My Shiny app consists of three main components:</p>
+<ol type="1">
+<li><p><code>Time-based Analysis</code> – Used to explore communication patterns and address Question 1.</p></li>
+<li><p><code>Network Analysis</code> – Used to investigate the relationships between entities, addressing Questions 1.3 and 2.</p></li>
+<li><p><code>Behavioral Analysis</code> – Used to assess the likelihood of criminal behavior by entities, addressing Question 4.</p></li>
+</ol>
 </section>
 <section id="task" class="level1">
 <h1>2 Task</h1>
 <section id="task-for-take-home-exercise-3" class="level2">
 <h2 class="anchored" data-anchor-id="task-for-take-home-exercise-3">2.1 Task For Take home exercise 3</h2>
-<p>In Take-home Exercise 3, we are required to prepare the prototype module report and design the different components of the user interface.</p>
+<p>In Take-home Exercise 3, we were required to prepare a prototype module report and design the different components of the user interface.</p>
+<p>At the same time, we also needed to verify whether the required R packages are supported on CRAN, ensure that the necessary R code runs correctly and produces the expected output, identify the key parameters and outputs that need to be exposed in the Shiny application, and select appropriate Shiny UI components to effectively present these elements in the user interface.</p>
 </section>
 <section id="task-for-vast-challenge-2025-mini-challenge-3" class="level2">
 <h2 class="anchored" data-anchor-id="task-for-vast-challenge-2025-mini-challenge-3">2.2 Task For VAST Challenge 2025 Mini-Challenge 3</h2>
@@ -339,10 +393,503 @@ ul.task-list li input[type="checkbox"] {
 <li><p>Summarize Nadia’s actions visually. Are Clepper’s suspicions justified?</p></li>
 </ol></li>
 </ol>
-
-
 </section>
 </section>
+</section>
+<section id="storyboard-prototype" class="level1">
+<h1>3 storyboard prototype</h1>
+<section id="time-based-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="time-based-analysis">3.1 Time-based Analysis</h2>
+<p>This section is designed to identify communication patterns and trends over a period of time. It features two views, Trend and Calendar Map, which can be toggled to explore overall communication density, daily message volumes, weekly communication trends, and hourly communication patterns across days. A control panel on the left allows users to switch between Daily and Weekly modes. In Daily mode, users can freely select one or multiple dates to examine specific trends, while in Weekly mode, users can choose between All, Week 1, and Week 2. The All option automatically arranges the visualizations into side-by-side comparisons of the two weeks, providing a clear and intuitive understanding of how communication patterns differ between them.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Layout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Description</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p><img src="images/clipboard-3456852511.jpeg" class="img-fluid"></p>
+<p><img src="images/clipboard-1209076694.jpeg" class="img-fluid"></p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>Type</th>
+<th>Belongs To</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>View Mode Selector</td>
+<td>Radio Button</td>
+<td>Global Control</td>
+<td>Allows users to switch between Daily and Weekly views for time-based communication analysis.</td>
+</tr>
+<tr class="even">
+<td>Sub-View Selector</td>
+<td>Radio Button</td>
+<td>Global Control</td>
+<td>Allows users to switch between Trend View and Calendar Map View for different visualization layouts.</td>
+</tr>
+<tr class="odd">
+<td>Select Dates</td>
+<td>Checkbox Group</td>
+<td>Daily View</td>
+<td>In Daily mode, users can select one or multiple specific dates (Oct 1–14) to explore daily patterns.</td>
+</tr>
+<tr class="even">
+<td>Select Week</td>
+<td>Radio Button</td>
+<td>Weekly View</td>
+<td>In Weekly mode, users can choose to display All, Week 1, or Week 2 to compare weekly patterns.</td>
+</tr>
+<tr class="odd">
+<td>Hourly Heatmap</td>
+<td>Heatmap Plot</td>
+<td>Calendar Map View</td>
+<td>Displays hourly message counts per day using a calendar-like grid for visualizing temporal intensity.</td>
+</tr>
+<tr class="even">
+<td>Ridgeline Plot</td>
+<td>Density Plot</td>
+<td>Calendar Map View</td>
+<td>Shows distribution of message activity by hour across days using ridgeline plots, highlighting daily rhythm.</td>
+</tr>
+<tr class="odd">
+<td>Hourly Density Plot</td>
+<td>Area Chart</td>
+<td>Trend View</td>
+<td>Shows smoothed distribution of message volume across hours within a selected week (e.g., Week 2).</td>
+</tr>
+<tr class="even">
+<td>Total Message Trend</td>
+<td>Line Chart</td>
+<td>Trend View</td>
+<td>Plots total message count per hour to reveal hourly activity trends and peaks over selected time frame.</td>
+</tr>
+<tr class="odd">
+<td>Weekly Message Trend</td>
+<td>Line Chart</td>
+<td>Trend View</td>
+<td>Displays weekly aggregated message counts using a line chart for weekly comparisons.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="network-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="network-analysis">3.2 Network Analysis</h2>
+<p>This section focuses on network analysis, aiming to explore the associations, communication patterns, and specific relationships among different entities. It is divided into two main views: <em>Relationship</em> and <em>Clustering</em>. The Relationship view provides a direct visual representation of interactions and connections between entities, while the Clustering view reveals different communication clusters, offering a more intuitive understanding of communication patterns and relationships. The control panel on the left allows users to filter by a specific ID to focus on, and also to narrow down the analysis by selecting specific events or relationship types. If no filters are applied to events or relationships, nodes will be connected directly based on their links. Below the control panel, users can choose from PageRank, Betweenness, or Degree metrics to evaluate node relevance, which will affect the display of the metrics table below.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Layout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Description</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p><img src="images/clipboard-1040673349.jpeg" class="img-fluid"></p>
+<p><img src="images/clipboard-2886276573.jpeg" class="img-fluid"></p>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>Type</th>
+<th>Belongs To</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ID Filter</td>
+<td>Dropdown/Select</td>
+<td>Control Panel</td>
+<td>Filters network view to highlight a specific entity based on selected ID.</td>
+</tr>
+<tr class="even">
+<td>Event Filter</td>
+<td>Dropdown/Select</td>
+<td>Control Panel</td>
+<td>Limits the network to only include edges related to selected event types.</td>
+</tr>
+<tr class="odd">
+<td>Relationship Filter</td>
+<td>Dropdown/Select</td>
+<td>Control Panel</td>
+<td>Filters edges by relationship type; if none selected, all relationships are shown.</td>
+</tr>
+<tr class="even">
+<td>Centrality Selector</td>
+<td>Radio Button</td>
+<td>Control Panel</td>
+<td>Allows user to choose centrality metric: None, PageRank, Betweenness, or Degree.</td>
+</tr>
+<tr class="odd">
+<td>Sub-View Selector</td>
+<td>Tab Switch</td>
+<td>Network Analysis Module</td>
+<td>Allows users to switch between Relationship View and Clustering View for exploring networks.</td>
+</tr>
+<tr class="even">
+<td>Relationship Graph</td>
+<td>Network Plot</td>
+<td>Relationship View</td>
+<td>Visualizes direct links between entities; node shape and size represent type and relevance.</td>
+</tr>
+<tr class="odd">
+<td>PageRank Table</td>
+<td>Data Table</td>
+<td>Relationship View</td>
+<td>Displays top 5 entities ranked by PageRank, including type and PageRank score.</td>
+</tr>
+<tr class="even">
+<td>Cluster Graph</td>
+<td>Network Plot</td>
+<td>Clustering View</td>
+<td>Displays entity clusters with edge weights and colored clusters. Node size shows degree.</td>
+</tr>
+<tr class="odd">
+<td>Clustering Table</td>
+<td>Data Table</td>
+<td>Clustering View</td>
+<td>Presents nodes’ cluster, sub-type, and centrality scores (PageRank, Betweenness, Degree).</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="behavioral-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="behavioral-analysis">3.3 Behavioral Analysis</h2>
+<p>This section focuses on analyzing the behavioral patterns of entities. Users can select the specific entity name to focus on, along with the time range and the desired network graph layout. The output consists of three main parts: a timeline-based chart that helps infer direct criminal activities, a network graph with interactive edges labeled as <em>True</em> or <em>False</em> to indicate suspected involvement in crimes, and a summary table at the bottom of the interface listing related entity names and their associated criminal status.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Layout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Description</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<p><img src="images/clipboard-391223406.jpeg" class="img-fluid"></p>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Component</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Belongs To</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Entity Selector</td>
+<td>Dropdown/Select</td>
+<td>Control Panel</td>
+<td>Filters view by selected entity name to focus behavioral analysis.</td>
+</tr>
+<tr class="even">
+<td>Timestamp Filter</td>
+<td>Date Range Picker</td>
+<td>Control Panel</td>
+<td>Allows users to define time window for observed behaviors.</td>
+</tr>
+<tr class="odd">
+<td>Layout Selector</td>
+<td>Dropdown/Select</td>
+<td>Control Panel</td>
+<td>Allows users to change the layout of the behavioral network graph.</td>
+</tr>
+<tr class="even">
+<td>Timeline Chart</td>
+<td>Scatter Plot</td>
+<td>Behavioral View</td>
+<td>Displays events involving the selected entity over time, separated by category.</td>
+</tr>
+<tr class="odd">
+<td>Behavioral Network Graph</td>
+<td>Network Plot</td>
+<td>Behavioral View</td>
+<td>Visualizes entity interactions; edge color/label reflects illegal or suspicious behavior (TRUE/FALSE).</td>
+</tr>
+<tr class="even">
+<td>Criminal Involvement Table</td>
+<td>Data Table</td>
+<td>Behavioral View</td>
+<td>Lists entities, event types, and whether each is confirmed or suspected to be involved in illegal activity.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="code" class="level1">
+<h1>4 Code</h1>
+<section id="r-packages" class="level2">
+<h2 class="anchored" data-anchor-id="r-packages">4.1 R packages</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Packages</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">The Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 69%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Library</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>shiny</code></td>
+<td>Core R package for building interactive web applications directly from R.</td>
+</tr>
+<tr class="even">
+<td><code>shinydashboard</code></td>
+<td>Extension of Shiny that simplifies the creation of dashboard layouts with sidebar, header, and boxes.</td>
+</tr>
+<tr class="odd">
+<td><code>shinycssloaders</code></td>
+<td>Adds loading spinners to Shiny outputs while they’re being calculated, improving user experience.</td>
+</tr>
+<tr class="even">
+<td><code>ggplot2</code></td>
+<td>Part of tidyverse; grammar of graphics system for building complex static visualizations like bar charts, scatterplots, and boxplots.</td>
+</tr>
+<tr class="odd">
+<td><code>plotly</code></td>
+<td>Enables interactive, zoomable, and web-friendly versions of ggplot2 charts or standalone plots.</td>
+</tr>
+<tr class="even">
+<td><code>ggridges</code></td>
+<td>Adds ridge/density plots to ggplot2, useful for visualizing distributions across multiple groups.</td>
+</tr>
+<tr class="odd">
+<td><code>ggraph</code></td>
+<td>Extends ggplot2 for network/graph visualizations with custom layouts like force, circle, dendrogram.</td>
+</tr>
+<tr class="even">
+<td><code>ggiraph</code></td>
+<td>Creates interactive ggplot-based plots with tooltips, hover actions, and JavaScript-enhanced interactivity.</td>
+</tr>
+<tr class="odd">
+<td><code>jsonlite</code></td>
+<td>Parses and generates JSON, allowing data exchange between R and web APIs or files.</td>
+</tr>
+<tr class="even">
+<td><code>tibble</code></td>
+<td>A modern reimagining of data frames that is simpler and more readable; core to tidyverse.</td>
+</tr>
+<tr class="odd">
+<td><code>dplyr</code></td>
+<td>Enables fast and intuitive data manipulation: filter, select, group_by, mutate, summarize, joins.</td>
+</tr>
+<tr class="even">
+<td><code>tidyverse</code></td>
+<td>A meta-package including ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr, and forcats.</td>
+</tr>
+<tr class="odd">
+<td><code>lubridate</code></td>
+<td>Simplifies working with date and time data (parsing, extraction, arithmetic).</td>
+</tr>
+<tr class="even">
+<td><code>patchwork</code></td>
+<td>Combines multiple ggplot2 plots into one cohesive layout without manually adjusting alignment.</td>
+</tr>
+<tr class="odd">
+<td><code>igraph</code></td>
+<td>Provides comprehensive tools for creating, analyzing, and plotting graphs and networks.</td>
+</tr>
+<tr class="even">
+<td><code>tidygraph</code></td>
+<td>Bridges igraph and tidyverse, allowing tidy manipulation of network/graph structures.</td>
+</tr>
+<tr class="odd">
+<td><code>visNetwork</code></td>
+<td>Enables interactive and zoomable graph/network visualization using vis.js for Shiny/web.</td>
+</tr>
+<tr class="even">
+<td><code>DT</code></td>
+<td>Provides interactive HTML tables in Shiny with sorting, filtering, and paging capabilities.</td>
+</tr>
+<tr class="odd">
+<td><code>SmartEDA</code></td>
+<td>Automates Exploratory Data Analysis (EDA) including summary statistics and basic plots.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(shiny, shinydashboard, </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                              shinycssloaders,ggplot2, </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                              plotly, ggridges,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                              ggraph, ggiraph,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                              jsonlite, tibble, </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                              dplyr, tidyverse, </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                              lubridate, patchwork,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                              igraph, tidygraph, </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                              visNetwork,DT, SmartEDA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ui-code" class="level2">
+<h2 class="anchored" data-anchor-id="ui-code">4.2 UI Code</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">navbarPage</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"EVIL under the SEA"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Time-based Analysis Tab </span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabPanel</span>(<span class="st">"Time-based Analysis"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>           <span class="fu">fluidPage</span>(<span class="fu">fluidRow</span>(<span class="fu">radioButtons</span>(<span class="st">"view_mode"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"View by:"</span>, </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                            <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">"Daily"</span>, </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"Weekly"</span>)),</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>               <span class="fu">conditionalPanel</span>(</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">condition =</span> <span class="st">"input.view_mode == 'Daily'"</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">checkboxGroupInput</span>(<span class="st">"selected_dates"</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">"Select dates:"</span>, </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">choices =</span> <span class="cn">NULL</span>)),</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>               <span class="fu">conditionalPanel</span>(</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                 <span class="at">condition =</span> <span class="st">"input.view_mode == 'Weekly'"</span>,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">radioButtons</span>(<span class="st">"selected_week"</span>, </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Select Week:"</span>, </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                              <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">"All"</span>,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                                          <span class="st">"Week 1"</span>, </span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                                          <span class="st">"Week 2"</span>)))),</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>             <span class="fu">fluidRow</span>(</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>               <span class="fu">tabsetPanel</span>(</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">tabPanel</span>(<span class="st">"Trend"</span>,</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">12</span>, </span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">plotlyOutput</span>(<span class="st">"ap3"</span>)),</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">12</span>,</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">plotlyOutput</span>(<span class="st">"ap4"</span>)),</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">12</span>,</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">plotlyOutput</span>(<span class="st">"bp2"</span>))),</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">tabPanel</span>(<span class="st">"Calendar map"</span>,</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">6</span>, </span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">plotlyOutput</span>(<span class="st">"bp1"</span>)),</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">6</span>,</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">plotOutput</span>(<span class="st">"bp3"</span>))))))),</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Network Analysis Tab </span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabPanel</span>(<span class="st">"Network Analysis"</span>,</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>           <span class="fu">fluidPage</span>(</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>             <span class="fu">tabsetPanel</span>(</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>               <span class="fu">tabPanel</span>(<span class="st">"Relationship"</span>,</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">fluidRow</span>(</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">3</span>,</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">selectInput</span>(<span class="st">"rel_id"</span>, </span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">"Select ID"</span>, </span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">choices =</span> <span class="cn">NULL</span>),</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">selectInput</span>(<span class="st">"rel_event"</span>, </span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">"Select Event"</span>, </span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">choices =</span> <span class="cn">NULL</span>),</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">selectInput</span>(<span class="st">"rel_type"</span>, </span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">"Select Relationship"</span>, </span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">choices =</span> <span class="cn">NULL</span>),</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">radioButtons</span>(<span class="st">"rel_metric"</span>, </span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>                                              <span class="st">"Highlight by:"</span>,</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">"Page Rank"</span>, </span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>                                                          <span class="st">"Event"</span>, </span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>                                                          <span class="st">"Relationship"</span>, </span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>                                                          <span class="st">"None"</span>))),</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">9</span>,</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">plotOutput</span>(<span class="st">"network_plot"</span>),</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>                                 DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">"pagerank_table"</span>)))),</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>               <span class="fu">tabPanel</span>(<span class="st">"Clustering"</span>,</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">fluidRow</span>(<span class="fu">column</span>(<span class="at">width =</span> <span class="dv">3</span>,</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">selectInput</span>(<span class="st">"clus_id"</span>, </span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">"Select ID"</span>,</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">choices =</span> <span class="cn">NULL</span>),</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">selectInput</span>(<span class="st">"clus_event"</span>, </span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">"Select Event"</span>,</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">choices =</span> <span class="cn">NULL</span>),</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">selectInput</span>(<span class="st">"clus_rel"</span>,</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">"Select Relationship"</span>, </span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">choices =</span> <span class="cn">NULL</span>),</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">radioButtons</span>(<span class="st">"clus_metric"</span>, </span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>                                              <span class="st">"Highlight by:"</span>,</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">"Page Rank"</span>, </span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>                                                          <span class="st">"Event"</span>, </span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>                                                          <span class="st">"Relationship"</span>, </span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>                                                          <span class="st">"None"</span>))),</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">9</span>,</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">plotOutput</span>(<span class="st">"cluster_network"</span>),</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>                                 DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">"cluster_table"</span>))))))),</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Behavioral Analysis Tab</span></span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabPanel</span>(<span class="st">"Behavioral Analysis"</span>,</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>           <span class="fu">fluidPage</span>(</span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>             <span class="fu">fluidRow</span>(</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>               <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">3</span>,</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">selectInput</span>(<span class="st">"behav_id"</span>, </span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">"Select ID"</span>, </span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">choices =</span> <span class="cn">NULL</span>),</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">selectInput</span>(<span class="st">"behav_time"</span>, </span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">"Select Timestamp"</span>,</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">choices =</span> <span class="cn">NULL</span>),</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">selectInput</span>(<span class="st">"behav_layout"</span>,</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">"Select Layout"</span>, </span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">"Grid"</span>, </span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>                                              <span class="st">"Timeline"</span>))),</span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>               <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">9</span>,</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">plotlyOutput</span>(<span class="st">"behavior_plot1"</span>),</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">plotlyOutput</span>(<span class="st">"behavior_plot2"</span>),</span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>                      DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">"behavior_table"</span>))))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="server-code" class="level2">
+<h2 class="anchored" data-anchor-id="server-code">4.3 Server Code</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>ap3 <span class="ot">&lt;-</span> <span class="fu">renderPlotly</span>({})</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>ap4 <span class="ot">&lt;-</span> <span class="fu">renderPlotly</span>({})</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>bp2 <span class="ot">&lt;-</span> <span class="fu">renderPlotly</span>({})</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>bp1 <span class="ot">&lt;-</span> <span class="fu">renderPlotly</span>({})</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>bp3 <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({})</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>network_plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({})</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>pagerank_table <span class="ot">&lt;-</span> DT<span class="sc">::</span><span class="fu">renderDataTable</span>({})</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>cluster_network <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({})</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>cluster_table <span class="ot">&lt;-</span> DT<span class="sc">::</span><span class="fu">renderDataTable</span>({})</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>behavior_plot1 <span class="ot">&lt;-</span> <span class="fu">renderPlotly</span>({})</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>behavior_plot2 <span class="ot">&lt;-</span> <span class="fu">renderPlotly</span>({})</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>behavior_table <span class="ot">&lt;-</span> DT<span class="sc">::</span><span class="fu">renderDataTable</span>({})</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="reference" class="level1">
+<h1>5 Reference</h1>
+<ul>
+<li><a href="https://shiny.posit.co">R Shiny</a></li>
+<li><a href="https://isss608-ay2024-25apr.netlify.app">ISSS608 Visual Analytics and Applications</a></li>
+</ul>
+
+
 </section>
 
 </main> <!-- /main -->
