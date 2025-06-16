@@ -58,6 +58,10 @@ website:
             href: "In-class_Ex/In-class_Ex06/In-class_Ex06.html"  
           - text: "In-Class Exercise 7"
             href: "https://yuquan.shinyapps.io/shinyapp"              
+          - text: "In-Class Exercise 8a"
+            href: "In-class_Ex/In-class_Ex08/In-class_Ex08a.html"  
+          - text: "In-Class Exercise 8b"
+            href: "In-class_Ex/In-class_Ex08/In-class_Ex08b.html"  
             
       - text: "Take-home Exercise"
         menu:
