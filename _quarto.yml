@@ -66,7 +66,11 @@ website:
           - text: "In-Class Exercise 9a"
             href: "In-class_Ex/In-class_Ex09/In-class_Ex09a.html"  
           - text: "In-Class Exercise 9b"
-            href: "In-class_Ex/In-class_Ex09/In-class_Ex09b.html"              
+            href: "In-class_Ex/In-class_Ex09/In-class_Ex09b.html"  
+          - text: "In-Class Exercise 10a"
+            href: "In-class_Ex/In-class_Ex10/In-class_Ex10a.html"   
+          - text: "In-Class Exercise 10b"
+            href: "In-class_Ex/In-class_Ex10/In-class_Ex10b.html"   
             
       - text: "Take-home Exercise"
         menu:
